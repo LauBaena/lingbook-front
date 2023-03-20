@@ -1,17 +1,39 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <router-view />
+  <div>
+    <NavbarPublic v-if="!userStore.isAuth" />
+    <NavbarPrivate v-else />
+  </div>
 </template>
+
+<script>
+import NavbarPublic from "@/components/NavbarPublic.vue";
+import NavbarPrivate from "@/components/NavbarPrivate.vue";
+import { useUsersStore } from "@/store/user";
+import { onBeforeMount } from "@vue/runtime-core";
+
+export default {
+  name: "App",
+  components: {
+    NavbarPublic,
+    NavbarPrivate,
+  },
+  setup() {
+    const userStore = useUsersStore();
+    onBeforeMount(async () => await userStore.fetchAuthUser());
+    return {
+      userStore,
+    };
+  },
+};
+</script>
 
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
 }
 

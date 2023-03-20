@@ -1,5 +1,14 @@
 # lingbook-front
 
+## Prerequisites
+
+Before running this app, you'll need to install:
+
+[Node.js](https://nodejs.org/en/)
+
+[npm](https://www.npmjs.com/) package manager
+
+
 ## Project setup
 ```
 npm install
