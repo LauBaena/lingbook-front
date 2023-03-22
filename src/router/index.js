@@ -28,6 +28,30 @@ const routes = [
       import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
   },
   {
+    path: "/termsofuse",
+    name: "termsOfUse",
+    component: () =>
+      import(/* webpackChunkName: "termsOfUse" */ "../views/TermsOfUseView.vue"),
+  },
+  {
+    path: "/privacypolicy",
+    name: "privacyPolicy",
+    component: () =>
+      import(/* webpackChunkName: "privacyPolicy" */ "../views/PrivacyPolicyView.vue"),
+  },
+  {
+    path: "/cookiespolicy",
+    name: "cookiesPolicy",
+    component: () =>
+      import(/* webpackChunkName: "cookiesPolicy" */ "../views/CookiesPolicyView.vue"),
+  },
+  {
+    path: "/legalwarning",
+    name: "legalWarning",
+    component: () =>
+      import(/* webpackChunkName: "legalWarning" */ "../views/LegalWarningView.vue"),
+  },
+  {
     path: "/:pathMatch(.*)",
     component: () =>
       import(/* webpackChunkName: "notFound" */ "../views/NotFoundView.vue"),

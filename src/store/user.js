@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-// import axios from "axios";
+import axios from "axios";
 // import User from "@/interfaces/Users";
 
 export const useUsersStore = defineStore("users", {
@@ -60,13 +60,11 @@ export const useUsersStore = defineStore("users", {
         console.log(err);
       }
     },
-
-    async followOrUnfollowAUser(
-      currentState,
-      user
-    ) {
+    
+    async followOrUnfollowAUser(currentState, user) {
       try {
-        const { data } = await axios.put(`/api/user/follow/${user}`);
+        // const { data } = await axios.put(`/api/user/follow/${user}`);
+        await axios.put(`/api/user/follow/${user}`);
         if (this.user?._id !== undefined) {
           if (!currentState) {
             this.authUser.following.push(this.user._id);

@@ -11,3 +11,12 @@ export default defineComponent({
     name: "NotFoundView"
 })
 </script>
+
+<style scoped>
+    div{
+        margin: 20px;
+    }
+    h1{
+        font-size: 34px;
+    }
+</style>

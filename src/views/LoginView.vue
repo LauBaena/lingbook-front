@@ -92,14 +92,6 @@
 </script>
   
 <style scoped>
-    body{
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        font-family:'HelveticaNeue','Arial', sans-serif;
-    }
-
     .logoImage{
         width:100%;
     }
@@ -128,10 +120,7 @@
         fill: #566375;
     }
 
-    .logo-active{
-        fill: #44aacc !important;
-    }
-
+    /* ESTO CAUSA PROBLEMAS CON EL NAV!!!!!
     #formWrapper{
         background: rgba(0,0,0,.2); 
         width:100%; 
@@ -140,12 +129,7 @@
         top:0; 
         left:0;
         transition:all .3s ease;
-    }
-
-    .darken-bg{
-        background: rgba(0,0,0,.5) !important;
-        transition:all .3s ease;
-    }
+    } */
 
     div#form{
         position: absolute;

@@ -1,46 +1,4 @@
 <template>
-    <!-- <div class="auth-container">
-      <form @submit.prevent="authStore.handleRegister(userForm)" id="form">
-        <input
-          v-model.trim="userForm.name"
-          id="username"
-          type="text"
-          placeholder="Nombre de usuario"
-          name="letras"
-          required
-          pattern="[a-zA-Z]+"
-        />
-        <p>
-          Únicamente letras mayúsculas o minúsculas, sin caracteres especiales,
-          número o el carácter.
-        </p>
-        <input
-          v-model.trim="userForm.email"
-          id="email"
-          type="email"
-          placeholder="E-mail"
-          required
-        />
-        <input
-          v-model.trim="userForm.password"
-          id="password"
-          type="password"
-          placeholder="Contraseña"
-          required
-        />
-        <input
-          v-model.trim="userForm.password2"
-          id="password2"
-          type="password"
-          placeholder="Confirmar contraseña"
-          required
-        />
-        <button class="button-black" type="submit">
-          Crear una cuenta
-        </button>
-      </form>
-    </div> -->
-
     <div id="formWrapper">
         <div id="form">
             <div class="logo">
@@ -177,6 +135,7 @@ div.logo{
     fill: #44aacc !important;
 }
 
+/* ESTO CAUSA PROBLEMAS CON EL NAV!!!!!
 #formWrapper{
     background: rgba(0,0,0,.2); 
     width:100%; 
@@ -185,7 +144,7 @@ div.logo{
     top:0; 
     left:0;
     transition:all .3s ease;
-}
+} */
 
 .darken-bg{
     background: rgba(0,0,0,.5) !important;
