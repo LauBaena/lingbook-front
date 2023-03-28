@@ -31,14 +31,14 @@
 
 <style scoped>
     .footerLinks {
-        width: 100%;
+        width: 99%;
         display: flex;
+        position: absolute;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         background-color: #dcdada;
         padding: 1rem;
-        width: 100%;
         height: 100px;
         margin-left: -10px;
         margin-bottom: -10px;

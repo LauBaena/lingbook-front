@@ -27,6 +27,8 @@
             handleRedirectSelector,
             };
         }
+
+        
     })
 </script>
 
@@ -44,10 +46,11 @@
         width: 35%;
         margin: 40px;
     }
-    a{
-        /*font-size: 40px;*/
+    a {
+        font-size: 24px !important ;
         color:#58bff6;
         text-decoration: none;
+        padding-right:40px;
         /* margin-left: 30px; */
     }
     a:hover{

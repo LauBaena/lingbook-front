@@ -5,59 +5,76 @@
                 <img class="logoImage" src="../assets/bafarading.png">
             </div>
             <form @submit.prevent="authStore.handleRegister(userForm)">
-              <div class="form-item">
-                    <p class="formLabel">Nom</p>
-                    <input 
-                        v-model="userForm.name" 
-                        type="text" 
-                        name="name" 
-                        id="name" 
-                        class="form-style" 
-                        autocomplete="off" 
-                        pattern="[a-zA-Z]+"
-                        required/>
+                <div class="form-row">
+                    <div class="form-item nom">
+                        <p class="formLabel">Nom</p>
+                        <input 
+                            v-model="userForm.name" 
+                            type="text" 
+                            name="name" 
+                            id="name" 
+                            class="form-style" 
+                            autocomplete="off" 
+                            pattern="[a-zA-Z]+"
+                            required/>
+                    </div>
+                    <div class="form-item cognom">
+                        <p class="formLabel">Cognoms</p>
+                        <input 
+                            v-model="userForm.surname" 
+                            type="text" 
+                            name="surname" 
+                            id="surname" 
+                            class="form-style" 
+                            autocomplete="off" 
+                            required/>
+                    </div>
                 </div>
-                <div class="form-item">
-                    <p class="formLabel">Cognoms</p>
-                    <input 
-                        v-model="userForm.surname" 
-                        type="text" 
-                        name="surname" 
-                        id="surname" 
-                        class="form-style" 
-                        autocomplete="off" 
-                        required/>
+                <div class="form-row">
+                    <div class="form-item correu">
+                        <p class="formLabel">Correu Electrònic</p>
+                        <input 
+                            v-model="userForm.mail" 
+                            type="email" 
+                            name="email" 
+                            id="email" 
+                            class="form-style" 
+                            autocomplete="off" 
+                            required/>
+                    </div>
+                    <div class="form-item checkbox">
+                        <p class="formLabel">Vols ensenyar?</p>
+                        <input
+                            v-model="userForm.checkbox" 
+                            type="checkbox" 
+                            name="professor" 
+                            id="professor" 
+                            class="form-style" 
+                            autocomplete="off" 
+                            required/>
+                    </div>
                 </div>
-                <div class="form-item">
-                    <p class="formLabel">Correu Electrònic</p>
-                    <input 
-                        v-model="userForm.mail" 
-                        type="email" 
-                        name="email" 
-                        id="email" 
-                        class="form-style" 
-                        autocomplete="off" 
-                        required/>
-                </div>
-                <div class="form-item">
-                    <p class="formLabel">Contrasenya</p>
-                    <input 
-                        v-model="userForm.password" 
-                        type="password" 
-                        name="password" 
-                        id="password" 
-                        class="form-style" 
-                        required/>
-                </div>
-                <div class="form-item">
-                    <p class="formLabel">Repeteix la contrasenya</p>
-                    <input 
-                        v-model="userForm.password2" 
-                        type="password" 
-                        name="password2" 
-                        id="password2" 
-                        class="form-style" 
-                        required/>
+                <div class="form-row">
+                    <div class="form-item contrasenya">
+                        <p class="formLabel">Contrasenya</p>
+                        <input 
+                            v-model="userForm.password" 
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            class="form-style" 
+                            required/>
+                    </div>
+                    <div class="form-item contrasenya">
+                        <p class="formLabel">Repeteix la contrasenya</p>
+                        <input 
+                            v-model="userForm.password2" 
+                            type="password" 
+                            name="password2" 
+                            id="password2" 
+                            class="form-style" 
+                            required/>
+                    </div>
                 </div>
                 <div class="form-item">
                     <p class="pull-left"><router-link :to="{ name: 'login' }"><small>Ja tens compte? Entra a Lingbook</small></router-link></p>
@@ -96,25 +113,8 @@
 </script>
   
 <style scoped>
-body{
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    font-family:'HelveticaNeue','Arial', sans-serif;
-}
 
-.logoImage{
-    width:100%;
-}
-
-a{
-    color:#58bff6;
-    text-decoration: none;
-}
-a:hover{
-    color:#aaa; 
-}
+/* Referències al botó: pulls*/
 
 .pull-right{
     float: right;
@@ -125,72 +125,47 @@ a:hover{
 .clear-fix{
     clear:both;
 }
-div.logo{
-    text-align: center; 
-    margin: 20px 20px 30px 20px; 
-    fill: #566375;
+
+
+/* Referències a la imatge de capçalera*/
+.logoImage{
+    width:100%;
 }
 
-.logo-active{
-    fill: #44aacc !important;
+#form {
+  position: relative;
+  width:22%;
+  height:auto;
+  background-color: rgb(236, 236, 236);
+  margin:auto;
+  margin-top:28px;
+  border-radius: 15px;
+  padding:20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-bottom: 29px;
 }
 
-/* ESTO CAUSA PROBLEMAS CON EL NAV!!!!!
-#formWrapper{
-    background: rgba(0,0,0,.2); 
-    width:100%; 
-    height:100%; 
-    position: absolute; 
-    top:0; 
-    left:0;
-    transition:all .3s ease;
-} */
-
-.darken-bg{
-    background: rgba(0,0,0,.5) !important;
-    transition:all .3s ease;
-}
-
-div#form{
-    position: absolute;
-    width:360px;
-    height:320px;
-    height:auto;
-    background-color: #fff;
-    margin:auto;
-    border-radius: 5px;
-    padding:20px;
-    left:50%;
-    top:30%;
-    margin-left:-180px;
-    margin-top:-200px;
-}
-div.form-item{
-    position: relative;
-    display: block; 
-    margin-bottom: 20px;
-}
-
-input{
-    transition: all .2s ease;
-}
 input.form-style{
     color:#8a8a8a;
-    display: block;
-    width: 90%;
-    height: 44px;
-    padding: 5px 5%;
+    width: 95%;
+    height: 40px;
+    padding: 3px 5%;
     border:1px solid #ccc;
-    -moz-border-radius: 27px;
-    -webkit-border-radius: 27px;
     border-radius: 27px;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    background-color: #fff;
-    font-family:'HelveticaNeue','Arial', sans-serif;
-    font-size: 105%;
+    font-size: 100%;
     letter-spacing: .8px;
+}
+
+/* Referències a transició color input un cop tret focus*/
+input{
+    transition: all .5s ease;
+}
+
+/** Referencia al color de tot el text tret del botó*/
+
+div.form-item p.formLabel {
+    color:#58bff6; 
 }
 
 div.form-item .form-style:focus{
@@ -198,48 +173,66 @@ div.form-item .form-style:focus{
     border:1px solid #58bff6; 
     color:#58bff6; 
 }
-div.form-item p.formLabel {
-    /* position: absolute;
-    left:26px;
-    top:2px;
-    transition:all .4s ease;
-    color:#bbb; */
-    color:#58bff6; 
-}
-.formTop{
-    top:-22px !important; 
-    left:26px; 
-    background-color: #fff; 
-    padding:0 5px; 
-    font-size: 14px; 
-    color:#58bff6 !important;
-}
-.formStatus{
-    color:#8a8a8a !important;
+.form-row {
+    width: 100%;
 }
 
+.nom {
+    display: inline-block;
+}
+.cognom {
+    display: inline-block;
+    margin-left: 25px;
+}
+.correu{
+    display: inline-block;
+    width: 70%;
+    position: relative;
+}
+.checkbox{
+    position:absolute;
+    display: inline-block;
+    top: 10;
+    margin-left: 10px;
+}
+
+.contrasenya:first-child{
+    display: inline-block;
+    margin-right: 25px;
+}
+.contrasenya {
+    display: inline-block;
+}
+
+/* Referencia a "Ja tens compte...."*/ 
+a{
+    color:#58bff6;
+    text-decoration: none;
+}
+a:hover{
+    color:#aaa; 
+}
+
+/* Referència a l botó de registrar-se*/ 
 input[type="submit"].login{
+    margin-top: 35px;
     float:right;
     width: 112px;
-    height: 37px;
-    -moz-border-radius: 19px;
-    -webkit-border-radius: 19px;
-    border-radius: 19px;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
+    height: 40px;
+    border-radius: 20px;
     background-color: #55b1df;
-    border:1px solid #55b1df;
     border:none;
     color: #fff;
     font-weight: bold;
 }
+
+/** Referencia al botó registrar-se al passar ratolí*/
 input[type="submit"].login:hover{
     background-color: #fff; 
     border:1px solid #55b1df; 
     color:#55b1df; 
-    cursor:pointer;}
-input[type="submit"].login:focus{
-    outline: none;
+    cursor:pointer;
 }
+
+
 </style>
