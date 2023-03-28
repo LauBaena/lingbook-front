@@ -96,13 +96,6 @@
         width:100%;
     }
 
-    a{
-        color:#58bff6;
-        text-decoration: none;
-    }
-    a:hover{
-        color:#aaa; 
-    }
 
     .pull-right{
         float: right;
@@ -113,37 +106,22 @@
     .clear-fix{
         clear:both;
     }
-
-    div.logo{
-        text-align: center; 
-        margin: 20px 20px 30px 20px; 
-        fill: #566375;
+    #formWrapper {
+        min-height: 60vh;
+        margin-bottom: 7px;
     }
-
-    /* ESTO CAUSA PROBLEMAS CON EL NAV!!!!!
-    #formWrapper{
-        background: rgba(0,0,0,.2); 
-        width:100%; 
-        height:100%; 
-        position: absolute; 
-        top:0; 
-        left:0;
-        transition:all .3s ease;
-    } */
-
-    div#form{
-        position: absolute;
-        width:360px;
-        height:320px;
+    #form {
+        position: relative;
+        width:22%;
         height:auto;
-        background-color: #fff;
+        background-color: rgb(236, 236, 236);
         margin:auto;
-        border-radius: 5px;
+        margin-top:28px;
+        border-radius: 15px;
         padding:20px;
-        left:50%;
-        top:50%;
-        margin-left:-180px;
-        margin-top:-200px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        margin-bottom: 29px;
     }
     div.form-item{
         position: relative;
@@ -213,6 +191,14 @@
         border:none;
         color: #fff;
         font-weight: bold;
+    }
+
+    a{
+        color:#58bff6;
+        text-decoration: none;
+    }
+    a:hover{
+        color:#aaa; 
     }
     input[type="submit"].login:hover{
         background-color: #fff; 
