@@ -43,11 +43,11 @@ export const useAuthStore = defineStore("auth", {
         if(type === "alumn"){
           alert("Nou alumne registrat: " + nouUser.name)
         }else if (type === "teacher"){
-          alert("Nou professor registrat: " + nouUser.name)
+          alert("Nou docent registrat: " + nouUser.name)
         }
         window.location.replace("/");
       }else{
-        alert("Usuari ja existent")
+        alert("Compte d'usuari ja existent")
       }
     }
   },  
