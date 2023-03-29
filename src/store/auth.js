@@ -1,75 +1,54 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-// import { AuthUser } from "../interfaces/AuthUser";
-// import { UserRequest } from "@/interfaces/UserRequest";
-// import router from "@/router";
-
-const setCookie = (name, value, days = 7) => {
-  let expires = "";
-  if (days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-};
-
-const eraseCookie = (name) => {
-  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-};
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    token: null,
-    isAuthenticated: false,
-    authUser: {},
   }),
 
   getters: {
-    authUser: (state) => state.authUser,
-    token: (state) => state.token,
   },
 
   actions: {
-    async getAuthUser() {
-      const data = await axios.get("/api/user");
-      this.authUser = data.data;
-    },
-    async handleLogin(user) {
-      try {
-        const { data } = await axios.post("/api/login", {
-          name: user.name,
-          password: user.password,
-        });
-        setCookie(data.token[0], data.token[1]);
-        return window.location.replace("/");
-      } catch (error) {
-        console.error(error?.message);
+    async handleRegister(nouUser){
+      let type;
+      if(nouUser.checkbox){
+        type = "teacher";
+      }else{
+        type = "alumn";
       }
-    },
-    async handleRegister(user) {
-      const { data } = await axios.post("/api/register", {
-        name: user.name,
-        surname: user.surname,
-        email: user.email,
-        password: user.password,
-        password2: user.password2,
+
+      let myDataAsJSON = JSON.stringify({
+        "type": type,
+        "name": nouUser.name,
+        "surname": nouUser.surname,
+        "mail": nouUser.mail,
+        "password": nouUser.password,
       });
-      setCookie(data.token[0], data.token[1]);
-      return window.location.replace("/");
-    },
-    async handleLogout() {
-      eraseCookie("express:sess");
-      return window.location.replace("/login");
-    },
-    async handledeleteAccount() {
-      try {
-        await axios.delete("/api/user");
-        eraseCookie("express:sess");
-        return window.location.replace("/register");
-      } catch (error) {
-        console.error(error);
+      console.log(myDataAsJSON)
+
+      const data = await axios.post("/users/new", myDataAsJSON, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+        }
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } 
+      });
+
+      if(data){
+        if(type === "alumn"){
+          alert("Nou alumne registrat: " + nouUser.name)
+        }else if (type === "teacher"){
+          alert("Nou professor registrat: " + nouUser.name)
+        }
+        window.location.replace("/");
+      }else{
+        alert("Usuari ja existent")
       }
-    },
-  },
+    }
+  },  
 });

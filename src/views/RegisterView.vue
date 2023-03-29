@@ -4,7 +4,7 @@
             <div class="logo">
                 <img class="logoImage" src="../assets/bafarading.png">
             </div>
-            <form @submit.prevent="authStore.handleRegister(userForm)">
+            <form @submit.prevent="registerUser()">
                 <div class="form-row">
                     <div class="form-item nom">
                         <p class="formLabel">Nom</p>
@@ -15,7 +15,6 @@
                             id="name" 
                             class="form-style" 
                             autocomplete="off" 
-                            pattern="[a-zA-Z]+"
                             required/>
                     </div>
                     <div class="form-item cognom">
@@ -49,9 +48,7 @@
                             type="checkbox" 
                             name="professor" 
                             id="professor" 
-                            class="form-style" 
-                            autocomplete="off" 
-                            required/>
+                            class="form-style" />
                     </div>
                 </div>
                 <div class="form-row">
@@ -99,23 +96,31 @@
         setup() {
         const userForm = ref({
             name: "",
-            email: "",
+            mail: "",
+            checkbox: "",
             password: "",
             password2: "",
         });
+
+        function registerUser(){
+            if(userForm.value.password === userForm.value.password2){
+                authStore.handleRegister(userForm.value)
+            }else{
+                alert("Les dues contrasenyes han de coincidir.")
+            }
+        }
         
         return {
             userForm,
             authStore,
+            registerUser
         };
         },
     });
 </script>
   
 <style scoped>
-
 /* Referències al botó: pulls*/
-
 .pull-right{
     float: right;
 }
@@ -126,12 +131,10 @@
     clear:both;
 }
 
-
 /* Referències a la imatge de capçalera*/
 .logoImage{
     width:100%;
 }
-
 #form {
   position: relative;
   width:22%;
@@ -143,9 +146,8 @@
   padding:20px;
   padding-top: 25px;
   padding-bottom: 25px;
-  margin-bottom: 29px;
+  margin-bottom: 106px;
 }
-
 input.form-style{
     color:#8a8a8a;
     width: 95%;
@@ -163,11 +165,9 @@ input{
 }
 
 /** Referencia al color de tot el text tret del botó*/
-
 div.form-item p.formLabel {
     color:#58bff6; 
 }
-
 div.form-item .form-style:focus{
     outline: none; 
     border:1px solid #58bff6; 
@@ -176,7 +176,6 @@ div.form-item .form-style:focus{
 .form-row {
     width: 100%;
 }
-
 .nom {
     display: inline-block;
 }
@@ -195,7 +194,6 @@ div.form-item .form-style:focus{
     top: 10;
     margin-left: 10px;
 }
-
 .contrasenya:first-child{
     display: inline-block;
     margin-right: 25px;
@@ -233,6 +231,4 @@ input[type="submit"].login:hover{
     color:#55b1df; 
     cursor:pointer;
 }
-
-
 </style>

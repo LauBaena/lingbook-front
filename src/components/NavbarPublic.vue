@@ -4,12 +4,11 @@
             <img class="logo" src="@/assets/logoNegre.png" @click="handleRedirectSelector" />
         </div>
         <div class="links">
-            <a class="pull-left"><router-link :to="{ name: 'about' }">About</router-link></a>
-            <a class="pull-left"><router-link :to="{ name: 'login' }">Login</router-link></a>
-            <a class="pull-left"><router-link :to="{ name: 'about' }">Català</router-link></a>
+            <a class="pull-left"><router-link :to="{ name: 'about' }">Sobre nosaltres</router-link></a>
+            <a class="pull-left"><router-link :to="{ name: 'login' }">Entra</router-link></a>
+            <a class="pull-left"><router-link :to="{ name: 'home' }">Català</router-link></a>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -27,8 +26,6 @@
             handleRedirectSelector,
             };
         }
-
-        
     })
 </script>
 

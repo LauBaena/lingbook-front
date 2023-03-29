@@ -1,9 +1,9 @@
 <template>
     <div class="footerLinks">
-        <a class="pull-left"><router-link :to="{ name: 'home' }">Home</router-link></a>
-        <a class="pull-left"><router-link :to="{ name: 'about' }">About</router-link></a>
-        <a class="pull-left"><router-link :to="{ name: 'login' }">Login</router-link></a>
-        <a class="pull-left"><router-link :to="{ name: 'register' }">Register</router-link></a>
+        <a class="pull-left"><router-link :to="{ name: 'home' }">Inici</router-link></a>
+        <a class="pull-left"><router-link :to="{ name: 'about' }">Sobre nosaltres</router-link></a>
+        <a class="pull-left"><router-link :to="{ name: 'login' }">Entra</router-link></a>
+        <a class="pull-left"><router-link :to="{ name: 'register' }">Registra't</router-link></a>
         <a class="pull-left"><router-link :to="{ name: 'termsOfUse' }">Termes d'ús</router-link></a>
         <a class="pull-left"><router-link :to="{ name: 'legalWarning' }">Avís legal</router-link></a>
         <a class="pull-left"><router-link :to="{ name: 'privacyPolicy' }">Política de privacitat</router-link></a>
