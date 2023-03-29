@@ -31,8 +31,6 @@
                         class="form-style" 
                         :class="{formTop: passFocus}"
                         required/>
-                    <!-- @focusin="focusPassword(true)" 
-                    @focusout="focusPassword(false)"  -->
                     <p><a href="#"><small>T'has oblida't de la contrasenya?</small></a></p>  
                 </div>
                 <div class="form-item">
@@ -63,29 +61,12 @@
 
             let emailFocus = ref('false');
             let passFocus = ref('false');
-            // function focusEmail(boolean){
-            //     if(boolean === true){
-            //         this.parentNode.getElementsByClassName('formLabel')[0].classList.add('formTop');
-            //     }else{
-            //         this.parentNode.getElementsByClassName('formLabel')[0].classList.remove('formTop');
-            //     }
-            // };
-
-            // function focusEmail(boolean){
-            //     if(boolean === true){
-            //         hasfocus = true;
-            //     }else{
-            //         hasfocus = false;
-            //     }
-            // };
         
             return {
                 userForm,
                 authStore,
                 emailFocus,
-                passFocus,
-                // focusEmail,
-                // focusPassword,
+                passFocus
             };
         },
     });
@@ -95,8 +76,6 @@
     .logoImage{
         width:100%;
     }
-
-
     .pull-right{
         float: right;
     }
@@ -108,7 +87,7 @@
     }
     #formWrapper {
         min-height: 60vh;
-        margin-bottom: 7px;
+        margin-bottom: 40px;
     }
     #form {
         position: relative;
@@ -157,11 +136,6 @@
         color:#58bff6; 
     }
     div.form-item p.formLabel {
-        /* position: absolute;
-        left:26px;
-        top:2px;
-        transition:all .4s ease;
-        color:#bbb; */
         color:#58bff6; 
     }
     .formTop{

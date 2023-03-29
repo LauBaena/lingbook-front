@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Error 404: Page not found</h1>
+        <h1>Error 404: Pàgina no trobada</h1>
     </div>
 </template>
 
@@ -17,7 +17,7 @@ export default defineComponent({
         margin: 20px;
         display: flex;
         flex-direction: column;
-        min-height: 60vh;
+        min-height: 62.7vh;
     }
     h1{
         font-size: 34px;

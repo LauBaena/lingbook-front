@@ -15,7 +15,6 @@
                             id="name" 
                             class="form-style" 
                             autocomplete="off" 
-                            pattern="[a-zA-Z]+"
                             required/>
                     </div>
                     <div class="form-item cognom">
@@ -136,7 +135,6 @@
 .logoImage{
     width:100%;
 }
-
 #form {
   position: relative;
   width:22%;
@@ -148,9 +146,8 @@
   padding:20px;
   padding-top: 25px;
   padding-bottom: 25px;
-  margin-bottom: 100px;
+  margin-bottom: 106px;
 }
-
 input.form-style{
     color:#8a8a8a;
     width: 95%;
@@ -171,7 +168,6 @@ input{
 div.form-item p.formLabel {
     color:#58bff6; 
 }
-
 div.form-item .form-style:focus{
     outline: none; 
     border:1px solid #58bff6; 
@@ -180,7 +176,6 @@ div.form-item .form-style:focus{
 .form-row {
     width: 100%;
 }
-
 .nom {
     display: inline-block;
 }
@@ -199,7 +194,6 @@ div.form-item .form-style:focus{
     top: 10;
     margin-left: 10px;
 }
-
 .contrasenya:first-child{
     display: inline-block;
     margin-right: 25px;
