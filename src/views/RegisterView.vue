@@ -44,10 +44,10 @@
                     <div class="form-item checkbox">
                         <p class="formLabel">Vols ensenyar?</p>
                         <input
-                            v-model="userForm.checkbox" 
-                            type="checkbox" 
-                            name="professor" 
-                            id="professor" 
+                            v-model="userForm.checkbox"
+                            type="checkbox"
+                            name="professor"
+                            id="professor"
                             class="form-style" />
                     </div>
                 </div>
@@ -181,18 +181,16 @@ div.form-item .form-style:focus{
 }
 .cognom {
     display: inline-block;
-    margin-left: 25px;
 }
 .correu{
     display: inline-block;
-    width: 70%;
     position: relative;
 }
 .checkbox{
     position:absolute;
     display: inline-block;
-    bottom: 10px;
-    margin-right: 50px;
+    bottom: 18em;
+    left: 20em;
 }
 
 .contrasenya:first-child{
@@ -233,45 +231,73 @@ input[type="submit"].login:hover{
     cursor:pointer;
 }
 
-@media screen and (max-width: 699px){
-
+@media screen and (max-width: 719px) {
     #form {
 
-        width: 50vw;
+        width: 70vw;
         flex-wrap: wrap;
 
     }
 
-    input.form-style{
-        width: 40vw;
-    }
+    .checkbox{
+        position:absolute;
+        display: inline-block;
+        text-align: center;
+        bottom: 10px;
+        left: 10px;
 
-    .form-item {
-        max-width: 100%;
-    }
-
-    .form-row {
-        max-width: 90%;
     }
 
 }
 
-@media screen and (min-width: 700px) and (max-width: 1699px){
+
+@media screen and (min-width: 720px) and (max-width: 1019px){
 
     #form {
-        width: 50%;
+
+        width: 30vw;
         flex-wrap: wrap;
 
     }
 
-    input.form-style{
-        width: 100%;
+    .checkbox{
+        position:absolute;
+        display: inline-block;
+        text-align: center;
+        bottom: 15px;
+        left: 10px;
+
     }
 
-    .form-item {
-        max-width: 30%;
+}
+
+@media screen and (min-width: 912px) and (max-width: 1369px){
+
+    #form {
+
+        width: 30vw;
+        flex-wrap: wrap;
+
     }
 
+    .checkbox{
+        position:absolute;
+        display: inline-block;
+        text-align: center;
+        bottom: 10px;
+        left: 10px;
+
+    }
+
+}
+
+@media screen and (min-width: 1370px) and (max-width: 1699px){
+
+
+    .checkbox{
+        left: 50px;
+        bottom: 20px;
+    }
 
 }
 </style>
