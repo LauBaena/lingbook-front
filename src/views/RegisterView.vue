@@ -191,9 +191,10 @@ div.form-item .form-style:focus{
 .checkbox{
     position:absolute;
     display: inline-block;
-    top: 10;
-    margin-left: 10px;
+    bottom: 10px;
+    margin-right: 50px;
 }
+
 .contrasenya:first-child{
     display: inline-block;
     margin-right: 25px;
@@ -236,13 +237,13 @@ input[type="submit"].login:hover{
 
     #form {
 
-        width: 50%;
+        width: 50vw;
         flex-wrap: wrap;
 
     }
 
     input.form-style{
-        width: 100%;
+        width: 40vw;
     }
 
     .form-item {
