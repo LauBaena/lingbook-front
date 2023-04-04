@@ -49,4 +49,19 @@
         width: 10%;
         margin: 10px;
     }
+
+    /*
+Media queries
+ */
+    @media screen and (max-width: 1199px) {
+        .languages{
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .flagIcon{
+            width: 20%;
+        }
+    }
+
 </style>

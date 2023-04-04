@@ -231,4 +231,46 @@ input[type="submit"].login:hover{
     color:#55b1df; 
     cursor:pointer;
 }
+
+@media screen and (max-width: 699px){
+
+    #form {
+
+        width: 50%;
+        flex-wrap: wrap;
+
+    }
+
+    input.form-style{
+        width: 100%;
+    }
+
+    .form-item {
+        max-width: 100%;
+    }
+
+    .form-row {
+        max-width: 90%;
+    }
+
+}
+
+@media screen and (min-width: 700px) and (max-width: 1699px){
+
+    #form {
+        width: 50%;
+        flex-wrap: wrap;
+
+    }
+
+    input.form-style{
+        width: 100%;
+    }
+
+    .form-item {
+        max-width: 30%;
+    }
+
+
+}
 </style>

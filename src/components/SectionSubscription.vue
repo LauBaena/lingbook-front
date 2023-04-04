@@ -89,4 +89,22 @@
     .subscribeButton:focus{
         outline: none;
     }
+
+    @media screen and (max-width: 1699px){
+        .subscribe{
+            display: flex;
+            flex-wrap: wrap;
+
+        }
+
+        input.form-style{
+            width: 50%;
+        }
+
+        .subscribeButton{
+            width: 60%;
+
+        }
+    }
+
 </style>

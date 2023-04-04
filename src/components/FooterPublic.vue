@@ -51,4 +51,17 @@
     a:hover{
         Color:#aaa; 
     }
+
+    /*
+Media queries
+ */
+    @media screen and (max-width: 1199px) {
+        .footerLinks {
+            flex-wrap: wrap;
+        }
+
+        .pull-left {
+            width: 20%;
+        }
+    }
 </style>
