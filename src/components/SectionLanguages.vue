@@ -9,7 +9,7 @@
             <img class="flagIcon" src="../assets/french_icon.png" title="French" alt="frenchFlag">
             <img class="flagIcon" src="../assets/italian_icon.png" title="Italian" alt="italianFlag">
             <img class="flagIcon" src="../assets/german_icon.png" title="German" alt="germanFlag">
-            <img class="flagIcon" src="../assets/japanese_icon.png" title="Japanese" alt="japaneseFlag">
+            <img class="flagIcon" src="../assets/indian_icon.png" title="Japanese" alt="japaneseFlag">
             <img class="flagIcon" src="../assets/chinese_icon.png" title="Chinese" alt="chineseFlag">
         </div>
     </div>
