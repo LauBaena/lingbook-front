@@ -1,7 +1,7 @@
 <template>
     <div class="section">
         <h1>Els alumnes opinen</h1>
-        <p class="sectionText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quia ipsam voluptatum accusantium recusandae eos necessitatibus quam earum dolore amet fugiat repudiandae minus, saepe, itaque vel pariatur sit nam suscipit.</p>
+
         <div class="students">
             <div class="student">
             <h4>"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex quos velit eos delectus omnis perferendis laborum quasi commodi sunt, eius iste mollitia consequatur earum adipisci aspernatur aperiam asperiores repellat maxime."</h4>
@@ -67,5 +67,19 @@
     }
     h4{
         font-style: italic;
+    }
+
+    @media screen and (max-width: 1199px) {
+        .students{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .student{
+            display: flex;
+            width: 100%;
+        }
+        .studentImg {
+            width:30%;
+        }
     }
 </style>

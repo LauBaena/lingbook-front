@@ -1,69 +1,124 @@
 <template>
-    <div class="header">
+    <MqResponsive :target="['xl', 'xxl']">
+        <div class="header">
+            <div>
+                <img class="logo" src="@/assets/logoNegre.png" @click="handleRedirectSelector"/>
+            </div>
+            <div class="links">
+                <a class="pull-left">
+                    <router-link :to="{ name: 'about' }">Sobre nosaltres</router-link>
+                </a>
+                <a class="pull-left">
+                    <router-link :to="{ name: 'login' }">Entra</router-link>
+                </a>
+                <a class="pull-left">
+                    <router-link :to="{ name: 'home' }">Català</router-link>
+                </a>
+            </div>
+        </div>
+    </MqResponsive>
+
+    <MqResponsive :target="['xs', 'sm', 'md', 'lg']">
+        <div class="header">
+            <div>
+                <img class="logo" src="@/assets/logoNegre.png" @click="handleRedirectSelector"/>
+            </div>
+        </div>
+
         <div>
-            <img class="logo" src="@/assets/logoNegre.png" @click="handleRedirectSelector" />
+            <VueMultiselect class="multivue"
+                    v-model="selected"
+                    :options="options"
+            >
+            </VueMultiselect>
         </div>
-        <div class="links">
-            <a class="pull-left"><router-link :to="{ name: 'about' }">Sobre nosaltres</router-link></a>
-            <a class="pull-left"><router-link :to="{ name: 'login' }">Entra</router-link></a>
-            <a class="pull-left"><router-link :to="{ name: 'home' }">Català</router-link></a>
-        </div>
-    </div>
+
+    </MqResponsive>
+
 </template>
 
 <script>
-    import { defineComponent } from "vue";
-    import { useRouter } from "vue-router";
-    export default defineComponent({
-        name: "publicNavbar",
-        setup() {
-            const router = useRouter();
+import {onMounted, defineComponent} from "vue";
+import {MqResponsive} from "vue3-mq";
+import {updateBreakpoints} from "vue3-mq";
+import {useRouter} from "vue-router";
+import VueMultiselect from 'vue-multiselect'
 
-            const handleRedirectSelector = () => {
+export default defineComponent({
+    name: "publicNavbar",
+    components: {MqResponsive, VueMultiselect},
+
+    data () {
+      return {
+          selected: null,
+          options: ['About', 'Login', 'Català']
+      }
+    },
+
+    setup() {
+        onMounted(() => {
+            updateBreakpoints({
+                preset: "bootstrap5"
+            })
+        })
+
+        const router = useRouter();
+
+        const handleRedirectSelector = () => {
             return router.push("/");
-            };
-            return {
+        };
+        return {
             handleRedirectSelector,
-            };
-        }
-    })
+        };
+
+    }
+})
 </script>
 
-<style scoped>
-    .header {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .logo{
-        cursor: pointer; 
-        /* width: 350px; */
-        width: 35%;
-        margin: 40px;
-    }
-    a {
-        font-size: 24px !important ;
-        color:#58bff6;
-        text-decoration: none;
-        padding-right:40px;
-        /* margin-left: 30px; */
-    }
-    a:hover{
-        Color:#aaa; 
-    }
 
-    .links {
-        display: flex;
-        align-items: center;
-        margin: 40px;
-        padding: 0;
-    }
-    
-    .links a {
-        margin-right: 20px;
-        font-size: 18px;
-    }
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
+<style scoped>
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    cursor: pointer;
+    /* width: 350px; */
+    width: 35%;
+    margin: 40px;
+}
+
+a {
+    font-size: 24px !important;
+    color: #58bff6;
+    text-decoration: none;
+    padding-right: 40px;
+    /* margin-left: 30px; */
+}
+
+a:hover {
+    Color: #aaa;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    margin: 40px;
+    padding: 0;
+}
+
+.links a {
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.multivue {
+    width: 40%;
+}
 
 </style>
