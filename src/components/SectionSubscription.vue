@@ -3,7 +3,7 @@
         <h1>Vols estar al corrent de les novetats? Apunta't!</h1>
         <p class="sectionText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quia ipsam voluptatum accusantium recusandae eos necessitatibus quam earum dolore amet fugiat repudiandae minus, saepe, itaque vel pariatur sit nam suscipit.</p>
         <form class="subscribe">
-            <input type="email" placeholder="Adreça electrònica" class="form-style" name="email" id="inputEmail">
+            <input type="email" placeholder="Correu electrònic" class="form-style" name="email" id="inputEmail">
             <input type="text" placeholder="Nom i cognoms" class="form-style" name="name" id="inputName">
             <input type="submit" class="subscribeButton" value="Subscriu-te">
         </form>
