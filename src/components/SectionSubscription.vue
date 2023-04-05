@@ -65,7 +65,7 @@
     }
     .subscribeButton{
         float:right;
-        width: 60%;
+        width: 60vw;
         height: 55px;
         margin: 10px;
         -moz-border-radius: 19px;
@@ -98,11 +98,11 @@
         }
 
         input.form-style{
-            width: 50%;
+            width: 50vw;
         }
 
         .subscribeButton{
-            width: 60%;
+            width: 60vw;
 
         }
     }
