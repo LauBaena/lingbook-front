@@ -28,6 +28,22 @@ const routes = [
       import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
   },
   {
+    path: "/profile/:id",
+    name: "profile",
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "../views/ProfileView.vue"),
+    props: (route) => {
+      const id = route.params.id;
+      return id ? { id } : { id: "" };
+    },
+  },
+  {
+    path: "/allProfiles",
+    name: "allProfiles",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/AllProfilesView.vue"),
+  },
+  {
     path: "/termsofuse",
     name: "termsOfUse",
     component: () =>
