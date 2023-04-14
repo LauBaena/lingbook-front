@@ -1,9 +1,8 @@
 import es from './es'
 import ca from './ca'
-import en from './en-us'
+//import en-us from './en-us'
 
 export default {
     'es': es,
-    'ca': ca,
-    'en-us': en
+    'ca': ca
 }
