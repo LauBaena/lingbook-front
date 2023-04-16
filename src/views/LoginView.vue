@@ -4,7 +4,7 @@
             <div class="logo">
                 <img class="logoImage" src="../assets/bafarading.png">
             </div>
-            <form @submit.prevent="authStore.handleLogin(userForm)">
+            <form @submit.prevent="loginUser()">
                 <div class="form-item">
                     <p class="formLabel">Correu Electrònic</p>
                     <input 
@@ -61,12 +61,17 @@
 
             let emailFocus = ref('false');
             let passFocus = ref('false');
+
+            function loginUser(){
+                authStore.handleLogin(userForm.value)
+            }
         
             return {
                 userForm,
                 authStore,
                 emailFocus,
-                passFocus
+                passFocus,
+                loginUser,
             };
         },
     });
