@@ -1,6 +1,7 @@
 <template>
     <div class="section">
         <h1>Quines llengües hi trobaràs</h1>
+        <button @click="count++">{{ count }}</button>
         <p class="sectionText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quia ipsam voluptatum accusantium recusandae eos necessitatibus quam earum dolore amet fugiat repudiandae minus, saepe, itaque vel pariatur sit nam suscipit.</p>
         <div class="languages">
             <img class="flagIcon" src="../assets/catalan_icon.png" title="Catalan" alt="catalanFlag">
@@ -17,11 +18,20 @@
 
 <script>
     import { defineComponent } from "vue";
-            
+    import { ref } from 'vue'
+
     export default defineComponent({
         name: "SectionLanguages",
         setup() {
+            const count = ref(0)
+
+            return {
+                count
+            }
         },
+        mounted() {
+            console.log(this.count)
+        }
     });
 </script>
 
