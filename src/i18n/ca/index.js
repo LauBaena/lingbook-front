@@ -33,4 +33,5 @@ export default {
         politica_priv: 'Política de privacitat',
         politica_cookies: 'Política de cookies'
     }
+
 }
