@@ -9,14 +9,9 @@
             </ul>
         </div>
         <div class="centralMenu">
-            <div>
-                <h2>Les meves properes classes</h2>
-                <p>Espai en construcció</p>
-            </div>
-            <div>
-                <h2>Els meus darrers vídeos que han rebut comentaris</h2>
-                <p>Espai en construcció</p>
-            </div>
+            <slot name="firstContent"></slot>
+            <slot name="secondContent"></slot>
+            <slot name="thirdContent"></slot>
         </div>
     </div>
 </template>
@@ -32,8 +27,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-.content{
+    .content{
         display: flex;
         flex-direction: row;
         margin: 20px;
@@ -43,27 +37,28 @@ export default defineComponent({
         flex-direction: column;
         margin: 20px;
         border: #d9d9d9 4px solid;
+        height: 350px;
     }
 
     .centralMenu{
         display: flex;
         flex-direction: column;
-        margin: 20px;
+        padding: 0px 0px 20px 20px;
     }
 
     ul{
         list-style-type: none;
+        width: 250px;
     }
 
     a{
         text-decoration: inherit;
         color: inherit;
-        margin-bottom: 10px;
     }
 
     ul a{
         display: block;
-        padding: 0px 80px 10px 10px;
+        padding: 5px 0px 15px 10px;
     }
 
     a:hover{

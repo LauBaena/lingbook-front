@@ -10,14 +10,9 @@
             </ul>
         </div>
         <div class="centralMenu">
-            <div>
-                <h2>Darrers vídeos publicats a la plataforma</h2>
-                <p>Espai en construcció</p>
-            </div>
-            <div>
-                <h2>Darrers vídeos que han rebut missatges</h2>
-                <p>Espai en construcció</p>
-            </div>
+            <slot name="firstContent"></slot>
+            <slot name="secondContent"></slot>
+            <slot name="thirdContent"></slot>
         </div>
     </div>
 </template>
@@ -33,62 +28,60 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.content{
-    display: flex;
-    flex-direction: row;
-    margin: 20px;
-}
-.sideMenu{
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    border: #d9d9d9 4px solid;
-}
+    .content{
+        display: flex;
+        flex-direction: row;
+        margin: 20px;
+    }
+    .sideMenu{
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        border: #d9d9d9 4px solid;
+        height: 350px;
+    }
+    .centralMenu{
+        display: flex;
+        flex-direction: column;
+        padding: 0px 0px 20px 20px;
+    }
 
-.centralMenu{
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-}
+    ul{
+        list-style-type: none;
+        width: 250px;
+    }
 
-ul{
-    list-style-type: none;
-}
+    a{
+        text-decoration: inherit;
+        color: inherit;
+    }
 
-a{
-    text-decoration: inherit;
-    color: inherit;
-    margin-bottom: 10px;
-}
+    ul a{
+        display: block;
+        padding: 5px 0px 15px 10px;
+    }
 
-ul a{
-    display: block;
-    padding: 0px 80px 10px 10px;
-}
+    a:hover{
+        text-decoration: inherit;
+        color: #05a5d4;
+    }
 
-a:hover{
-    text-decoration: inherit;
-    color: #05a5d4;
-}
+    h2{
+        color: #05a5d4;
+    }
+    .centralMenu p{
+        margin-bottom: 80px;
+    }
 
-h2{
-    color: #05a5d4;
-}
-
-.centralMenu p{
-    margin-bottom: 80px;
-}
-
-h3{
-    background-color: #05a5d4;
-    padding: 20px;
-    margin-top: 0;
-    border-bottom: #d9d9d9 4px solid;
-}
-
-.sideMenu p{
-    padding-left: 7%;
-    padding-top: 7%;
-    border-top: #d9d9d9 4px solid;
-}
+    h3{
+        background-color: #05a5d4;
+        padding: 20px;
+        margin-top: 0;
+        border-bottom: #d9d9d9 4px solid;
+    }
+    .sideMenu p{
+        padding-left: 7%;
+        padding-top: 7%;
+        border-top: #d9d9d9 4px solid;
+    }
 </style>
