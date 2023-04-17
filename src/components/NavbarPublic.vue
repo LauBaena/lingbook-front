@@ -1,5 +1,4 @@
 <template>
-    <MqResponsive :target="['xl', 'xxl']">
         <div class="header">
             <div>
                 <img class="logo" src="@/assets/logoNegre.png" @click="handleRedirectSelector"/>
@@ -11,50 +10,23 @@
                 <a class="pull-left">
                     <router-link :to="{ name: 'login' }">Entra</router-link>
                 </a>
-                <a class="pull-left">
-                    <router-link :to="{ name: 'home' }"><img class="flagIcon" src="../assets/catalan_icon.png" style="width: 50px" title="Catalan" alt="catalanFlag"></router-link>
-                    <router-link :to="{ name: 'home' }"><img class="flagIcon" src="../assets/spanish_icon.png" style="width: 50px" title="Spanish" alt="spanishFlag"></router-link>
-                    <router-link :to="{ name: 'home' }"><img class="flagIcon" src="../assets/english_icon.png" style="width: 50px" title="English" alt="englishFlag"></router-link>
-                    <router-link :to="{ name: 'home' }"><img class="flagIcon" src="../assets/french_icon.png" style="width: 50px" title="French" alt="frenchFlag"></router-link>
-                </a>
             </div>
         </div>
-    </MqResponsive>
-
-    <MqResponsive :target="['xs', 'sm', 'md', 'lg']">
-        <div class="header">
-            <div>
-                <img class="logo" src="@/assets/logoNegre.png" @click="handleRedirectSelector"/>
-            </div>
-        </div>
-
-        <div>
-            <VueMultiselect class="multivue"
-                    v-model="selected"
-                    :options="options"
-            >
-            </VueMultiselect>
-        </div>
-
-    </MqResponsive>
 
 </template>
 
 <script>
 import {onMounted, defineComponent} from "vue";
-import {MqResponsive} from "vue3-mq";
 import {updateBreakpoints} from "vue3-mq";
 import {useRouter} from "vue-router";
-import VueMultiselect from 'vue-multiselect'
 
 export default defineComponent({
     name: "publicNavbar",
-    components: {MqResponsive, VueMultiselect},
 
     data () {
       return {
           selected: null,
-          options: ['About', 'Login', 'Català']
+          options: ['About', 'Login']
       }
     },
 
@@ -73,11 +45,6 @@ export default defineComponent({
         return {
             handleRedirectSelector,
         };
-
-        //const languages = "";
-        //if( == true){
-        //
-        //}
 
     }
 })
@@ -123,10 +90,6 @@ a:hover {
 .links a {
     margin-right: 20px;
     font-size: 18px;
-}
-
-.multivue {
-    width: 40%;
 }
 
 </style>
