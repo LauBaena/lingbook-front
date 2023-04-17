@@ -4,9 +4,36 @@
       <img class="studentPic" src="../assets/student3.jpg" alt="Student's photography">
       <h1>Espai personal de {{ authStore.authUserCompleteName }} ({{ authStore.authUser.type }})</h1>
     </div>
-    <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'" />
-    <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" />
-    <AdminMenu v-else />
+    <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'" >
+      <template v-slot:firstContent>
+        <h2>Les meves properes classes</h2>
+        <p>Espai en construcció</p>
+      </template>
+      <template v-slot:secondContent>
+        <h2>Els meus darrers vídeos que han rebut comentaris</h2>
+        <p>Espai en construcció</p>
+      </template>
+    </TeacherMenu>
+    <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
+      <template v-slot:firstContent>
+        <h2>Les meves properes classes</h2>
+        <p>Espai en construcció</p>
+      </template>
+      <template v-slot:secondContent>
+        <h2>Els darrers vídeos on he comentat</h2>
+        <p>Espai en construcció</p>
+      </template>
+    </StudentMenu>
+    <AdminMenu v-else >
+      <template v-slot:firstContent>
+        <h2>Darrers vídeos publicats a la plataforma</h2>
+        <p>Espai en construcció</p>
+      </template>
+      <template v-slot:secondContent>
+        <h2>Darrers vídeos que han rebut missatges</h2>
+        <p>Espai en construcció</p>
+      </template>
+    </AdminMenu>
   </div>
 </template>
 
@@ -34,7 +61,7 @@ export default {
       authStore,
       authUser,
     };
-  },
+  }
 };
 </script>
 
