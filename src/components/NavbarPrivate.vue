@@ -79,7 +79,7 @@ export default defineComponent({
 .icon {
     cursor: pointer;
     width: 15%;
-    margin: 40px;
+    margin: 45px;
 }
 
 a {
@@ -101,6 +101,22 @@ a {
 .links a {
     margin-right: 20px;
     font-size: 18px;
+}
+
+@media screen and (max-width: 1369px) {
+
+    .logo {
+        cursor: pointer;
+        /* width: 350px; */
+        width: 100%;
+        margin: 40px;
+    }
+
+    .icon {
+        cursor: pointer;
+        width: 30%;
+    }
+
 }
 
 </style>

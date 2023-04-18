@@ -234,7 +234,7 @@ input[type="submit"].login:hover{
 @media screen and (max-width: 719px) {
     #form {
 
-        width: 70vw;
+        width: 50vw;
         flex-wrap: wrap;
 
     }

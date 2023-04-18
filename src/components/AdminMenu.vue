@@ -86,4 +86,14 @@ export default defineComponent({
         padding-top: 7%;
         border-top: #d9d9d9 4px solid;
     }
+
+    @media screen and (max-width: 1369px) {
+
+        .content{
+            display: flex;
+            flex-direction: column;
+            margin: 20px;
+        }
+
+    }
 </style>

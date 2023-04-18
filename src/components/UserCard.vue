@@ -64,4 +64,21 @@
         color: inherit;
         cursor: pointer;
     } */
+
+    @media screen and (max-width: 1369px) {
+
+        .userCard{
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cardImage{
+            width: 100px;
+            border-radius: 50%;
+            border: #d9d9d9 6px solid;
+        }
+
+    }
 </style>
