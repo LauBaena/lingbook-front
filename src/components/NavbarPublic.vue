@@ -25,8 +25,6 @@ export default defineComponent({
 
     data () {
       return {
-          selected: null,
-          options: ['About', 'Login']
       }
     },
 
