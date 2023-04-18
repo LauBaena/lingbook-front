@@ -47,6 +47,31 @@ const routes = [
     meta: {requiresAuth: true}
   },
   {
+    path: "/allLanguages",
+    name: "allLanguages",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/SelectLanguageView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/language/:id",
+    name: "language",
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "../views/LanguageView.vue"),
+    props: (route) => {
+      const id = route.params.id;
+      return id ? { id } : { id: "" };
+    },
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/allVideos",
+    name: "allVideos",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/AllVideosView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
     path: "/termsofuse",
     name: "termsOfUse",
     component: () =>

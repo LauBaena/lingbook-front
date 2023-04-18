@@ -50,7 +50,7 @@ export const useUsersStore = defineStore("users", {
     },
 
     //Funció que accedeix a l'usuari amb l'id passat per paràmetre i el desa a la variable 'user'
-    async fecthUser(id){
+    async fetchUser(id){
       const {data} = await axios.get("/users/" + id, {
         headers: {
           "Content-Type": "application/json",

@@ -5,10 +5,9 @@
             <ul>
                 <li><a href="" >Properes classes</a></li>
                 <li><a href="">Les meves llengües</a></li>
-                <li><a href="">Els vídeos que veig???</a></li>
                 <li><a href="">Els meus comentaris</a></li>
             </ul>
-            <a href=""><p>Cerca un professor</p></a>
+            <a><router-link :to="{ name: 'allLanguages' }"><p>Cerca un professor</p></router-link></a>
         </div>
         <div class="centralMenu">
             <slot name="firstContent"></slot>

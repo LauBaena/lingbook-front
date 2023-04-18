@@ -1,9 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+
+import VuePlyr from 'vue-plyr'
+import 'vue-plyr/dist/vue-plyr.css'
+
 import router from './router'
-// import store from './store'
 import { createPinia } from "pinia";
 
-createApp(App).use(createPinia()).use(router).mount('#app')
-// createApp(App).use(createPinia()).use(store).use(router).mount('#app')
+createApp(App).use(VuePlyr, {plyr:{}}).use(createPinia()).use(router).mount('#app')
 
