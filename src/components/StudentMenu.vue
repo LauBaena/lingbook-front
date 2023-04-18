@@ -7,17 +7,12 @@
                 <li><a href="">Les meves llengües</a></li>
                 <li><a href="">Els meus comentaris</a></li>
             </ul>
-            <a href=""><p>Cerca un professor</p></a>
+            <a><router-link :to="{ name: 'allLanguages' }"><p>Cerca un professor</p></router-link></a>
         </div>
         <div class="centralMenu">
-            <div>
-                <h2>Les meves properes classes</h2>
-                <p>Espai en construcció</p>
-            </div>
-            <div>
-                <h2>Els darrers vídeos que he comentat</h2>
-                <p>Espai en construcció</p>
-            </div>
+            <slot name="firstContent"></slot>
+            <slot name="secondContent"></slot>
+            <slot name="thirdContent"></slot>
         </div>
     </div>
 </template>
@@ -43,27 +38,27 @@ export default defineComponent({
         flex-direction: column;
         margin: 20px;
         border: #d9d9d9 4px solid;
+        height: 350px;
     }
-
     .centralMenu{
         display: flex;
         flex-direction: column;
-        margin: 20px;
+        padding: 0px 0px 20px 20px;
     }
 
     ul{
         list-style-type: none;
+        width: 250px;
     }
 
     a{
         text-decoration: inherit;
         color: inherit;
-        margin-bottom: 10px;
     }
 
     ul a{
         display: block;
-        padding: 0px 80px 10px 10px;
+        padding: 5px 0px 15px 10px;
     }
 
     a:hover{

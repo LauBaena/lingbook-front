@@ -42,7 +42,7 @@
         align-items: center;
     }
     .cardImage{
-        width: 10%;
+        width: 100px;
         margin: 40px;
         border-radius: 50%;
         border: #d9d9d9 6px solid;

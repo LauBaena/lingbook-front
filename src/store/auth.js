@@ -3,6 +3,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import router from '../router/index.js';
 
+//Funció que crea una cookie per desar el token (nom i valor passat per paràmetre)
 const setCookie = (name, value, days = 1) => {
   let expires = "";
   if (days) {
@@ -13,6 +14,7 @@ const setCookie = (name, value, days = 1) => {
   document.cookie = name + "=" + (value || "") + expires + "; path=/";
 };
 
+//Funció que esborra la cookie amb el token (nom passat per paràmetre)
 const eraseCookie = (name) => {
   document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 };
@@ -23,8 +25,6 @@ export const useAuthStore = defineStore("auth", {
     authUser: {},
     token: null,
     authUserCompleteName: "",
-    users: [],
-    user: undefined,
   }),
 
   getters: {
@@ -36,6 +36,7 @@ export const useAuthStore = defineStore("auth", {
   },
 
   actions: {
+    //Funció que comprova si hi ha token guardat a la cookie. Si n'hi ha, el desa i crida a la funció 'decode'
     async thereIsToken(){
       let nameEQ = "LingbookToken=";
       let ca = document.cookie.split(";");
@@ -50,6 +51,7 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
+    //Funció que logeja a l'usuari segons les dades introduïdes
     async handleLogin(user) {
       let myDataAsJSON = JSON.stringify({
         "mail": user.mail,
@@ -76,10 +78,10 @@ export const useAuthStore = defineStore("auth", {
         this.token = data;
         this.decode();
         await router.push({ path: `/profile/${this.authUser.id_user}` });
-        // await router.push({name: 'profile', params: {id: user.id_user}});
       }
     },
 
+    //Funció que decodifica el token de l'usuari autenticat. Desa les dades a la variable 'authUser'
     async decode(){
       try{
           let decoded = jwt_decode(this.token)
@@ -94,13 +96,13 @@ export const useAuthStore = defineStore("auth", {
           let authName = this.authUser.name.charAt(0).toUpperCase() + this.authUser.name.slice(1);
           let authSurname = this.authUser.surname.charAt(0).toUpperCase() + this.authUser.surname.slice(1);
           this.authUserCompleteName = authName + " " + authSurname;
-          // this.fetchUser(this.authUser.id_user);
 
       }catch(err){
           console.log('token is null: ',err);
       }
     },
 
+    //Funció que tanca sessió de l'usuari i esborra la Cookie amb el token 
     async handleLogout() {
       eraseCookie("LingbookToken");
       this.isAuth = false;
@@ -108,6 +110,7 @@ export const useAuthStore = defineStore("auth", {
       await router.push({ path: "/login" });
     },
 
+    //Funció que registra a l'usuari segons les dades introduïdes
     async handleRegister(nouUser){
       let type;
       if(nouUser.checkbox){
@@ -147,64 +150,5 @@ export const useAuthStore = defineStore("auth", {
         alert("Compte d'usuari ja existent")
       }
     },
-
-    async fetchAllUsers(){
-      const {data} = await axios.get("/users/all", {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
-        }
-      })
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response.status);
-        } 
-      });
-
-      this.modify_data(data);
-    },
-
-    async modify_data(data){
-      for (let i = 0; i < data.length; i++){
-        if(data[i].type === "0"){
-          data[i].type = 'Administrador/a';
-        }else if(data[i].type === "1"){
-          data[i].type = 'Professor/a';
-        }else{
-          data[i].type = 'Alumne';
-        }
-        data[i].name = data[i].name.charAt(0).toUpperCase() + data[i].name.slice(1);
-        data[i].surname = data[i].surname.charAt(0).toUpperCase() + data[i].surname.slice(1);
-      }
-
-      this.users = data;
-    },
-
-    async fetchUser(id){
-      console.log(id)
-      const {data} = await axios.get("/users/" + id, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
-        }
-      })
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response.status);
-        } 
-      });
-
-      if(data.type === "0"){
-        data.type = 'Administrador/a';
-      }else if(data.type === "1"){
-        data.type = 'Professor/a';
-      }else{
-        data.type = 'Alumne';
-      }
-      data.name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
-      data.surname = data.surname.charAt(0).toUpperCase() + data.surname.slice(1);
-
-      this.user = data;
-    }
   },  
 });

@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useAuthStore } from "@/store/auth";
 
 const routes = [
   {
@@ -36,12 +37,39 @@ const routes = [
       const id = route.params.id;
       return id ? { id } : { id: "" };
     },
+    meta: {requiresAuth: true}
   },
   {
     path: "/allProfiles",
     name: "allProfiles",
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/AllProfilesView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/allLanguages",
+    name: "allLanguages",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/SelectLanguageView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/language/:id",
+    name: "language",
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "../views/LanguageView.vue"),
+    props: (route) => {
+      const id = route.params.id;
+      return id ? { id } : { id: "" };
+    },
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/allVideos",
+    name: "allVideos",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/AllVideosView.vue"),
+    meta: {requiresAuth: true}
   },
   {
     path: "/termsofuse",
@@ -77,6 +105,21 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) =>{
+  if(to.matched.some(route => route.meta.requiresAuth)){
+    //Si l'usuari ja està autenticat, podrem accedir a la vista. Si no, mostrem alerta i tornem al login
+    const authStore = useAuthStore();
+    if(authStore.isAuth){
+      next();
+    }else{
+      alert('Necessites logejarte per accedir');
+      next({name: 'login'});
+    }
+  }else{
+    next();
+  }
 })
 
 export default router
