@@ -17,11 +17,14 @@
 
 <script>
     import { defineComponent } from "vue";
-            
+
     export default defineComponent({
         name: "SectionLanguages",
         setup() {
-        },
+            return {
+
+            }
+        }
     });
 </script>
 

@@ -2,7 +2,7 @@
     <div>
         <div class="header">
             <img class="studentPic" src="../assets/student3.jpg" alt="Student's photography">
-            <h1>Espai personal de {{ authStore.authUserCompleteName }} ({{ authStore.authUser.type }})</h1>
+            <h1 class="profilePrivate">Espai personal de {{ authStore.authUserCompleteName }} ({{ authStore.authUser.type }})</h1>
         </div>
         <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
             <template v-slot:firstContent>
@@ -80,11 +80,35 @@
   
     .videosContainer{
       display:flex;
-      flex-flow: row wrap;
+      flex-flow: wrap;
+      padding: 20px;
     }
   
     .video{
-      width: 500px;
+      width: 30%;
     }
-  
+
+    @media screen and (max-width: 1369px) {
+
+        .header{
+            width: 70%;
+        }
+
+        .studentPic {
+            width: 30%;
+            margin: 10px;
+            border-radius: 50%;
+            border: #d9d9d9 6px solid;
+        }
+
+        .profilePrivate {
+            width: 20%;
+            margin-right: 80px;
+        }
+
+        .video{
+            width: 100%;
+        }
+    }
+
   </style>

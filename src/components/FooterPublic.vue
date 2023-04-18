@@ -31,7 +31,7 @@
 
 <style scoped>
     .footerLinks {
-        width: 99%;
+        width: 100%;
         display: flex;
         position: absolute;
         flex-direction: row;
@@ -62,6 +62,7 @@ Media queries
 
         .pull-left {
             width: 20%;
+            margin: 2px;
         }
     }
 </style>

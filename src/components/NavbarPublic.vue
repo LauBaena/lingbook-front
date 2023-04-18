@@ -1,5 +1,4 @@
 <template>
-    <MqResponsive :target="['xl', 'xxl']">
         <div class="header">
             <div>
                 <img class="logo" src="@/assets/logoNegre.png" @click="handleRedirectSelector"/>
@@ -11,47 +10,21 @@
                 <a class="pull-left">
                     <router-link :to="{ name: 'login' }">Entra</router-link>
                 </a>
-                <a class="pull-left">
-                    <router-link :to="{ name: 'home' }">Català</router-link>
-                </a>
             </div>
         </div>
-    </MqResponsive>
-
-    <MqResponsive :target="['xs', 'sm', 'md', 'lg']">
-        <div class="header">
-            <div>
-                <img class="logo" src="@/assets/logoNegre.png" @click="handleRedirectSelector"/>
-            </div>
-        </div>
-
-        <div>
-            <VueMultiselect class="multivue"
-                    v-model="selected"
-                    :options="options"
-            >
-            </VueMultiselect>
-        </div>
-
-    </MqResponsive>
 
 </template>
 
 <script>
 import {onMounted, defineComponent} from "vue";
-import {MqResponsive} from "vue3-mq";
 import {updateBreakpoints} from "vue3-mq";
 import {useRouter} from "vue-router";
-import VueMultiselect from 'vue-multiselect'
 
 export default defineComponent({
     name: "publicNavbar",
-    components: {MqResponsive, VueMultiselect},
 
     data () {
       return {
-          selected: null,
-          options: ['About', 'Login', 'Català']
       }
     },
 
@@ -115,10 +88,6 @@ a:hover {
 .links a {
     margin-right: 20px;
     font-size: 18px;
-}
-
-.multivue {
-    width: 40%;
 }
 
 </style>

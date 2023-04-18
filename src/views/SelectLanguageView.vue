@@ -90,10 +90,10 @@
     }
     .languagesContainer{
       display:flex;
-      flex-flow: row wrap;
+      flex-flow: wrap;
     }
     .language{
-      width: 500px;
+      width: 30%;
       display:flex;
       flex-direction: column;
       align-items: center;
@@ -105,5 +105,23 @@
       border-radius: 50%;
       border: #f4eeee 2px solid;
     }
-  
+
+    @media screen and (max-width: 1369px) {
+
+        .studentPic {
+            width: 30%;
+            margin: 40px;
+            border-radius: 50%;
+            border: #d9d9d9 6px solid;
+        }
+
+        .languagePic{
+            width: 70%;
+            margin-top: 30px;
+            border-radius: 50%;
+            border: #f4eeee 2px solid;
+        }
+
+    }
+
   </style>
