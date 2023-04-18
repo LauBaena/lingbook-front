@@ -4,6 +4,7 @@
             <h3>Espai personal</h3>
             <ul>
                 <li><a><router-link :to="{ name: 'allProfiles' }">Veure tots els perfils</router-link></a></li>
+                <li><a><router-link :to="{ name: 'allVideos' }">Tots els vídeos</router-link></a></li>
                 <li><a><router-link :to="{ name: 'allProfiles' }">Usuaris bloquejats</router-link></a></li>
                 <li><a><router-link :to="{ name: 'allProfiles' }">Vídeos eliminats</router-link></a></li>
                 <li><a><router-link :to="{ name: 'allProfiles' }">Missatges eliminats</router-link></a></li>
@@ -38,7 +39,8 @@ export default defineComponent({
         flex-direction: column;
         margin: 20px;
         border: #d9d9d9 4px solid;
-        height: 350px;
+        height: 400px;
+        /* height: 350px; */
     }
     .centralMenu{
         display: flex;
