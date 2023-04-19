@@ -34,7 +34,7 @@
         width: 100%;
         display: flex;
         position: relative;
-        bottom:1px;
+        bottom:0.1px;
         flex-direction: row;
         justify-content: center;
         align-items: center;
