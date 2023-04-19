@@ -33,7 +33,8 @@
     .footerLinks {
         width: 100%;
         display: flex;
-        position: absolute;
+        position: relative;
+        bottom:0.1px;
         flex-direction: row;
         justify-content: center;
         align-items: center;

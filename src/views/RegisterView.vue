@@ -138,6 +138,7 @@
 #form {
   position: relative;
   width:22%;
+  min-width:310px;
   height:auto;
   background-color: rgb(236, 236, 236);
   margin:auto;
@@ -150,7 +151,7 @@
 }
 input.form-style{
     color:#8a8a8a;
-    width: 95%;
+    width: 95%;    
     height: 40px;
     padding: 3px 5%;
     border:1px solid #ccc;

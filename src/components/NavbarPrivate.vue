@@ -65,8 +65,8 @@ export default defineComponent({
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-evenly;
+    /*align-items: center;*/
 }
 
 .logo {
@@ -94,13 +94,13 @@ a {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin: 40px;
+    margin: 10px;
     padding: 0;
 }
 
 .links a {
-    margin-right: 20px;
-    font-size: 18px;
+    margin-left: 20px;
+ /*   font-size: 18px;*/
 }
 
 @media screen and (max-width: 1369px) {

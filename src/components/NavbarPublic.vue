@@ -70,7 +70,7 @@ a {
     font-size: 24px !important;
     color: #58bff6;
     text-decoration: none;
-    padding-right: 40px;
+    padding-right: 10px;
     /* margin-left: 30px; */
 }
 
@@ -81,12 +81,12 @@ a:hover {
 .links {
     display: flex;
     align-items: center;
-    margin: 40px;
+    margin: 10px;
     padding: 0;
 }
 
 .links a {
-    margin-right: 20px;
+    margin-right: 10px;
     font-size: 18px;
 }
 

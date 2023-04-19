@@ -97,10 +97,11 @@
     #form {
         position: relative;
         width:22%;
+        min-width:300px;
         height:auto;
         background-color: rgb(236, 236, 236);
-        margin:auto;
-        margin-top:28px;
+        margin:auto ;
+       margin-top:28px;
         border-radius: 15px;
         padding:20px;
         padding-top: 25px;
