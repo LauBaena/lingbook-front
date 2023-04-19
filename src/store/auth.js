@@ -19,6 +19,12 @@ const eraseCookie = (name) => {
   document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 };
 
+// Funció per afegir un REGEX alhora de crear una contrasenya: entre 6-12 caràcters, una majúscula, una minúscula i un número
+const validatePassword = (password) => {
+  const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$/;
+  return regex.test(password);
+};
+
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     isAuth: false,
@@ -117,6 +123,12 @@ export const useAuthStore = defineStore("auth", {
         type = "1";
       }else{
         type = "2";
+      }
+
+      // Validador del REGEX de la contrasenya introduïda
+      if (!validatePassword(nouUser.password)) {
+        alert("La contrasenya ha de tenir entre 6 i 12 caràcters, així com una lletra majúscula, una minúscula i un número");
+        return;
       }
 
       let myDataAsJSON = JSON.stringify({
