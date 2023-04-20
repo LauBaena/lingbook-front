@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="form-item">
-                    <p class="pull-left"><router-link :to="{ name: 'login' }"><small>Ja tens compte? Entra a Lingbook</small></router-link></p>
+                    <p class="pull-left goToRegister"><router-link :to="{ name: 'login' }"><small>Ja tens compte? Entra a Lingbook</small></router-link></p>
                     <input type="submit" class="login pull-right" value="Registra't">
                     <div class="clear-fix"></div>
                 </div>
@@ -179,6 +179,7 @@ div.form-item .form-style:focus{
 }
 .nom {
     display: inline-block;
+    margin-right: 25px;
 }
 .cognom {
     display: inline-block;
@@ -186,12 +187,13 @@ div.form-item .form-style:focus{
 .correu{
     display: inline-block;
     position: relative;
+    margin-right: 25px;
 }
 .checkbox{
     position:absolute;
     display: inline-block;
-    bottom: 18em;
-    left: 20em;
+    /* bottom: 18em; */
+    /* left: 20em; */
 }
 
 .contrasenya:first-child{
@@ -231,6 +233,10 @@ input[type="submit"].login:hover{
     color:#55b1df; 
     cursor:pointer;
 }
+.goToRegister{
+        position:absolute;
+        margin-top:110px;
+    }
 
 @media screen and (max-width: 719px) {
     #form {
@@ -245,10 +251,14 @@ input[type="submit"].login:hover{
         display: inline-block;
         text-align: center;
         bottom: 10px;
-        left: 10px;
+        left: 20px;
 
     }
 
+    .goToRegister{
+        position:absolute;
+        margin-top:110px;
+    }
 }
 
 
@@ -266,10 +276,14 @@ input[type="submit"].login:hover{
         display: inline-block;
         text-align: center;
         bottom: 15px;
-        left: 10px;
+        left: 20px;
 
     }
 
+    .goToRegister{
+        position:absolute;
+        margin-top:110px;
+    }
 }
 
 @media screen and (min-width: 912px) and (max-width: 1369px){
@@ -286,19 +300,30 @@ input[type="submit"].login:hover{
         display: inline-block;
         text-align: center;
         bottom: 10px;
-        left: 10px;
+        left: 20px;
 
     }
 
+    .goToRegister{
+        position:absolute;
+        margin-top:110px;
+    }
 }
 
 @media screen and (min-width: 1370px) and (max-width: 1699px){
 
 
     .checkbox{
-        left: 50px;
-        bottom: 20px;
+        position:absolute;
+        display: inline-block;
+        text-align: center;
+        bottom: 10px;
+        left: 20px;
     }
 
+    .goToRegister{
+        position:absolute;
+        margin-top:110px;
+    }
 }
 </style>
