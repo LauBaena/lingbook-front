@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="form-item">
-                    <p class="pull-left goToRegister"><router-link :to="{ name: 'login' }"><small>Ja tens compte? Entra a Lingbook</small></router-link></p>
+                    <p class="pull-left goToLogin"><router-link :to="{ name: 'login' }"><small>Ja tens compte? Entra a Lingbook</small></router-link></p>
                     <input type="submit" class="login pull-right" value="Registra't">
                     <div class="clear-fix"></div>
                 </div>
@@ -233,14 +233,14 @@ input[type="submit"].login:hover{
     color:#55b1df; 
     cursor:pointer;
 }
-.goToRegister{
+.goToLogin{
         position:absolute;
         margin-top:110px;
     }
 
 @media screen and (max-width: 719px) {
     #form {
-
+        min-height: 715px;
         width: 50vw;
         flex-wrap: wrap;
 
@@ -250,22 +250,17 @@ input[type="submit"].login:hover{
         position:absolute;
         display: inline-block;
         text-align: center;
-        bottom: 10px;
         left: 20px;
-
+        top: 38em;
     }
 
-    .goToRegister{
-        position:absolute;
-        margin-top:110px;
-    }
 }
 
 
 @media screen and (min-width: 720px) and (max-width: 1019px){
 
     #form {
-
+        min-height: 715px;
         width: 30vw;
         flex-wrap: wrap;
 
@@ -275,21 +270,17 @@ input[type="submit"].login:hover{
         position:absolute;
         display: inline-block;
         text-align: center;
-        bottom: 15px;
         left: 20px;
+        top: 38em;
 
     }
 
-    .goToRegister{
-        position:absolute;
-        margin-top:110px;
-    }
 }
 
 @media screen and (min-width: 912px) and (max-width: 1369px){
 
     #form {
-
+        min-height: 715px;
         width: 30vw;
         flex-wrap: wrap;
 
@@ -299,31 +290,42 @@ input[type="submit"].login:hover{
         position:absolute;
         display: inline-block;
         text-align: center;
-        bottom: 10px;
         left: 20px;
+        top: 38em;
 
     }
 
-    .goToRegister{
-        position:absolute;
-        margin-top:110px;
-    }
 }
 
 @media screen and (min-width: 1370px) and (max-width: 1699px){
+
+
+    #form {
+        min-height: 715px;
+    }
+
 
 
     .checkbox{
         position:absolute;
         display: inline-block;
         text-align: center;
-        bottom: 10px;
         left: 20px;
+        top: 38em;
     }
 
-    .goToRegister{
-        position:absolute;
-        margin-top:110px;
+}
+
+@media screen and (min-width: 1699px){
+
+    #form {
+        min-height: 500px;
     }
+
+    .goToLogin{
+        position:absolute;
+        margin-top:50px;
+    }
+
 }
 </style>

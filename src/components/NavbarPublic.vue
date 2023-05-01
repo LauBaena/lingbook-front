@@ -90,4 +90,25 @@ a:hover {
     font-size: 18px;
 }
 
+/*
+Media queries
+ */
+@media screen and (max-width: 1199px) {
+
+    .logo {
+        cursor: pointer;
+        width: 100%;
+        margin: 40px;
+    }
+
+    .links {
+        display: flex;
+        align-items: center;
+        margin: 40px;
+        padding-left: 80px;
+    }
+
+}
+
+
 </style>

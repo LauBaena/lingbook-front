@@ -6,6 +6,7 @@
                 <li><a href="" >Les meves classes</a></li>
                 <li><a href="" >Els meus vídeos</a></li>
                 <li><a href="" >Els meus missatges</a></li>
+                <li><a><router-link :to="{ name: 'allLanguages' }">Idioma que ensenyo</router-link></a></li>
             </ul>
         </div>
         <div class="centralMenu">
