@@ -4,7 +4,7 @@
             <h3>Espai personal</h3>
             <ul>
                 <li><a href="" >Les meves classes</a></li>
-                <li><a href="" >Els meus vídeos</a></li>
+                <li><a><router-link :to="{ name: 'userVideos' }">Els meus vídeos</router-link></a></li>
                 <li><a href="" >Els meus missatges</a></li>
                 <li><a><router-link :to="{ name: 'allLanguages' }">Idioma que ensenyo</router-link></a></li>
             </ul>

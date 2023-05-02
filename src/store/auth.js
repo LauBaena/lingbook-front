@@ -152,7 +152,7 @@ export const useAuthStore = defineStore("auth", {
         } 
       });
 
-      if(data === 0){
+      if(data !== 0){
         if(type === "alumn"){
           alert("Nou alumne registrat: " + nouUser.name)
         }else if (type === "teacher"){
