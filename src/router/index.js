@@ -72,6 +72,13 @@ const routes = [
     meta: {requiresAuth: true}
   },
   {
+    path: "/teacher/:id/classes",
+    name: "teacherClass",
+    component: () =>
+        import( "../views/MyNextClassesView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
     path: "/termsofuse",
     name: "termsOfUse",
     component: () =>
