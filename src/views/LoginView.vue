@@ -188,5 +188,75 @@
     input[type="submit"].login:focus{
         outline: none;
     }
+
+    @media screen and (max-width: 719px) {
+        #form {
+
+            width: 50vw;
+            flex-wrap: wrap;
+
+        }
+
+        .checkbox{
+            position:absolute;
+            display: inline-block;
+            text-align: center;
+            bottom: 10px;
+            left: 10px;
+
+        }
+
+    }
+
+
+    @media screen and (min-width: 720px) and (max-width: 1019px){
+
+        #form {
+
+            width: 30vw;
+            flex-wrap: wrap;
+
+        }
+
+        .checkbox{
+            position:absolute;
+            display: inline-block;
+            text-align: center;
+            bottom: 15px;
+            left: 10px;
+
+        }
+
+    }
+
+    @media screen and (min-width: 912px) and (max-width: 1369px){
+
+        #form {
+
+            width: 30vw;
+            flex-wrap: wrap;
+
+        }
+
+        .checkbox{
+            position:absolute;
+            display: inline-block;
+            text-align: center;
+            bottom: 10px;
+            left: 10px;
+
+        }
+
+    }
+
+    @media screen and (min-width: 1370px) and (max-width: 1699px){
+
+
+        .checkbox{
+            left: 50px;
+            bottom: 20px;
+        }
+
+    }
 </style>
   

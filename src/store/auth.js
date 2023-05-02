@@ -31,6 +31,7 @@ export const useAuthStore = defineStore("auth", {
     authUser: {},
     token: null,
     authUserCompleteName: "",
+    teacherLanguage: "",
   }),
 
   getters: {
