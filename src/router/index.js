@@ -71,22 +71,14 @@ const routes = [
       import(/* webpackChunkName: "login" */ "../views/AllVideosView.vue"),
     meta: {requiresAuth: true}
   },
+
   {
-<<<<<<< HEAD
-    path: "/teacher/:id/classes",
-    name: "teacherClass",
-    component: () =>
-        import( "../views/MyNextClassesView.vue"),
-    meta: {requiresAuth: true}
-  },
-=======
     path: "/userVideos",
     name: "userVideos",
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/UserVideosView.vue"),
     meta: {requiresAuth: true}
-  },   
->>>>>>> c9da0800becd94d2ec46cbc47e0e03c81cf0eee7
+  },
   {
     path: "/termsofuse",
     name: "termsOfUse",
