@@ -24,6 +24,15 @@ export const useVideosStore = defineStore("videos", {
             console.log(error.response.status);
             } 
         });
+
+        data.map(video => {
+          console.log("ER LINK " + video.link);
+          //console.log(video.title);
+          //console.log(video.description);
+          //console.log(video.url);
+        });
+
+
         console.log(data)
         this.modify_data(data)
     },
@@ -37,5 +46,77 @@ export const useVideosStore = defineStore("videos", {
         this.videos = data;
         console.log(this.videos)
     },
-  },  
+
+    async fetchUserVideos(id_usuari){
+      const {data} = await axios.get("/teacher/"+id_usuari+"/videos", {
+          headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+          }
+      })
+      .catch(function (error) {
+          if (error.response) {
+          console.log(error.response.status);
+          } 
+      });
+
+      data.map(video => {
+        console.log("ER LINK " + video.link);
+        //console.log(video.title);
+        //console.log(video.description);
+        //console.log(video.url);
+      });
+
+
+      console.log(data)
+      this.modify_data(data)
+  },
+
+    async addVideo(dadesVideo){
+
+      console.log(dadesVideo)
+
+      let myDataAsJSON = JSON.stringify ({
+        "link": dadesVideo.url,
+        "id": dadesVideo.id_user,
+      });
+
+      let dades = JSON.parse(myDataAsJSON);
+
+      console.log("L'url back"+ "/teacher/"+ dades.id + "/video");
+      console.log("Link video "+ dades.link);
+
+      const {data} = await axios.post("/teacher/" + dades.id + "/video",  {
+        link: dades.link,
+        description: "Alludame porfabor y funca"
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+        }
+      })
+
+
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.status);
+        } 
+      });
+
+      console.log("La DATA "+ data);
+
+      if(data === true){
+        alert("Video afegit");
+        /*if(type === "alumn"){
+          alert("Nou alumne registrat: " + nouUser.name)
+        }else if (type === "teacher"){
+          alert("Nou docent registrat: " + nouUser.name)
+        }
+        await router.push({ path: "/login" });*/
+      }else{
+        alert("No s'ha pogut afegir el video")
+      }
+    },
+  },
+    
 });
