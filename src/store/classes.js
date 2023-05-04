@@ -33,6 +33,11 @@ export const useClassesStore = defineStore("classes", {
                 console.log(classe.name);
             });
 
+            if(!data){
+                alert("No hi ha cap classe programada");
+            }else{
+                this.classes = data;
+            }
             console.log(data)
         }
     },

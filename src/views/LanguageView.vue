@@ -12,12 +12,15 @@
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
             <template v-slot:firstContent>
                 <div class="languageTitle">
-                    <h2>{{ languagesStore.language.name }}</h2>
+                    <!-- <h2>{{ languagesStore.language.name }}</h2> -->
                     <!-- <img class="languagePic" :src="getImage()" :alt="`${languagesStore.language.name} flag`"> -->
                 </div>
             </template>
             <template v-slot:secondContent>
                 <h4>Llistat de professors</h4>
+                <div class="teachersContainer">
+                  <TeacherCard class="teacher" v-for="teacher in teachers" :key="teacher.id_user" :teacher="teacher" @click="goToTeacherView(teacher.id_user)"/>
+                </div>
             </template>
         </StudentMenu>
         <AdminMenu v-else >
@@ -31,11 +34,14 @@
 <script>
 import { useAuthStore } from "@/store/auth";
 import { useLanguagesStore } from "@/store/languages";
+import { useUsersStore } from "@/store/users";
 import { computed } from "vue";
 import { onBeforeMount } from "@vue/runtime-core";
 import StudentMenu from "@/components/StudentMenu.vue";
 import TeacherMenu from "@/components/TeacherMenu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
+import TeacherCard from '../components/TeacherCard.vue';
+import {useRouter} from "vue-router";
 
 export default {
   name: "LanguageView",
@@ -43,6 +49,7 @@ export default {
     StudentMenu,
     TeacherMenu,
     AdminMenu,
+    TeacherCard,
   },
   props: {
     id: {
@@ -51,13 +58,24 @@ export default {
     },
   },
   setup(props) {
+    const router = useRouter();
     const languagesStore = useLanguagesStore();
     const authStore = useAuthStore();
+    const usersStore = useUsersStore();
     const authUser = computed(() => {
         return authStore.authUser;
     });
 
-    onBeforeMount(async () => await languagesStore.fetchLanguage(props.id));
+    // onBeforeMount(async () => await languagesStore.fetchLanguage(props.id));
+    onBeforeMount(async () => await usersStore.fetchTeachersByLanguage(props.id));
+
+    const teachers = computed(() => {
+            return usersStore.teachersByLanguage;
+    });
+
+    const goToTeacherView = (id) => {
+            router.push({path: `/teacher/${id}`});
+    };
 
     // const getImage = computed(() => {
     //     console.log(`../assets/${languagesStore.language.image}`)
@@ -73,6 +91,8 @@ export default {
       languagesStore,
       authStore,
       authUser,
+      teachers,
+      goToTeacherView,
     //   getImage,
     };
   }
@@ -102,5 +122,13 @@ export default {
     width: 5%;
     border-radius: 50%;
     border: #f4eeee 2px solid;
+  }
+  .teachersContainer{
+    display:flex;
+    flex-flow: row wrap;
+  }
+
+  .teacher{
+    width: 30%;
   }
 </style>

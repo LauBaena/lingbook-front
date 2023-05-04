@@ -5,6 +5,7 @@ export const useUsersStore = defineStore("users", {
   state: () => ({
     users: [],
     user: undefined,
+    teachersByLanguage:[],
   }),
 
   getters: {
@@ -74,6 +75,24 @@ export const useUsersStore = defineStore("users", {
       data.surname = data.surname.charAt(0).toUpperCase() + data.surname.slice(1);
 
       this.user = data;
+    },
+
+    //Funció que accedeix a tots els usuaris professors segons llengua
+    async fetchTeachersByLanguage(language_id){
+      this.teachersByLanguage = [];
+      const {data} = await axios.get("/languages/" + language_id +" /teachers", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+        }
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.status);
+        } 
+      });
+      this.teachersByLanguage = data;
+      console.log(this.teachersByLanguage)
     },
   },  
 });
