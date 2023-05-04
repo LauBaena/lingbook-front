@@ -7,7 +7,6 @@
         <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
             <template v-slot:firstContent>
                     <h2>Selecciona una llengua disponible</h2>
-
                     <div class="languagesContainer">
                         <div v-if="authStore.teacherLanguage === ''">
                             <label class="languageRadio"
@@ -35,7 +34,7 @@
                     <div class="language" v-for="language in languagesStore.languages" :key="language.id_language"
                          :language="language">
                         <img class="languagePic" :src="getImage(language.image)" :alt="`${language.name} flag`"
-                             @click="goToLanguage(language.id_language)">
+                            @click="goToLanguage(language.id_language)">
                         <p>{{ language.name }}</p>
                     </div>
                 </div>
@@ -72,7 +71,6 @@ export default {
         const router = useRouter();
         const picked = ref("");
 
-
         onBeforeMount(async () => await languagesStore.fetchAllLanguages());
 
         const authUser = computed(() => {
@@ -89,9 +87,11 @@ export default {
         };
 
         function disableRadio(picked) {
-            //if (picked !== "") {
-                authStore.teacherLanguage = picked;
-            //}
+            // console.log(authStore.teacherLanguage)
+            if (picked !== "") {
+                authStore.modifyTeachersLanguage(picked);
+                // console.log(authStore.teacherLanguage)
+            }
             //return authStore.teacherLanguage != "";
         }
 

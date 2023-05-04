@@ -43,21 +43,21 @@ const routes = [
     path: "/allProfiles",
     name: "allProfiles",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/AllProfilesView.vue"),
+      import(/* webpackChunkName: "allProfiles" */ "../views/AllProfilesView.vue"),
     meta: {requiresAuth: true}
   },
   {
     path: "/allLanguages",
     name: "allLanguages",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/SelectLanguageView.vue"),
+      import(/* webpackChunkName: "allLanguages" */ "../views/SelectLanguageView.vue"),
     meta: {requiresAuth: true}
   },
   {
     path: "/language/:id",
     name: "language",
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/LanguageView.vue"),
+      import(/* webpackChunkName: "language" */ "../views/LanguageView.vue"),
     props: (route) => {
       const id = route.params.id;
       return id ? { id } : { id: "" };
@@ -68,7 +68,7 @@ const routes = [
     path: "/allVideos",
     name: "allVideos",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/AllVideosView.vue"),
+      import(/* webpackChunkName: "allVideos" */ "../views/AllVideosView.vue"),
     meta: {requiresAuth: true}
   },
   {
@@ -82,7 +82,25 @@ const routes = [
     path: "/userClasses",
     name: "userClasses",
     component: () =>
-        import(/* webpackChunkName: "login" */ "../views/UserClassView.vue"),
+        import(/* webpackChunkName: "userClasses" */ "../views/UserClassView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/userMessages",
+    name: "userMessages",
+    component: () =>
+      import(/* webpackChunkName: "userMessages" */ "../views/MessagesView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/teacher/:id",
+    name: "teacherView",
+    component: () =>
+      import(/* webpackChunkName: "teacherView" */ "../views/TeacherView.vue"),
+    props: (route) => {
+      const id = route.params.id;
+      return id ? { id } : { id: "" };
+    },
     meta: {requiresAuth: true}
   },
   {

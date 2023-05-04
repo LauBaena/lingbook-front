@@ -62,6 +62,7 @@ export const useLanguagesStore = defineStore("languages", {
 
     //Funció que accedeix a la llengua amb l'id passat per paràmetre i la desa a la variable 'language'
     async fetchLanguage(id){
+      console.log(id)
         const {data} = await axios.get("/languages/" + id, {
           headers: {
             "Content-Type": "application/json",

@@ -5,7 +5,7 @@
             <ul>
                 <li><a href="" >Properes classes</a></li>
                 <li><a href="">Les meves llengües</a></li>
-                <li><a href="">Els meus comentaris</a></li>
+                <li><a><router-link :to="{ name: 'userMessages' }">Els meus missatges</router-link></a></li>
             </ul>
             <a><router-link :to="{ name: 'allLanguages' }"><p>Cerca un professor</p></router-link></a>
         </div>
