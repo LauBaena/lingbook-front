@@ -163,5 +163,11 @@ export const useAuthStore = defineStore("auth", {
         alert("Compte d'usuari ja existent")
       }
     },
-  },  
+    //Funció que modifica la llengua de l'usuari Profesor
+    async modifyTeachersLanguage(language) {
+      console.log(language)
+      this.teacherLanguage = language;
+      console.log(this.teacherLanguage)
+    },
+  },
 });

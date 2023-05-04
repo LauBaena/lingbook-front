@@ -9,6 +9,7 @@
                 <h2>Les meves classes</h2>
                 <h3>Les meves properes classes</h3>
                 <div v-for="classe in classesStore.classes" :key="classe.id_room"></div>
+                <div>{{ classesStore.classes.id_room }}</div>
                 <h3>Afegeix una nova classe</h3>
             </template>
         </TeacherMenu>
@@ -48,7 +49,7 @@ export default {
         const classesStore = useClassesStore();
         const authStore = useAuthStore();
 
-        onBeforeMount(async  () => await classesStore.fetchUserClasses());
+        onBeforeMount(async  () => await classesStore.fetchUserClasses(authStore.authUser.id_user));
 
         const authUser = computed(() => {
             return authStore.authUser;

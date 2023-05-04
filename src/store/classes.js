@@ -23,6 +23,7 @@ export const useClassesStore = defineStore("classes", {
                         console.log(error.response.status);
                     }
                 });
+
             data.map(classe => {
                 console.log(classe.id_room);
                 console.log(classe.capacity);
@@ -33,6 +34,12 @@ export const useClassesStore = defineStore("classes", {
                 console.log(classe.name);
             });
 
+            if(!data){
+                alert("No hi ha cap classe programada")
+            }else {
+                this.classes = data;
+                console.log(this.classes)
+            }
             console.log(data)
         }
     },

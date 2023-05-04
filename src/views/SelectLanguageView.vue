@@ -89,9 +89,9 @@ export default {
         };
 
         function disableRadio(picked) {
-            //if (picked !== "") {
-                authStore.teacherLanguage = picked;
-            //}
+            if (picked !== "") {
+                authStore.modifyTeachersLanguage(picked);
+            }
             //return authStore.teacherLanguage != "";
         }
 
