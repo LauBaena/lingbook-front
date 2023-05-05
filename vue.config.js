@@ -5,3 +5,4 @@ module.exports = defineConfig({
     proxy: 'http://www.lingbook.cat.mialias.net/lingbook'
   }
 })
+
