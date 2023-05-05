@@ -92,7 +92,6 @@ export const useUsersStore = defineStore("users", {
         } 
       });
       this.teachersByLanguage = data;
-      console.log(this.teachersByLanguage)
     },
   },  
 });

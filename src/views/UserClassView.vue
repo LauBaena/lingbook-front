@@ -48,7 +48,7 @@ export default {
         const classesStore = useClassesStore();
         const authStore = useAuthStore();
 
-        onBeforeMount(async  () => await classesStore.fetchUserClasses());
+        onBeforeMount(async  () => await classesStore.fetchUserClasses(authStore.authUser.id_user));
 
         const authUser = computed(() => {
             return authStore.authUser;
