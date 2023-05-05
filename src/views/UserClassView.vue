@@ -8,15 +8,45 @@
             <template v-slot:firstContent>
                 <h2>Les meves classes</h2>
                 <h3>Les meves properes classes</h3>
-                <div v-for="classe in classesStore.classes" :key="classe.id_room"></div>
-                <div>{{ classesStore.classes.id_room }}</div>
-                <h3>Afegeix una nova classe</h3>
+                <table>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Descripció</th>
+                        <th>Capacitat</th>
+                        <th>Data</th>
+                    </tr>
+                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
+                        <td>{{ classe.name }}</td>
+                        <td>{{ classe.description }}</td>
+                        <td>{{ classe.capacity }}</td>
+                        <td>{{ classe.DATA }}</td>
+                    </tr>
+                </table>
+
+                 <h3>Afegeix una nova classe</h3>
             </template>
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
             <template v-slot:firstContent>
-                <h2>No pots accedir a aquesta vista</h2>
+                <h2>Les meves classes</h2>
+                <h3>Les meves properes classes</h3>
+                <table>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Descripció</th>
+                        <th>Capacitat</th>
+                        <th>Data</th>
+                    </tr>
+                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
+                        <td>{{ classe.name }}</td>
+                        <td>{{ classe.description }}</td>
+                        <td>{{ classe.capacity }}</td>
+                        <td>{{ classe.DATA }}</td>
+                    </tr>
+                </table>
+
             </template>
+
         </StudentMenu>
         <AdminMenu v-else >
             <template v-slot:firstContent>
@@ -50,6 +80,11 @@ export default {
         const authStore = useAuthStore();
 
         onBeforeMount(async  () => await classesStore.fetchUserClasses(authStore.authUser.id_user));
+        onBeforeMount(async  () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
+
+        const classes = computed(() => {
+            return classesStore.classes;
+        });
 
         const authUser = computed(() => {
             return authStore.authUser;
@@ -59,6 +94,7 @@ export default {
             classesStore,
             authStore,
             authUser,
+            classes,
         };
     }
 };
