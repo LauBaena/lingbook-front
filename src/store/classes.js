@@ -39,6 +39,6 @@ export const useClassesStore = defineStore("classes", {
                 this.classes = data;
             }
             console.log(data)
-        }
+        },
     },
 });
