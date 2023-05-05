@@ -84,6 +84,7 @@ export default {
 
         function afegirVideo() {
             videosStore.addVideo(addVideoForm.value)
+            videosStore.addVideo(addVideoForm.value)
         }
 
         onBeforeMount(async () => await videosStore.fetchUserVideos(addVideoForm.value.id_user));

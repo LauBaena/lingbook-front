@@ -11,7 +11,7 @@ export const useClassesStore = defineStore("classes", {
     },
 
     actions: {
-        async fetchUserClasses(id_user) {
+        async fetchTeacherClasses(id_user) {
             const { data } = await axios.get("/teacher/" + id_user + "/classes", {
                 headers: {
                     "Content-Type": "application/json",
@@ -23,16 +23,6 @@ export const useClassesStore = defineStore("classes", {
                         console.log(error.response.status);
                     }
                 });
-
-            data.map(classe => {
-                console.log(classe.id_room);
-                console.log(classe.capacity);
-                console.log(classe.updated_at);
-                console.log(classe.description);
-                console.log(classe.DATA);
-                console.log(classe.id_language);
-                console.log(classe.name);
-            });
 
             if(!data){
                 alert("No hi ha cap classe programada");
@@ -54,16 +44,6 @@ export const useClassesStore = defineStore("classes", {
                     }
                 });
 
-            data.map(classe => {
-                console.log(classe.id_room);
-                console.log(classe.capacity);
-                console.log(classe.updated_at);
-                console.log(classe.description);
-                console.log(classe.DATA);
-                console.log(classe.id_language);
-                console.log(classe.name);
-            });
-
             if(!data){
                 alert("No hi ha cap classe programada");
             }else{
@@ -71,5 +51,47 @@ export const useClassesStore = defineStore("classes", {
             }
             console.log(data)
         },
+        async addClasse(dadesClasse){
+
+            console.log(dadesClasse)
+
+            let myDataAsJSON = JSON.stringify ({
+                "name": dadesClasse.name,
+                "description": dadesClasse.description,
+                "capacity": dadesClasse.capacity,
+                "data": dadesClasse.data,
+            });
+
+            let dades = JSON.parse(myDataAsJSON);
+
+            console.log("/teacher/"+ dades.id + "/class");
+            console.log("Nom classe "+ dades.name);
+
+            const {data} = await axios.post("/teacher/" + dades.id + "/class",  {
+                name: dades.name,
+                description: dades.description,
+                capacity: dades.capacity,
+                data: dades.data,
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+                }
+            })
+
+                .catch(function (error) {
+                    if (error.response) {
+                        console.log(error.response.status);
+                    }
+                });
+
+            console.log(data);
+
+            if(data === true){
+                alert("Classe afegida");
+            }else{
+                alert("No s'ha pogut afegir la classe")
+            }
+        }
     },
 });
