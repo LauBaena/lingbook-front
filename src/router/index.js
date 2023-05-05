@@ -93,6 +93,13 @@ const routes = [
     meta: {requiresAuth: true}
   },
   {
+    path: "/studentLanguages",
+    name: "studentLanguages",
+    component: () =>
+      import(/* webpackChunkName: "studentLanguages" */ "../views/StudentLanguages.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
     path: "/teacher/:id",
     name: "teacherView",
     component: () =>

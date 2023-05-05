@@ -11,10 +11,10 @@
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
             <template v-slot:firstContent>
-
-            </template>
-            <template v-slot:secondContent>
-
+              <h2>Els meus missatges</h2>
+              <div class="messagesContainer">
+                <MessageCard class="message" v-for="message in messages" :key="message.id_message" :message="message"/>
+              </div>            
             </template>
         </StudentMenu>
         <AdminMenu v-else >
@@ -27,10 +27,13 @@
 
 <script>
 import { useAuthStore } from "@/store/auth";
+import { useMessagesStore } from "@/store/messages";
 import { computed } from "vue";
+import {onBeforeMount} from "@vue/runtime-core";
 import StudentMenu from "@/components/StudentMenu.vue";
 import TeacherMenu from "@/components/TeacherMenu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
+import MessageCard from '../components/MessageCard.vue';
 
 export default {
   name: "MessagesView",
@@ -38,22 +41,26 @@ export default {
     StudentMenu,
     TeacherMenu,
     AdminMenu,
-  },
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
+    MessageCard
   },
   setup() {
     const authStore = useAuthStore();
+    const messagesStore = useMessagesStore();
     const authUser = computed(() => {
-        return authStore.authUser;
+      return authStore.authUser;
+    });
+
+    onBeforeMount(async () => await messagesStore.fetchUserMessages(authStore.authUser.id_user));
+
+    const messages = computed(() => {
+      return messagesStore.messages;
     });
 
     return {
       authStore,
+      messagesStore,
       authUser,
+      messages,
     };
   }
 };
@@ -72,4 +79,13 @@ export default {
         align-items: center;
     }
 
+  .messagesContainer{
+    display:flex;
+    flex-direction: column;
+  }
+
+  .message{
+    
+    cursor:pointer;
+  }
 </style>
