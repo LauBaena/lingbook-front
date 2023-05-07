@@ -6,7 +6,7 @@
                     <div data-plyr-provider="youtube" :data-plyr-embed-id="video.shortLink"></div>
                 </vue-plyr>
                 <p>Data creació: {{ video.created_at }}</p>
-                <a @click="goToVideoView(video.id_video)">Ves al vídeo</a>
+                <div class="clicable" @click="goToVideoView(video.id_video)">Ves al vídeo</div>
             </div>
         </div>
     </div>
@@ -60,7 +60,14 @@
         width: 100%;
         margin-bottom: 70px;
     }
-
+    .clicable {
+        font-weight: bold;
+        margin-top: 10px;
+        cursor: default;
+    }
+    .clicable:hover {
+        cursor: pointer  !important;;
+    }
     @media screen and (max-width: 1369px) {
 
         .videoCard{

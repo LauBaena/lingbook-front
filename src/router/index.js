@@ -47,6 +47,13 @@ const routes = [
     meta: {requiresAuth: true}
   },
   {
+    path: "/deletedProfiles",
+    name: "deletedProfiles",
+    component: () =>
+      import(/* webpackChunkName: "allProfiles" */ "../views/DeletedProfilesView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
     path: "/allLanguages",
     name: "allLanguages",
     component: () =>
@@ -69,6 +76,13 @@ const routes = [
     name: "allVideos",
     component: () =>
       import(/* webpackChunkName: "allVideos" */ "../views/AllVideosView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/deletedVideos",
+    name: "deletedVideos",
+    component: () =>
+      import(/* webpackChunkName: "allVideos" */ "../views/DeletedVideosView.vue"),
     meta: {requiresAuth: true}
   },
   // {

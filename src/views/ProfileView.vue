@@ -27,7 +27,17 @@
     <AdminMenu v-else >
       <template v-slot:firstContent>
         <h2>Darrers vídeos publicats a la plataforma</h2>
-        <p>Espai en construcció</p>
+        <div class="videosContainer">
+          <div class="videoCard" v-for="video in videosStore.videos.slice(-6)" :key="video.id_video" :video="video">
+            <div class="playerContainer">
+              <vue-plyr>
+                <div data-plyr-provider="youtube" :data-plyr-embed-id="video.shortLink"></div>
+              </vue-plyr>
+              <p>Data creació: {{ video.created_at }}</p>
+              <a class="clicable" @click="goToVideoView(video.id_video)">Ves al vídeo</a>
+            </div>
+          </div>   
+        </div>
       </template>
       <template v-slot:secondContent>
         <h2>Darrers vídeos que han rebut missatges</h2>
@@ -43,6 +53,9 @@ import { computed } from "vue";
 import StudentMenu from "@/components/StudentMenu.vue";
 import TeacherMenu from "@/components/TeacherMenu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
+import {useVideosStore} from "@/store/videos";
+import {onBeforeMount} from "@vue/runtime-core";
+import {useRouter} from "vue-router";
 
 export default {
   name: "ProfileView",
@@ -51,15 +64,37 @@ export default {
     TeacherMenu,
     AdminMenu,
   },
-  setup() {
+  props: {
+    id: {
+      type: String,
+      required: true,
+    },
+  },
+
+  setup(props) {
+    const router = useRouter();
     const authStore = useAuthStore();
+    const videosStore = useVideosStore();
     const authUser = computed(() => {
         return authStore.authUser;
     });
 
+    onBeforeMount(async () => {
+        // Agafem tots els vídeos. Enviem "1" per l'statusControl (que el video estigui publicat)
+      await videosStore.fetchAllVideos("0");
+      console.log("videostore",videosStore)
+    });
+
+    const goToVideoView = (id_video) => {
+      
+         router.push({path: `/teacher/${props.id}/video/${id_video}`});
+        };
+
     return {
       authStore,
+      videosStore,
       authUser,
+      goToVideoView,
     };
   }
 };
@@ -76,6 +111,32 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
+  }
+  .videosContainer {
+      display: flex;
+      flex-flow: wrap;
+      padding: 20px;
+  }
+  .videoCard{
+      margin-left: 20px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      width: 30%; 
+  
+  }
+  .playerContainer{
+      width: 100%;    
+  }
+  
+  .clicable {
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: default;
+   }
+  .clicable:hover {
+      cursor: pointer  !important;;
   }
 
   @media screen and (max-width: 1369px) {

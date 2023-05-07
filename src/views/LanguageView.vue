@@ -83,8 +83,9 @@ export default {
     onBeforeMount(async () => await languagesStore.fetchStudentLanguages(authStore.authUser.id_user));
     onBeforeMount(async () => await languagesStore.amIFollowing(props.id));
 
+    // Filtrem si el professor ha estat eliminat
     const teachers = computed(() => {
-            return usersStore.teachersByLanguage;
+        return usersStore.teachersByLanguage;
     });
 
     const goToTeacherView = (id) => {
