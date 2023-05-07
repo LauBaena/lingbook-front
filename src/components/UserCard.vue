@@ -6,6 +6,8 @@
             <h3>{{ user.name }} {{ user.surname }}</h3>
             <p>Data creació: {{ user.created_at }}</p>
             <p>Rol: {{ user.type }}</p>
+            <div v-if=" user.status === '1'" class="button-delete" @click="modificaStatus()">Elimina perfil</div>
+            <div v-if=" user.status === '0'" class="button-delete" @click="modificaStatus()">Restitueix perfil</div>
         </div>
     </div>
 </template>
@@ -13,7 +15,8 @@
 <script>
     import { defineComponent } from 'vue';
     // import {useRouter} from "vue-router";
-
+    import { useUsersStore } from "@/store/users";
+    
     export default defineComponent({
         props: {
             user:{
@@ -21,13 +24,22 @@
                 required: true,
             }
         },
-        setup(){
+        setup(props){
+
+            const usersStore = useUsersStore();
+
+            function modificaStatus() {
+                usersStore.flipStatus(props.user.id_user);
+            }
             // const router = useRouter();
 
             // const goToProfile = (id) => {
             //     router.push({path: `/profile/${id}`});
             // };
             return{
+                usersStore,
+                modificaStatus,
+
                 // goToProfile
             }
         }
@@ -40,6 +52,9 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        margin-bottom: 20px;
+        background-color: #d9d9d9;
+        border-radius: 10px;
     }
     .cardImage{
         width: 100px;
@@ -52,6 +67,28 @@
         text-decoration: inherit;
         color: #05a5d4;
         margin-bottom: 10px;
+    }
+    .button-delete {
+        width: min-content;
+        min-width: 60%;
+        font-weight: bold;
+        margin-bottom: 10px;
+        cursor: default;
+        background-color: #55b1df;
+        max-width: 20%; 
+        color: white;
+        padding: 13px 1%;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        text-align: center;
+        letter-spacing: .8px;
+    }
+    .button-delete:hover {
+        cursor: pointer  !important;;
+        background-color: #fff;
+        border: 1px solid #55b1df;
+        color: #55b1df;
+        cursor: pointer;
     }
     /* a{
         text-decoration: inherit;

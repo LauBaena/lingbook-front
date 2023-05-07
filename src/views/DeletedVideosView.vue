@@ -16,7 +16,7 @@
         </StudentMenu>
         <AdminMenu v-else >
             <template v-slot:firstContent>
-            <h2>Tots els vídeos</h2>
+            <h2>Vídeos eliminats</h2>
             <div class="videosContainer">
                 <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                     <div class="playerContainer">
@@ -28,7 +28,6 @@
                     </div>
                 </div>   
             </div>
-
             </template>
         </AdminMenu>
     </div>
@@ -64,7 +63,7 @@
         const router = useRouter();
         const videosStore = useVideosStore();
         const authStore = useAuthStore();
-        onBeforeMount(async () => await videosStore.fetchAllVideos("0"));
+        onBeforeMount(async () => await videosStore.fetchAllVideos("1"));
     
         const authUser = computed(() => {
             return authStore.authUser;
@@ -84,86 +83,28 @@
   
   <style scoped>
   .studentPic {
-      width: 10%;
-      margin: 40px;
-      border-radius: 50%;
-      border: #d9d9d9 6px solid;
+    width: 10%;
+    margin: 40px;
+    border-radius: 50%;
+    border: #d9d9d9 6px solid;
   }
-  
-  .header {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
+  .header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
-  
   .videosContainer {
-      display: flex;
-      flex-flow: wrap;
-      padding: 20px;
-  }
-  
-  .container {
-      display: flex;
-      align-items: center;
-  }
-  
-  input {
-      margin-left: 5px;
-      color: #8a8a8a;
-      height: 20px;
-      padding: 3px 1%;
-      border: 1px solid #ccc;
-      border-radius: 27px;
-      font-size: 100%;
-      letter-spacing: .8px;
-  }
-  
-  input:focus {
-      outline: none;
-      border: 1px solid #58bff6;
-      color: #58bff6;
-  }
-  
-  .video {
-      width: 30%;
-  }
-  
-  .video-button {
-      margin-left: 30px;
-      width: 112px;
-      height: 40px;
-      border-radius: 20px;
-      background-color: #55b1df;
-      border: none;
-      color: #fff;
-      font-weight: bold;
-  
-  }
-  
-  .video-button:hover {
-      background-color: #fff;
-      border: 1px solid #55b1df;
-      color: #55b1df;
-      cursor: pointer;
-  }
-  
-  .video-button-icon {
-      font-size: 15px;
-      font-weight: bold;
-  }
+    display: flex;
+    flex-flow: wrap;
+    padding: 20px;
+}
   .videoCard{
-      margin-left: 20px;
-      margin-bottom: 40px;
-      display: flex;
-      flex-flow: row wrap;
-      align-items: center;
-      width: 30%; 
-  
+    margin-left: 20px;
+    margin-bottom: 40px;
+    flex-basis: 30%; /* eEstableix un ample bàsic */
+    min-width: 385px; 
+    max-width: 33.33%; 
   }
-  .playerContainer{
-      width: 100%;    
-  }
-  
   .clicable {
       font-weight: bold;
       margin-top: 10px;
@@ -172,7 +113,7 @@
   .clicable:hover {
       cursor: pointer  !important;;
   }
-  
+
   @media screen and (max-width: 1369px) {
   
       .header {
@@ -190,11 +131,7 @@
           width: 20%;
           margin-right: 80px;
       }
-  
-      .video {
-          width: 100%;
-      }
-  
+
       .videoCard{
           margin-left: 20px;
           margin-bottom: 40px;

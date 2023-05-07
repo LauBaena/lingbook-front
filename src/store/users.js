@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+// import router from '../router/index.js';
 
 export const useUsersStore = defineStore("users", {
   state: () => ({
@@ -16,7 +17,7 @@ export const useUsersStore = defineStore("users", {
 
   actions: {
     //Funció que accedeix a tots els usuaris registrats
-    async fetchAllUsers(){
+    async fetchAllUsers(statusControl){
       const {data} = await axios.get("/users/all", {
         headers: {
           "Content-Type": "application/json",
@@ -29,12 +30,13 @@ export const useUsersStore = defineStore("users", {
         } 
       });
 
-      this.modify_data(data);
+      this.modify_data(data,statusControl);
     },
 
     //Funció que modifica els usuaris de l'array passat per paràmetre 
     //Passa el tipus a un string amb el rol corresponent i el nom/cognom amb l'inicial en majúsucles. Desa l'array a la variable 'users'
-    async modify_data(data){
+    async modify_data(data, statusControl){
+      let dadesFiltrades = "";
       for (let i = 0; i < data.length; i++){
         if(data[i].type === "0"){
           data[i].type = 'Administrador/a';
@@ -46,8 +48,14 @@ export const useUsersStore = defineStore("users", {
         data[i].name = data[i].name.charAt(0).toUpperCase() + data[i].name.slice(1);
         data[i].surname = data[i].surname.charAt(0).toUpperCase() + data[i].surname.slice(1);
       }
-
-      this.users = data;
+        // Filtrem per status per saber si l'usuari ha estat eliminat
+      if (statusControl === "0"){
+          dadesFiltrades = data.filter(obj => obj.status !== "0")
+      }
+      if (statusControl === "1"){
+          dadesFiltrades = data.filter(obj => obj.status !== "1")
+      }
+      this.users = dadesFiltrades;
     },
 
     //Funció que accedeix a l'usuari amb l'id passat per paràmetre i el desa a la variable 'user'
@@ -79,6 +87,7 @@ export const useUsersStore = defineStore("users", {
 
     //Funció que accedeix a tots els usuaris professors segons llengua
     async fetchTeachersByLanguage(language_id){
+
       this.teachersByLanguage = [];
       const {data} = await axios.get("/languages/" + language_id +" /teachers", {
         headers: {
@@ -93,5 +102,37 @@ export const useUsersStore = defineStore("users", {
       });
       this.teachersByLanguage = data;
     },
-  },  
+
+    async flipStatus(dadesUser){
+      console.log("DADEs", dadesUser)
+      const {data} = await axios.delete("/users/" + dadesUser,  {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+        }
+      })
+
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.status);
+        } 
+      });
+      console.log(data)
+      // if(data === false){
+      //   alert("No s'ha pogut modificar el Status de l'usuari. Contacta amb el responsable del Back")
+      //   await router.push({ path: "/deletedVideos"});
+      // } else{
+        
+      //   if(controlStatus === "0"){
+      //     alert("Usuari eliminat");
+      //     await router.push({ path: "/allVideos"});
+      //   } 
+      //   if (controlStatus === "1"){
+      //     alert("L'usuari s'ha reactivat");
+      //     await router.push({ path: "/deletedVideos"});
+      //   }
+      // }
+    },
+    
+  }, 
 });
