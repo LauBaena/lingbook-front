@@ -87,7 +87,6 @@ export default {
         };
 
         function disableRadio(picked) {
-            // console.log(authStore.teacherLanguage)
             if (picked !== "") {
                 authStore.modifyTeachersLanguage(picked);
                 // console.log(authStore.teacherLanguage)

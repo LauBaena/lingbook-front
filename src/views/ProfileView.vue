@@ -1,29 +1,56 @@
 <template>
-  <div>
-    <div class="header">
-      <img class="studentPic" src="../assets/student3.jpg" alt="Student's photography">
-      <h1 class="profilePrivate">Espai personal de {{ authStore.authUserCompleteName }} ({{ authStore.authUser.type }})</h1>
-    </div>
-    <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'" >
-      <template v-slot:firstContent>
-        <h2>Les meves properes classes</h2>
-        <p>Espai en construcció</p>
-      </template>
-      <template v-slot:secondContent>
-        <h2>Els meus darrers vídeos que han rebut comentaris</h2>
-        <p>Espai en construcció</p>
-      </template>
-    </TeacherMenu>
-    <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
-      <template v-slot:firstContent>
-        <h2>Les meves properes classes</h2>
-        <p>Espai en construcció</p>
-      </template>
-      <template v-slot:secondContent>
-        <h2>Els darrers vídeos on he comentat</h2>
-        <p>Espai en construcció</p>
-      </template>
-    </StudentMenu>
+    <div>
+        <div class="header">
+            <img class="studentPic" src="../assets/student3.jpg" alt="Student's photography">
+            <h1 class="profilePrivate">Espai personal de {{ authStore.authUserCompleteName }}
+                ({{ authStore.authUser.type }})</h1>
+        </div>
+        <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
+            <template v-slot:firstContent>
+                <h2>Les meves properes classes</h2>
+                <table class="tableRooms">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Descripció</th>
+                        <th>Capacitat</th>
+                        <th>Data</th>
+                    </tr>
+                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
+                        <td>{{ classe.name }}</td>
+                        <td>{{ classe.description }}</td>
+                        <td>{{ classe.capacity }}</td>
+                        <td>{{ classe.DATA }}</td>
+                    </tr>
+                </table>
+            </template>
+            <template v-slot:secondContent>
+                <h2>Els meus darrers vídeos que han rebut comentaris</h2>
+                <p>Espai en construcció</p>
+            </template>
+        </TeacherMenu>
+        <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
+            <template v-slot:firstContent>
+                <h2>Les meves properes classes</h2>
+                <table class="tableRooms">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Descripció</th>
+                        <th>Capacitat</th>
+                        <th>Data</th>
+                    </tr>
+                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
+                        <td>{{ classe.name }}</td>
+                        <td>{{ classe.description }}</td>
+                        <td>{{ classe.capacity }}</td>
+                        <td>{{ classe.DATA }}</td>
+                    </tr>
+                </table>
+            </template>
+            <template v-slot:secondContent>
+                <h2>Els darrers vídeos on he comentat</h2>
+                <p>Espai en construcció</p>
+            </template>
+        </StudentMenu>
     <AdminMenu v-else >
       <template v-slot:firstContent>
         <h2>Darrers vídeos publicats a la plataforma</h2>
@@ -36,7 +63,7 @@
               <p>Data creació: {{ video.created_at }}</p>
               <a class="clicable" @click="goToVideoView(video.id_video)">Ves al vídeo</a>
             </div>
-          </div>   
+          </div>
         </div>
       </template>
       <template v-slot:secondContent>
@@ -48,112 +75,134 @@
 </template>
 
 <script>
-import { useAuthStore } from "@/store/auth";
-import { computed } from "vue";
+import {useAuthStore} from "@/store/auth";
+import { useClassesStore } from "@/store/classes";
+import {useVideosStore} from "@/store/videos";
+import {computed} from "vue";
 import StudentMenu from "@/components/StudentMenu.vue";
 import TeacherMenu from "@/components/TeacherMenu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
-import {useVideosStore} from "@/store/videos";
 import {onBeforeMount} from "@vue/runtime-core";
 import {useRouter} from "vue-router";
 
 export default {
-  name: "ProfileView",
-  components: {
-    StudentMenu,
-    TeacherMenu,
-    AdminMenu,
-  },
-  props: {
-    id: {
-      type: String,
-      required: true,
+    name: "ProfileView",
+    components: {
+        StudentMenu,
+        TeacherMenu,
+        AdminMenu,
     },
-  },
+    props: {
+        id: {
+            type: String,
+            required: true,
+        },
+    },
+    setup(props) {
+        const classesStore = useClassesStore();
+        const router = useRouter();
+        const authStore = useAuthStore();
+        const videosStore = useVideosStore();
+        const classes = computed(() => {
+            return classesStore.classes;
+        });
+        const authUser = computed(() => {
+            return authStore.authUser;
+        });
 
-  setup(props) {
-    const router = useRouter();
-    const authStore = useAuthStore();
-    const videosStore = useVideosStore();
-    const authUser = computed(() => {
-        return authStore.authUser;
-    });
+        onBeforeMount(async () => await classesStore.fetchTeacherClasses(authStore.authUser.id_user));
+        onBeforeMount(async  () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
+        onBeforeMount(async () => {
+            // Agafem tots els vídeos. Enviem "1" per l'statusControl (que el video estigui publicat)
+            await videosStore.fetchAllVideos("0");
+            console.log("videostore",videosStore)
+        });
 
-    onBeforeMount(async () => {
-        // Agafem tots els vídeos. Enviem "1" per l'statusControl (que el video estigui publicat)
-      await videosStore.fetchAllVideos("0");
-      console.log("videostore",videosStore)
-    });
+        const goToVideoView = (id_video) => {
 
-    const goToVideoView = (id_video) => {
-      
-         router.push({path: `/teacher/${props.id}/video/${id_video}`});
+            router.push({path: `/teacher/${props.id}/video/${id_video}`});
         };
 
-    return {
-      authStore,
-      videosStore,
-      authUser,
-      goToVideoView,
-    };
-  }
+        return {
+            classesStore,
+            authStore,
+            authUser,
+            classes,
+            videosStore,
+            goToVideoView,
+        };
+    }
 };
 </script>
 
 <style scoped>
-  .studentPic {
+.studentPic {
     width: 10%;
     margin: 40px;
     border-radius: 50%;
     border: #d9d9d9 6px solid;
-  }
-  .header{
+}
+
+.header {
     display: flex;
     flex-direction: row;
     align-items: center;
-  }
-  .videosContainer {
-      display: flex;
-      flex-flow: wrap;
-      padding: 20px;
-  }
-  .videoCard{
-      margin-left: 20px;
-      margin-bottom: 40px;
-      display: flex;
-      flex-flow: row wrap;
-      align-items: center;
-      width: 30%; 
-  
-  }
-  .playerContainer{
-      width: 100%;    
-  }
-  
-  .clicable {
-      font-weight: bold;
-      margin-top: 10px;
-      cursor: default;
-   }
-  .clicable:hover {
-      cursor: pointer  !important;;
-  }
 
-  @media screen and (max-width: 1369px) {
+    .videosContainer {
+        display: flex;
+        flex-flow: wrap;
+        padding: 20px;
+    }
 
-      .studentPic {
-          width: 20%;
-          margin: 10px;
-          border-radius: 50%;
-          border: #d9d9d9 6px solid;
-      }
+    .videoCard {
+        margin-left: 20px;
+        margin-bottom: 40px;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        width: 30%;
 
-      .profilePrivate {
-          width: 10%;
-          margin-right: 80px;
-      }
+    }
 
+    .playerContainer {
+        width: 100%;
+    }
 
-  }
+    .clicable {
+        font-weight: bold;
+        margin-top: 10px;
+        cursor: default;
+    }
+
+    .clicable:hover {
+        cursor: pointer !important;
+    }
+
+    .tableRooms {
+        border: 2px solid;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    td,th {
+        border: 1px solid;
+        padding: 1em;
+    }
+
+    @media screen and (max-width: 1369px) {
+
+        .studentPic {
+            width: 20%;
+            margin: 10px;
+            border-radius: 50%;
+            border: #d9d9d9 6px solid;
+        }
+
+        .profilePrivate {
+            width: 10%;
+            margin-right: 80px;
+        }
+    }
+}
 
 </style>

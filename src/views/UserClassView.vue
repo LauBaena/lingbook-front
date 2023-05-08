@@ -8,14 +8,77 @@
             <template v-slot:firstContent>
                 <h2>Les meves classes</h2>
                 <h3>Les meves properes classes</h3>
-                <div v-for="classe in classesStore.classes" :key="classe.id_room"></div>
-                <h3>Afegeix una nova classe</h3>
+                <table class="tableRooms">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Descripció</th>
+                        <th>Capacitat</th>
+                        <th>Data</th>
+                    </tr>
+                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
+                        <td>{{ classe.name }}</td>
+                        <td>{{ classe.description }}</td>
+                        <td>{{ classe.capacity }}</td>
+                        <td>{{ classe.DATA }}</td>
+                    </tr>
+                </table>
+                 <h3>Afegeix una nova classe</h3>
+                <form @submit.prevent="addRoom()">
+                    <div class="container">
+                        <p>Afegeix un vídeo: </p>
+                        <p>Capacitat</p>
+                        <input
+                            v-model="addRoomForm.capacity"
+                            type="int"
+                            name="capacity"
+                            id="capacity"
+                            class="form-style"
+                            autocomplete="off"
+                            required/>
+                        <p>&nbsp;Descripció: </p>
+                        <input
+                            v-model="addRoomForm.description"
+                            type="text"
+                            name="description"
+                            id="description"
+                            class="form-style"
+                            autocomplete="off"
+                            required/>
+                        <p>Data</p>
+                        <input
+                            v-model="addRoomForm.data"
+                            type="text"
+                            name="data"
+                            id="data"
+                            class="form-style"
+                            autocomplete="off"
+                            required/>
+                        <input type="submit" value="Afegir">
+                    </div>
+                </form>
             </template>
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
             <template v-slot:firstContent>
-                <h2>No pots accedir a aquesta vista</h2>
+                <h2>Les meves classes</h2>
+                <h3>Les meves properes classes</h3>
+                <table class="tableRooms">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Descripció</th>
+                        <th>Capacitat</th>
+                        <th>Data</th>
+                    </tr>
+                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
+                        <td>{{ classe.name }}</td>
+                        <td>{{ classe.description }}</td>
+                        <td>{{ classe.capacity }}</td>
+                        <td>{{ classe.DATA }}</td>
+                    </tr>
+                </table>
+
             </template>
+
         </StudentMenu>
         <AdminMenu v-else >
             <template v-slot:firstContent>
@@ -29,7 +92,7 @@
 import { useAuthStore } from "@/store/auth";
 import { useClassesStore } from "@/store/classes";
 import {onBeforeMount} from "@vue/runtime-core";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import StudentMenu from "@/components/StudentMenu.vue";
 import TeacherMenu from "@/components/TeacherMenu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
@@ -47,8 +110,24 @@ export default {
     setup() {
         const classesStore = useClassesStore();
         const authStore = useAuthStore();
+        const addRoomForm = ref(
+            {
+                capacity: 0,
+                description: "",
+                data: "",
+                id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
+            });
 
-        onBeforeMount(async  () => await classesStore.fetchUserClasses(authStore.authUser.id_user));
+        function addRoom() {
+            classesStore.addClass(addRoomForm.value)
+        }
+
+        onBeforeMount(async  () => await classesStore.fetchTeacherClasses(authStore.authUser.id_user));
+        onBeforeMount(async  () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
+
+        const classes = computed(() => {
+            return classesStore.classes;
+        });
 
         const authUser = computed(() => {
             return authStore.authUser;
@@ -58,6 +137,8 @@ export default {
             classesStore,
             authStore,
             authUser,
+            classes,
+            addRoom,
         };
     }
 };
@@ -90,6 +171,17 @@ input:focus{
     outline: none;
     border:1px solid #58bff6;
     color:#58bff6;
+}
+
+.tableRooms {
+    border: 2px solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+td,th {
+    border: 1px solid;
+    padding: 1em;
 }
 
 @media screen and (max-width: 1369px) {

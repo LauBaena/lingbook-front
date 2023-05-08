@@ -115,7 +115,6 @@ export const useVideosStore = defineStore("videos", {
 
       if(data === true){
         alert("Video afegit");
-        await router.push({ path: "/teacher" + "/" + dades.id});
 
       }else{
         alert("No s'ha pogut afegir el video")

@@ -153,7 +153,6 @@ import {onBeforeMount} from "@vue/runtime-core";
     },
 
     setup(props) {
-        console.log("EL props 1", props.id_video)
         const videosStore = useVideosStore();
         const messagesStore = useMessagesStore();
         const authStore = useAuthStore();
