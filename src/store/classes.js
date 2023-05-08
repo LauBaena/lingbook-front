@@ -113,12 +113,8 @@ export const useClassesStore = defineStore("classes", {
 
             console.log(data)
             if (data) {
-                if(data.capacity <= 5){
                     //this.reservaClasse = !this.reservaClasse
                     alert("S'ha reservat la classe")
-                }else{
-                    alert("S'ha arribat al límit de participants a la classe")
-                }
             } else {
                 alert("No pots reservar la mateixa classe dos cops")
             }
