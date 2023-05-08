@@ -164,11 +164,11 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
-    //Funció que modifica la llengua de l'usuari Profesor 
+    //Funció que modifica la llengua de l'usuari Profesor
     async modifyTeachersLanguage(language) {
       console.log(language)
       this.teacherLanguage = language;
       console.log(this.teacherLanguage)
     },
-  },  
+  },
 });
