@@ -6,7 +6,7 @@
         </div>
         <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
             <template v-slot:firstContent>
-                <h2>Tots els vídeos</h2>
+                <h2>Tots els meus vídeos</h2>
                 <form @submit.prevent="afegirVideo()">
                     <div class="container">
                         <p>Afegeix un vídeo: </p>
@@ -47,8 +47,7 @@
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
             <template v-slot:firstContent>
-                <h1 v-for="teacher in teachers" :key="teacher.id">Els vídeos de {{ teacher.name }}
-                    {{ teacher.surname }}</h1>
+                <h1 v-for="teacher in teachers" :key="teacher.id" >Els vídeos de del/la professor/a {{teacher.name}} {{teacher.surname}}</h1>
                 <div class="videosContainer">
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
@@ -82,6 +81,7 @@
         </StudentMenu>
         <AdminMenu v-else>
             <template v-slot:firstContent>
+                <h1 v-for="teacher in teachers" :key="teacher.id" >Els vídeos de del/la professor/a {{teacher.name}} {{teacher.surname}}</h1>
                 <div class="videosContainer">
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
@@ -150,8 +150,9 @@ export default {
             id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
         });
 
-        function afegirVideo() {
-            videosStore.addVideo(addVideoForm.value)
+        async function afegirVideo() {
+            await videosStore.addVideo(addVideoForm.value);
+            await videosStore.fetchUserVideos(props.id);
         }
 
         // onBeforeMount(async () => await videosStore.fetchUserVideos(props.id));
@@ -184,10 +185,8 @@ export default {
             classesStore,
             classes
         };
-
     }
-
-};
+}
 </script>
 <style scoped>
 .studentPic {

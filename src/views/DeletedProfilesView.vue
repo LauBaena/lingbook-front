@@ -16,7 +16,7 @@
     </StudentMenu>
     <AdminMenu v-else >
       <template v-slot:firstContent>
-        <h2>Tots els perfils</h2>
+        <h2>Usuaris eliminats</h2>
         <div class="usersContainer">
           <UserCard class="user" v-for="user in computedUsers" :key="user.id_user" :user="user"/>
         </div>
@@ -46,22 +46,21 @@ export default {
   setup() {
     const usersStore = useUsersStore();
     const authStore = useAuthStore();
-    onBeforeMount(async () => await usersStore.fetchAllUsers("0"));
+    onBeforeMount(async () => await usersStore.fetchAllUsers("1"));
 
     const authUser = computed(() => {
         return authStore.authUser;
     });
-
     const computedUsers = computed(() => {
       // Filtrem els users
-        return usersStore.users.filter(user => user.status === '1');
+        return usersStore.users.filter(user => user.status === '0');
     });
 
     return {
+      computedUsers,
       usersStore,
       authStore,
       authUser,
-      computedUsers,
     };
   }
 };
@@ -83,9 +82,7 @@ export default {
   .usersContainer{
     display:flex;
     flex-flow: row wrap;
-    
   }
-
   .user{
     flex-basis: 30%; /* eEstableix un ample bàsic */
     min-width: 385px; 
@@ -93,7 +90,10 @@ export default {
   } 
 
   @media screen and (max-width: 1369px) {
-
+      .usersContainer{
+        display:flex;
+        flex-flow: row wrap;
+      } 
       .header{
           width: 70%;
       }

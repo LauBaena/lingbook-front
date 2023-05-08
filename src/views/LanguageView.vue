@@ -15,7 +15,6 @@
                 <h2>{{ languagesStore.language.name }}</h2>
                 <div class="followSection">
                   <div v-if="!languagesStore.imFollowing">
-                  <!-- <div v-if="!isFollowing"> -->
                     <button class="followButton" @click="followOrUnfollow()" :disabled="!isFinished">
                       Seguir
                     </button>
@@ -83,8 +82,9 @@ export default {
     onBeforeMount(async () => await languagesStore.fetchStudentLanguages(authStore.authUser.id_user));
     onBeforeMount(async () => await languagesStore.amIFollowing(props.id));
 
+    // Filtrem si el professor ha estat eliminat
     const teachers = computed(() => {
-            return usersStore.teachersByLanguage;
+        return usersStore.teachersByLanguage;
     });
 
     const goToTeacherView = (id) => {
@@ -92,7 +92,6 @@ export default {
     };
 
     //FOLLOW AND UNFOLLOW
-    // let isFollowing = ref(false);
     let isFinished = ref(true);
 
     function delay(time) {
@@ -101,10 +100,7 @@ export default {
 
     const followOrUnfollow = async () => {
       isFinished.value = false;
-      // isFollowing.value = await languagesStore.amIFollowing(props.id, authStore.authUser.id_user);
       await languagesStore.followOrUnfollowLanguage(props.id, authStore.authUser.id_user);
-      // isFollowing.value = !isFollowing.value;
-      // console.log(isFollowing.value)
       delay(1000).then(() => (isFinished.value = true));
     };
 
@@ -115,7 +111,6 @@ export default {
       teachers,
       goToTeacherView,
       followOrUnfollow,
-      // isFollowing,
       isFinished,
     };
   }

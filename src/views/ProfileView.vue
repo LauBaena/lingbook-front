@@ -51,27 +51,39 @@
                 <p>Espai en construcció</p>
             </template>
         </StudentMenu>
-        <AdminMenu v-else>
-            <template v-slot:firstContent>
-                <h2>Darrers vídeos publicats a la plataforma</h2>
-                <p>Espai en construcció</p>
-            </template>
-            <template v-slot:secondContent>
-                <h2>Darrers vídeos que han rebut missatges</h2>
-                <p>Espai en construcció</p>
-            </template>
-        </AdminMenu>
-    </div>
+    <AdminMenu v-else >
+      <template v-slot:firstContent>
+        <h2>Darrers vídeos publicats a la plataforma</h2>
+        <div class="videosContainer">
+          <div class="videoCard" v-for="video in videosStore.videos.slice(-6)" :key="video.id_video" :video="video">
+            <div class="playerContainer">
+              <vue-plyr>
+                <div data-plyr-provider="youtube" :data-plyr-embed-id="video.shortLink"></div>
+              </vue-plyr>
+              <p>Data creació: {{ video.created_at }}</p>
+              <a class="clicable" @click="goToVideoView(video.id_video)">Ves al vídeo</a>
+            </div>
+          </div>
+        </div>
+      </template>
+      <template v-slot:secondContent>
+        <h2>Darrers vídeos que han rebut missatges</h2>
+        <p>Espai en construcció</p>
+      </template>
+    </AdminMenu>
+  </div>
 </template>
 
 <script>
 import {useAuthStore} from "@/store/auth";
 import { useClassesStore } from "@/store/classes";
+import {useVideosStore} from "@/store/videos";
 import {computed} from "vue";
 import StudentMenu from "@/components/StudentMenu.vue";
 import TeacherMenu from "@/components/TeacherMenu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
 import {onBeforeMount} from "@vue/runtime-core";
+import {useRouter} from "vue-router";
 
 export default {
     name: "ProfileView",
@@ -80,26 +92,44 @@ export default {
         TeacherMenu,
         AdminMenu,
     },
-    setup() {
+    props: {
+        id: {
+            type: String,
+            required: true,
+        },
+    },
+    setup(props) {
         const classesStore = useClassesStore();
+        const router = useRouter();
         const authStore = useAuthStore();
-
-        onBeforeMount(async () => await classesStore.fetchTeacherClasses(authStore.authUser.id_user));
-        onBeforeMount(async  () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
-
+        const videosStore = useVideosStore();
         const classes = computed(() => {
             return classesStore.classes;
         });
-
         const authUser = computed(() => {
             return authStore.authUser;
         });
+
+        onBeforeMount(async () => await classesStore.fetchTeacherClasses(authStore.authUser.id_user));
+        onBeforeMount(async  () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
+        onBeforeMount(async () => {
+            // Agafem tots els vídeos. Enviem "1" per l'statusControl (que el video estigui publicat)
+            await videosStore.fetchAllVideos("0");
+            console.log("videostore",videosStore)
+        });
+
+        const goToVideoView = (id_video) => {
+
+            router.push({path: `/teacher/${props.id}/video/${id_video}`});
+        };
 
         return {
             classesStore,
             authStore,
             authUser,
             classes,
+            videosStore,
+            goToVideoView,
         };
     }
 };
@@ -117,23 +147,52 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-}
 
-@media screen and (max-width: 1369px) {
-
-    .studentPic {
-        width: 20%;
-        margin: 10px;
-        border-radius: 50%;
-        border: #d9d9d9 6px solid;
+    .videosContainer {
+        display: flex;
+        flex-flow: wrap;
+        padding: 20px;
     }
 
-    .profilePrivate {
-        width: 10%;
-        margin-right: 80px;
+    .videoCard {
+        margin-left: 20px;
+        margin-bottom: 40px;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        width: 30%;
+
+    }
+
+    .playerContainer {
+        width: 100%;
+    }
+
+    .clicable {
+        font-weight: bold;
+        margin-top: 10px;
+        cursor: default;
+    }
+
+    .clicable:hover {
+        cursor: pointer !important;;
     }
 
 
+    @media screen and (max-width: 1369px) {
+
+        .studentPic {
+            width: 20%;
+            margin: 10px;
+            border-radius: 50%;
+            border: #d9d9d9 6px solid;
+        }
+
+        .profilePrivate {
+            width: 10%;
+            margin-right: 80px;
+        }
+    }
 }
 
 </style>

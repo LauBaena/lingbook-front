@@ -5,8 +5,8 @@
             <ul>
                 <li><a><router-link :to="{ name: 'allProfiles' }">Veure tots els perfils</router-link></a></li>
                 <li><a><router-link :to="{ name: 'allVideos' }">Tots els vídeos</router-link></a></li>
-                <li><a><router-link :to="{ name: 'allProfiles' }">Usuaris bloquejats</router-link></a></li>
-                <li><a><router-link :to="{ name: 'allProfiles' }">Vídeos eliminats</router-link></a></li>
+                <li><a><router-link :to="{ name: 'deletedProfiles' }">Usuaris bloquejats</router-link></a></li>
+                <li><a><router-link :to="{ name: 'deletedVideos' }">Vídeos eliminats</router-link></a></li>
                 <li><a><router-link :to="{ name: 'allProfiles' }">Missatges eliminats</router-link></a></li>
             </ul>
         </div>
