@@ -141,25 +141,10 @@ export default {
         const router = useRouter();
         const videosStore = useVideosStore();
         const classesStore = useClassesStore();
+        const usersStore = useUsersStore();
         const authStore = useAuthStore();
         const authUser = computed(() => {
             return authStore.authUser;
-        });
-     const usersStore = useUsersStore();
-
-    const authUser = computed(() => {
-        return authStore.authUser;
-    });
-
-        const goToVideoView = (id_video) => {
-            router.push({path: `/teacher/${props.id}/video/${id_video}`});
-        };
-
-        const usersStore = useUsersStore();
-        const addVideoForm = ref({
-            url: "",
-            titol: "",
-            id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
         });
 
         async function afegirVideo() {
@@ -200,15 +185,15 @@ export default {
             delay(1000).then(() => (isFinished.value = true));
         };
 
-const goToVideoView = (id_video) => {
-        router.push({path: `/teacher/${props.id}/video/${id_video}`});
-    };
+        const goToVideoView = (id_video) => {
+            router.push({path: `/teacher/${props.id}/video/${id_video}`});
+        };
 
-    const addVideoForm = ref({
-      url: "",
-      titol: "",
-      id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
-    });
+        const addVideoForm = ref({
+            url: "",
+            titol: "",
+            id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
+        });
 
     function afegirVideo() {
       videosStore.addVideo(addVideoForm.value)
