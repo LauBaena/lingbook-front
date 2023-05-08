@@ -4,8 +4,8 @@ import axios from "axios";
 export const useClassesStore = defineStore("classes", {
     state: () => ({
         classes: [],
+        classesStudent: [],
         classe: "",
-        reservaClasse: false,
     }),
 
     getters: {
@@ -48,26 +48,23 @@ export const useClassesStore = defineStore("classes", {
             if(!data){
                 alert("No hi ha cap classe programada");
             }else{
-                this.classes = data;
+                this.classesStudent = data;
             }
             console.log(data)
         },
-        async addClass(dadesClasse, id_user){
+        async addClass(dadesClasse){
+
+            console.log(dadesClasse)
 
             let myDataAsJSON = JSON.stringify ({
                 "capacity": dadesClasse.capacity,
                 "description": dadesClasse.description,
-                "data": dadesClasse.data,
+                "DATA": dadesClasse.DATA,
             });
 
-            let dades = JSON.parse(myDataAsJSON);
+            //let dades = JSON.parse(myDataAsJSON);
 
-            const {data} = await axios.post("/teacher/" + id_user + "/newclass",  {
-                name: dades.name,
-                description: dades.description,
-                capacity: dades.capacity,
-                data: dades.data,
-            }, {
+            const data = await axios.post("/teacher/" + dadesClasse.id_user + "/newclass", myDataAsJSON, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
@@ -82,18 +79,45 @@ export const useClassesStore = defineStore("classes", {
 
             console.log(data);
 
-            if(data === true){
                 alert("Classe afegida");
-            }else{
-                alert("No s'ha pogut afegir la classe")
-            }
+
+        },
+        async deleteClass(id_room,id_user) {
+            const data = await axios.delete("/teacher/" + id_user + "/class/" + id_room, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+                }
+            })
+
+                .catch(function (error) {
+                    if (error.response) {
+                        console.log(error.response.status);
+                    }
+                });
+
+            console.log(data)
+        },
+        async cancelClass(id_room,id_user) {
+            const data = await axios.delete("/alumn/" + id_user + "/room/" + id_room, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+                }
+            })
+
+                .catch(function (error) {
+                    if (error.response) {
+                        console.log(error.response.status);
+                    }
+                });
+
+            console.log(data)
+            alert("Classe anul·lada")
         },
         //Funció per l'usuari autoritzat alumne per reservar una classe o anul·lar-ne la reserva
         async ReservaroAnularRoom(id_room, id_user){
-
-            //Si ja hem reservat classe, anul·lem la reserva
-            if (this.reservaClasse){
-                const { data } = await axios.delete(`/alumn/${id_user}/room/${id_room}`, {
+                const { data } = await axios.post(`/alumn/${id_user}/room/${id_room}`, {
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
@@ -107,38 +131,11 @@ export const useClassesStore = defineStore("classes", {
 
                 console.log(data)
                 if(data){
-                    this.reservaClasse = !this.reservaClasse
+                    //this.reservaClasse = !this.reservaClasse
+                    alert("S'ha reservat la classe")
                 }else{
-                    alert("No s'ha pogut reservar la classe")
+                    alert("No pots reservar la mateixa classe dos cops")
                 }
-
-                //Sinó, fem la reserva
-            }else{
-                console.log("id_user" + id_user + "id classe" + id_room)
-                const { data } = await axios.post(`/alumn/${id_user}/room/${id_room}`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
-                    }
-                })
-                    .catch(function (error) {
-                        if (error.response) {
-                            console.log(error.response.status);
-                        }
-                    });
-
-                console.log("Resultat post:" + data)
-                if(data){
-                    this.reservaClasse = !this.reservaClasse
-                }else{
-                    alert("No s'ha pogut reservar la classe")
-                }
-            }
-        },
-
-        async amIInRoom(id_room) {
-            this.reservaClasse = this.UserClassView.some((classe) => classe.id_room === id_room);
-            console.log(this.reservaClasse)
         },
     },
 });
