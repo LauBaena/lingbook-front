@@ -54,7 +54,7 @@ const routes = [
     meta: {requiresAuth: true}
   },
   {
-    path: "/allLanguages",
+    path: "/profile/:id/allLanguages",
     name: "allLanguages",
     component: () =>
       import(/* webpackChunkName: "allLanguages" */ "../views/SelectLanguageView.vue"),
@@ -98,10 +98,14 @@ const routes = [
   // },
 
   {
-    path: "/userClasses",
+    path: "/profile/:id/userClasses",
     name: "userClasses",
     component: () =>
         import(/* webpackChunkName: "userClasses" */ "../views/UserClassView.vue"),
+    props: (route) => {
+          const id = route.params.id;
+             return id ? { id } : { id: "" };
+           },
     meta: {requiresAuth: true}
   },
   {
@@ -112,10 +116,14 @@ const routes = [
     meta: {requiresAuth: true}
   },
   {
-    path: "/studentLanguages",
+    path: "/profile/:id/studentLanguages",
     name: "studentLanguages",
     component: () =>
       import(/* webpackChunkName: "studentLanguages" */ "../views/StudentLanguages.vue"),
+    props: (route) => {
+      const id = route.params.id;
+      return id ? { id } : { id: "" };
+    },
     meta: {requiresAuth: true}
   },
   {

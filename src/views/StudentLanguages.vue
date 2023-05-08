@@ -50,6 +50,12 @@ export default {
     TeacherMenu,
     AdminMenu,
   },
+    props: {
+        id: {
+            type: String,
+            required: true,
+        },
+    },
   setup() {
     const languagesStore = useLanguagesStore();
     const authStore = useAuthStore();
