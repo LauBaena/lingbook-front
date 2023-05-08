@@ -69,12 +69,20 @@
                         <th>Descripció</th>
                         <th>Capacitat</th>
                         <th>Data</th>
+                        <th>Reserva classe</th>
                     </tr>
                     <tr v-for="classe in classes" :key="classe.id_room" :classe="classe" style="border: 1px solid">
                         <td>{{ classe.name }}</td>
                         <td>{{ classe.description }}</td>
                         <td>{{ classe.capacity }}</td>
                         <td>{{ classe.DATA }}</td>
+                        <td v-if="!classesStore.reservaClasse">
+                            <button @click="ReservaroAnular()">Reservar</button>
+                        </td>
+                        <td v-else>
+                            <button @click="ReservaroAnular()" :disabled="!isFinished">Anul·lar reserva</button>
+                        </td>
+
                     </tr>
                 </table>
             </template>
@@ -168,10 +176,25 @@ export default {
         });
 
         onBeforeMount(async () => await classesStore.fetchTeacherClasses(props.id));
+        onBeforeMount(async () => await classesStore.amIInRoom(props.id));
+
 
         const classes = computed(() => {
             return classesStore.classes;
         });
+
+        //Reservar classe o anul·lar reserva de classe
+        let isFinished = ref(true);
+
+        function delay(time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+        }
+
+        const ReservaroAnular = async () => {
+            isFinished.value = false;
+            await classesStore.ReservaroAnularRoom(props.id, authStore.authUser.id_user);
+            delay(1000).then(() => (isFinished.value = true));
+        };
 
         return {
             authStore,
@@ -183,7 +206,8 @@ export default {
             afegirVideo,
             goToVideoView,
             classesStore,
-            classes
+            classes,
+            ReservaroAnular,
         };
     }
 }
