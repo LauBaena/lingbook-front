@@ -133,16 +133,14 @@ export default {
       id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
     });
 
-    function afegirVideo() {
-      videosStore.addVideo(addVideoForm.value)
-    }
-
-    // onBeforeMount(async () => await videosStore.fetchUserVideos(props.id));
-    // onBeforeMount(async () => await usersStore.fetchUser(props.id));
+    async function afegirVideo() {
+        await videosStore.addVideo(addVideoForm.value);
+        await videosStore.fetchUserVideos(props.id);
+        }
 
     onBeforeMount(async () => {
-      await usersStore.fetchUser(props.id);
-      await videosStore.fetchUserVideos(props.id);
+        await usersStore.fetchUser(props.id);
+        await videosStore.fetchUserVideos(props.id);
     });
     
     const teachers = computed(() => {
