@@ -106,7 +106,7 @@ export const useLanguagesStore = defineStore("languages", {
     //Funció per l'usuari autoritzat alumne per seguir o deixar de seguir una llengua
     async followOrUnfollowLanguage(language_id, user_id){
 
-      //Si ja seguim a la llengua, l'eliminem
+      //Si ja seguim a la llengua, l'eliminem (UNFOLLOW)
       if (this.imFollowing){
         const { data } = await axios.delete(`/alumn/${user_id}/lang/${language_id}`, {
           headers: {
@@ -127,7 +127,7 @@ export const useLanguagesStore = defineStore("languages", {
           alert("No s'ha pogut deixar de seguir la llengua indicada")
         }
 
-      //Sinó, la afegim com a llengua a la que seguim 
+      //Sinó, la afegim com a llengua a la que seguim (FOLLOW)
       }else{
         console.log("Inicio llamada post con id usuario: " + user_id + ", id lenguaje: " + language_id)
         const { data } = await axios.post(`/alumn/${user_id}/lang/${language_id}`, {
@@ -155,7 +155,6 @@ export const useLanguagesStore = defineStore("languages", {
     async amIFollowing(language_id) {
       this.imFollowing = this.studentLanguages.some((language) => language.id_language === language_id);
       console.log(this.imFollowing)
-      // return this.imfollowing;
     },
   },  
 });
