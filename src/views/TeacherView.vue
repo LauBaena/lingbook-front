@@ -47,7 +47,8 @@
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
             <template v-slot:firstContent>
-                <h1 v-for="teacher in teachers" :key="teacher.id" >Els vídeos de del/la professor/a {{teacher.name}} {{teacher.surname}}</h1>
+                <h1 v-for="teacher in teachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }}
+                    {{ teacher.surname }}</h1>
                 <div class="videosContainer">
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
@@ -76,11 +77,8 @@
                         <td>{{ classe.description }}</td>
                         <td>{{ classe.capacity }}</td>
                         <td>{{ classe.DATA }}</td>
-                        <td v-if="!classesStore.reservaClasse">
-                            <button @click="ReservaroAnular()">Reservar</button>
-                        </td>
-                        <td v-else>
-                            <button @click="ReservaroAnular()" :disabled="!isFinished">Anul·lar reserva</button>
+                        <td>
+                            <button @click="ReservaroAnular(classe.id_room)">Reservar</button>
                         </td>
 
                     </tr>
@@ -89,7 +87,8 @@
         </StudentMenu>
         <AdminMenu v-else>
             <template v-slot:firstContent>
-                <h1 v-for="teacher in teachers" :key="teacher.id" >Els vídeos de del/la professor/a {{teacher.name}} {{teacher.surname}}</h1>
+                <h1 v-for="teacher in teachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }}
+                    {{ teacher.surname }}</h1>
                 <div class="videosContainer">
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
@@ -141,16 +140,11 @@ export default {
         const router = useRouter();
         const videosStore = useVideosStore();
         const classesStore = useClassesStore();
-        const usersStore = useUsersStore();
         const authStore = useAuthStore();
         const authUser = computed(() => {
             return authStore.authUser;
         });
-
-        async function afegirVideo() {
-            await videosStore.addVideo(addVideoForm.value);
-            await videosStore.fetchUserVideos(props.id);
-        }
+        const usersStore = useUsersStore();
 
         // onBeforeMount(async () => await videosStore.fetchUserVideos(props.id));
         // onBeforeMount(async () => await usersStore.fetchUser(props.id));
@@ -165,7 +159,6 @@ export default {
         });
 
         onBeforeMount(async () => await classesStore.fetchTeacherClasses(props.id));
-        onBeforeMount(async () => await classesStore.amIInRoom(props.id));
 
 
         const classes = computed(() => {
@@ -179,11 +172,11 @@ export default {
             return new Promise((resolve) => setTimeout(resolve, time));
         }
 
-        const ReservaroAnular = async () => {
+        async function ReservaroAnular (id_room) {
             isFinished.value = false;
-            await classesStore.ReservaroAnularRoom(props.id, authStore.authUser.id_user);
+            await classesStore.ReservaroAnularRoom(id_room, authStore.authUser.id_user);
             delay(1000).then(() => (isFinished.value = true));
-        };
+        }
 
         const goToVideoView = (id_video) => {
             router.push({path: `/teacher/${props.id}/video/${id_video}`});
@@ -195,9 +188,9 @@ export default {
             id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
         });
 
-    function afegirVideo() {
-      videosStore.addVideo(addVideoForm.value)
-    }
+        function afegirVideo() {
+            videosStore.addVideo(addVideoForm.value)
+        }
 
         return {
             authStore,
@@ -306,7 +299,7 @@ input:focus {
     text-align: center;
 }
 
-td,th {
+td, th {
     border: 1px solid;
     padding: 1em;
 }
