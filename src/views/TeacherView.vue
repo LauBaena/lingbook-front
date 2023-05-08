@@ -118,6 +118,8 @@ export default {
     const router = useRouter();
     const videosStore = useVideosStore();
     const authStore = useAuthStore();
+    const usersStore = useUsersStore();
+
     const authUser = computed(() => {
         return authStore.authUser;
     });
@@ -126,7 +128,6 @@ export default {
         router.push({path: `/teacher/${props.id}/video/${id_video}`});
     };
 
-    const usersStore = useUsersStore();
     const addVideoForm = ref({
       url: "",
       titol: "",

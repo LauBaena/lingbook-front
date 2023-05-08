@@ -3,11 +3,12 @@
         <div class="sideMenu">    
             <h3>Espai personal</h3>
             <ul>
-                <li><a><router-link :to="{ name: 'allProfiles' }">Veure tots els perfils</router-link></a></li>
+                <li><a><router-link :to="{ name: 'allProfiles' }">Tots els usuaris</router-link></a></li>
                 <li><a><router-link :to="{ name: 'allVideos' }">Tots els vídeos</router-link></a></li>
+                <li><a><router-link :to="{ name: 'allMessages' }">Tots els missatges</router-link></a></li>
                 <li><a><router-link :to="{ name: 'deletedProfiles' }">Usuaris bloquejats</router-link></a></li>
                 <li><a><router-link :to="{ name: 'deletedVideos' }">Vídeos eliminats</router-link></a></li>
-                <li><a><router-link :to="{ name: 'allProfiles' }">Missatges eliminats</router-link></a></li>
+                <li><a><router-link :to="{ name: 'deletedMessages' }">Missatges eliminats</router-link></a></li>
             </ul>
         </div>
         <div class="centralMenu">
@@ -39,7 +40,7 @@ export default defineComponent({
         flex-direction: column;
         margin: 20px;
         border: #d9d9d9 4px solid;
-        height: 400px;
+        height: 460px;
         /* height: 350px; */
     }
     .centralMenu{
