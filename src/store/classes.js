@@ -51,23 +51,17 @@ export const useClassesStore = defineStore("classes", {
             }
             console.log(data)
         },
-        async addClasse(dadesClasse){
-
-            console.log(dadesClasse)
+        async addClass(dadesClasse, id_user){
 
             let myDataAsJSON = JSON.stringify ({
-                "name": dadesClasse.name,
-                "description": dadesClasse.description,
                 "capacity": dadesClasse.capacity,
+                "description": dadesClasse.description,
                 "data": dadesClasse.data,
             });
 
             let dades = JSON.parse(myDataAsJSON);
 
-            console.log("/teacher/"+ dades.id + "/class");
-            console.log("Nom classe "+ dades.name);
-
-            const {data} = await axios.post("/teacher/" + dades.id + "/class",  {
+            const {data} = await axios.post("/teacher/" + id_user + "/newclass",  {
                 name: dades.name,
                 description: dades.description,
                 capacity: dades.capacity,
