@@ -1,17 +1,25 @@
 <template>
     <div class="messageCard">
-        <div>
-            <!-- <a @click="goToProfile(user.id_user)"><h3>{{ user.name }} {{ user.surname }}</h3></a> -->
-            <h3>Data creació: {{ message.created_at }}</h3>
+        <div class="messageCard">
+            <div class="titleContainer">
+                <h3 class="title">{{ message.username }}</h3>
+                <p>{{ message.created_at }}</p>
+            </div>
             <p> {{ message.description }} </p>
-            <p>Anar al vídeo</p>
+            <div class="buttons">
+                <p class="buttons-link" @click="goToVideoView(message.id_video)">Ves al vídeo</p> 
+                <p class="buttons-link" @click="emitDeleteMessage(message.id_message)">Esborrar</p>
+            </div>
         </div>
+        <div class="line"></div>
     </div>
 </template>
 
 <script>
     import { defineComponent } from 'vue';
     // import {useRouter} from "vue-router";
+    import { useAuthStore } from "@/store/auth";
+    import {useMessagesStore} from "@/store/messages";
 
     export default defineComponent({
         props: {
@@ -20,13 +28,23 @@
                 required: true,
             }
         },
-        setup(){
+        setup(props, context){
+            const messagesStore = useMessagesStore();
+            const authStore = useAuthStore();
             // const router = useRouter();
 
             // const goToProfile = (id) => {
             //     router.push({path: `/profile/${id}`});
             // };
+
+            const emitDeleteMessage = (message_id) => {
+                context.emit("deleteMessage", message_id)
+            }
+
             return{
+                emitDeleteMessage,
+                messagesStore,
+                authStore,
                 // goToProfile
             }
         }
@@ -34,39 +52,43 @@
 </script>
 
 <style scoped>
-    .teacherCard{
-        margin-left: 20px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    .cardImage{
-        width: 100px;
-        margin: 40px;
-        border-radius: 50%;
-        border: #d9d9d9 6px solid;
-    }
 
-    h3{
+    .messageCard{
+        margin-bottom: 10px;
+        border-radius: 10px;
+        padding: 10px 0px 10px 0px;
+    }
+    .titleContainer{
+        display: flex;
+        flex-direction: row; 
+        align-items: baseline;
+    }
+    .title{
         text-decoration: inherit;
         color: #05a5d4;
-        margin-bottom: 10px;
+        margin-right: 10px;
     }
-
+    .line {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 250px;
+        height: 1px;
+        background-color: rgb(234, 230, 230);
+    }
+    .buttons{
+        display: flex;
+        flex-direction: row; 
+        align-items: center; 
+    }
+    .buttons-link{
+        text-decoration: inherit;
+        color: #05a5d4;
+        margin-bottom: 15px;
+        cursor: pointer;
+        margin-right: 25px;
+    }
+  
     @media screen and (max-width: 1369px) {
-
-        .teacherCard{
-            margin-left: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .cardImage{
-            width: 100px;
-            border-radius: 50%;
-            border: #d9d9d9 6px solid;
-        }
 
     }
 </style>

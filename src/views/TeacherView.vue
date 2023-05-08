@@ -137,7 +137,6 @@ export default {
             required: true,
         },
     },
-
     setup(props) {
         const router = useRouter();
         const videosStore = useVideosStore();
@@ -146,6 +145,11 @@ export default {
         const authUser = computed(() => {
             return authStore.authUser;
         });
+     const usersStore = useUsersStore();
+
+    const authUser = computed(() => {
+        return authStore.authUser;
+    });
 
         const goToVideoView = (id_video) => {
             router.push({path: `/teacher/${props.id}/video/${id_video}`});
@@ -195,6 +199,20 @@ export default {
             await classesStore.ReservaroAnularRoom(props.id, authStore.authUser.id_user);
             delay(1000).then(() => (isFinished.value = true));
         };
+
+const goToVideoView = (id_video) => {
+        router.push({path: `/teacher/${props.id}/video/${id_video}`});
+    };
+
+    const addVideoForm = ref({
+      url: "",
+      titol: "",
+      id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
+    });
+
+    function afegirVideo() {
+      videosStore.addVideo(addVideoForm.value)
+    }
 
         return {
             authStore,
