@@ -113,8 +113,8 @@ export const useClassesStore = defineStore("classes", {
 
             console.log(data)
             if (data) {
-                //this.reservaClasse = !this.reservaClasse
-                alert("S'ha reservat la classe")
+                    //this.reservaClasse = !this.reservaClasse
+                    alert("S'ha reservat la classe")
             } else {
                 alert("No pots reservar la mateixa classe dos cops")
             }

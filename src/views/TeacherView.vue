@@ -78,7 +78,7 @@
                         <td>{{ classe.capacity }}</td>
                         <td>{{ classe.DATA }}</td>
                         <td>
-                            <button @click="ReservarClassRoom(classe.id_room)">Reservar</button>
+                            <p class="reservaRoom" @click="ReservarClassRoom(classe.id_room)">Reservar</p>
                         </td>
 
                     </tr>
@@ -173,9 +173,14 @@ export default {
         }
 
         async function ReservarClassRoom (id_room) {
-            isFinished.value = false;
-            await classesStore.ReservaClass(id_room, authStore.authUser.id_user);
-            delay(1000).then(() => (isFinished.value = true));
+            if(classesStore.classe.capacity <=5 ){
+                isFinished.value = false;
+                await classesStore.ReservaClass(id_room, authStore.authUser.id_user);
+                delay(1000).then(() => (isFinished.value = true));
+            }else {
+                alert("La classe no admet més participants")
+            }
+
         }
 
         const goToVideoView = (id_video) => {
@@ -302,6 +307,11 @@ input:focus {
 td, th {
     border: 1px solid;
     padding: 1em;
+}
+
+.reservaRoom {
+    color: #05a5d4;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1369px) {
