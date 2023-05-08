@@ -78,7 +78,7 @@
                         <td>{{ classe.capacity }}</td>
                         <td>{{ classe.DATA }}</td>
                         <td>
-                            <button @click="ReservaroAnular(classe.id_room)">Reservar</button>
+                            <button @click="ReservarClassRoom(classe.id_room)">Reservar</button>
                         </td>
 
                     </tr>
@@ -172,9 +172,9 @@ export default {
             return new Promise((resolve) => setTimeout(resolve, time));
         }
 
-        async function ReservaroAnular (id_room) {
+        async function ReservarClassRoom (id_room) {
             isFinished.value = false;
-            await classesStore.ReservaroAnularRoom(id_room, authStore.authUser.id_user);
+            await classesStore.ReservaClass(id_room, authStore.authUser.id_user);
             delay(1000).then(() => (isFinished.value = true));
         }
 
@@ -203,7 +203,7 @@ export default {
             goToVideoView,
             classesStore,
             classes,
-            ReservaroAnular,
+            ReservarClassRoom,
         };
     }
 }
