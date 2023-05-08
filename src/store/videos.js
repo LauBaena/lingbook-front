@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import router from '../router/index.js';
 
 export const useVideosStore = defineStore("videos", {
   state: () => ({
@@ -12,7 +13,7 @@ export const useVideosStore = defineStore("videos", {
 
   actions: {
     //Funció que accedeix a tots els vídeos disponibles
-    async fetchAllVideos(){
+    async fetchAllVideos(statusControl){
         const {data} = await axios.get("/videos/all", {
             headers: {
             "Content-Type": "application/json",
@@ -25,25 +26,27 @@ export const useVideosStore = defineStore("videos", {
             } 
         });
 
-        data.map(video => {
-          console.log("ER LINK " + video.link);
-          //console.log(video.title);
-          //console.log(video.description);
-          //console.log(video.url);
-        });
-
-
         console.log(data)
-        this.modify_data(data)
+        this.modify_data(data,statusControl)
     },
-    async modify_data(data){
+
+    async modify_data(data,statusControl){
+        let dadesFiltrades = "";
         for (let i = 0; i < data.length; i++){
             let segments = data[i].link.split("/");
             // Utilitzem el mètode pop per obtenir l'últim segment
             data[i].shortLink = segments.pop();
         }
-  
-        this.videos = data;
+        // Filtrem per status per saber si el vídeo ha estat eliminat
+        if (statusControl === "0"){
+            dadesFiltrades = data.filter(obj => obj.status !== "0")
+        }
+        if (statusControl === "1"){
+            dadesFiltrades = data.filter(obj => obj.status !== "1")
+        }
+        // console.log("Dades filtrades", dadesFiltrades)
+
+        this.videos = dadesFiltrades;
         console.log(this.videos)
     },
 
@@ -60,36 +63,43 @@ export const useVideosStore = defineStore("videos", {
           } 
       });
 
-      data.map(video => {
-        console.log("ER LINK " + video.link);
-        //console.log(video.title);
-        //console.log(video.description);
-        //console.log(video.url);
+      this.modify_data(data, "0")
+  },
+
+    async viewSelectedVideo(id_video){
+      const {data} = await axios.get("/videos/"+id_video, {
+          headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+          }
+      })
+      .catch(function (error) {
+          if (error.response) {
+          console.log(error.response.status);
+          } 
       });
 
-
-      console.log(data)
-      this.modify_data(data)
-  },
+       this.video = data;
+      // this.modify_data(data)
+    },
 
     async addVideo(dadesVideo){
 
-      console.log(dadesVideo)
-
       let myDataAsJSON = JSON.stringify ({
         "link": dadesVideo.url,
+        "description": dadesVideo.titol,
         "id": dadesVideo.id_user,
       });
 
       let dades = JSON.parse(myDataAsJSON);
 
-      console.log("L'url back"+ "/teacher/"+ dades.id + "/video");
-      console.log("Link video "+ dades.link);
-
       const {data} = await axios.post("/teacher/" + dades.id + "/video",  {
         link: dades.link,
-        description: "Alludame porfabor y funca"
-      }, {
+        description: dades.description,
+        id: dades.id,
+      }, 
+
+      {
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
@@ -103,18 +113,53 @@ export const useVideosStore = defineStore("videos", {
         } 
       });
 
-      console.log("La DATA "+ data);
-
       if(data === true){
         alert("Video afegit");
-        /*if(type === "alumn"){
-          alert("Nou alumne registrat: " + nouUser.name)
-        }else if (type === "teacher"){
-          alert("Nou docent registrat: " + nouUser.name)
-        }
-        await router.push({ path: "/login" });*/
+        await router.push({ path: "/teacher" + "/" + dades.id});
+
       }else{
         alert("No s'ha pogut afegir el video")
+      }
+    },
+
+    async flipStatus(dadesVideo, controlStatus){
+
+      let myDataAsJSON = JSON.stringify ({
+        "id": dadesVideo,
+      });
+
+      let dades = JSON.parse(myDataAsJSON);
+      const {data} = await axios.delete("/videos/" + dades.id,  {
+        id: dades.id,
+      }, 
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+        }
+      })
+
+
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.status);
+        } 
+      });
+ 
+      if(data === false){
+        alert("No s'ha pogut modificar el Status del vídeo. Contacta amb el responsable del Back")
+        await router.push({ path: "/deletedVideos"});
+      } else{
+        
+        if(controlStatus === "0"){
+          alert("Vídeo eliminat");
+          await router.push({ path: "/deletedVideos"});
+        } 
+        if (controlStatus === "1"){
+          alert("El vídeo s'ha tornat a publicar");
+          await router.push({ path: "/deletedVideos"});
+        }
       }
     },
   },
