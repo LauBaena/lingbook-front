@@ -175,11 +175,13 @@ input:focus{
 
 .tableRooms {
     border: 2px solid;
+    border-collapse: collapse;
     text-align: center;
 }
 
 td,th {
-    border: 1px solid
+    border: 1px solid;
+    padding: 1em;
 }
 
 @media screen and (max-width: 1369px) {
