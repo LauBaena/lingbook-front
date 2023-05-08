@@ -23,13 +23,13 @@
                     </tr>
                 </table>
                  <h3>Afegeix una nova classe</h3>
-                <form @submit.prevent="addRoom()">
+                <!--<form @submit.prevent="addRoom()">
                     <div class="container">
-                        <p>Afegeix un vídeo: </p>
+                        <p>Afegeix una classe: </p>
                         <p>Capacitat</p>
                         <input
                             v-model="addRoomForm.capacity"
-                            type="int"
+                            type="capacity"
                             name="capacity"
                             id="capacity"
                             class="form-style"
@@ -38,7 +38,7 @@
                         <p>&nbsp;Descripció: </p>
                         <input
                             v-model="addRoomForm.description"
-                            type="text"
+                            type="description"
                             name="description"
                             id="description"
                             class="form-style"
@@ -47,7 +47,7 @@
                         <p>Data</p>
                         <input
                             v-model="addRoomForm.data"
-                            type="text"
+                            type="data"
                             name="data"
                             id="data"
                             class="form-style"
@@ -55,7 +55,7 @@
                             required/>
                         <input type="submit" value="Afegir">
                     </div>
-                </form>
+                </form>-->
             </template>
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
@@ -92,7 +92,7 @@
 import { useAuthStore } from "@/store/auth";
 import { useClassesStore } from "@/store/classes";
 import {onBeforeMount} from "@vue/runtime-core";
-import { computed, ref } from "vue";
+import { computed} from "vue";
 import StudentMenu from "@/components/StudentMenu.vue";
 import TeacherMenu from "@/components/TeacherMenu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
@@ -107,21 +107,29 @@ export default {
         TeacherMenu,
         AdminMenu,
     },
+    props: {
+        id: {
+            type: String,
+            required: true,
+        },
+    },
     setup() {
         const classesStore = useClassesStore();
         const authStore = useAuthStore();
-        const addRoomForm = ref(
+
+        /*const addRoomForm = ref(
             {
-                capacity: 0,
+                capacity: "",
                 description: "",
                 data: "",
-                id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
+                id_user: authStore.authUser.id_user,
             });
 
-        function addRoom() {
-            classesStore.addClass(addRoomForm.value)
+        async function addRoom() {
+            console.log(addRoomForm.value)
+            await classesStore.addClass(addRoomForm.value);
         }
-
+*/
         onBeforeMount(async  () => await classesStore.fetchTeacherClasses(authStore.authUser.id_user));
         onBeforeMount(async  () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
 
@@ -138,7 +146,7 @@ export default {
             authStore,
             authUser,
             classes,
-            addRoom,
+            //addRoom,
         };
     }
 };

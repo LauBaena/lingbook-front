@@ -127,10 +127,14 @@ const routes = [
   // },
 
   {
-    path: "/userClasses",
+    path: "/profile/:id/userClasses",
     name: "userClasses",
     component: () =>
         import(/* webpackChunkName: "userClasses" */ "../views/UserClassView.vue"),
+    props: (route) => {
+          const id = route.params.id;
+             return id ? { id } : { id: "" };
+           },
     meta: {requiresAuth: true}
   },
   // {
@@ -156,10 +160,10 @@ const routes = [
     name: "studentLanguages",
     component: () =>
       import(/* webpackChunkName: "studentLanguages" */ "../views/StudentLanguages.vue"),
-      props: (route) => {
-        const id = route.params.id;
-        return id ? { id } : { id: "" };
-      },
+    props: (route) => {
+      const id = route.params.id;
+      return id ? { id } : { id: "" };
+    },
     meta: {requiresAuth: true}
   },
   {
