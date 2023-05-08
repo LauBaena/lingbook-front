@@ -6,14 +6,17 @@
         </div>
         <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
             <template v-slot:firstContent>
-            <h2>No pots accedir a aquesta vista</h2>
+              <h2>Els meus missatges</h2>
+              <div class="messagesContainer">
+                <MessageCard class="message" v-for="message in messages" :key="message.id_message" :message="message" @deleteMessage="deleteMessage"/>
+              </div>    
             </template>
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
             <template v-slot:firstContent>
               <h2>Els meus missatges</h2>
               <div class="messagesContainer">
-                <MessageCard class="message" v-for="message in messages" :key="message.id_message" :message="message"/>
+                <MessageCard class="message" v-for="message in messages" :key="message.id_message" :message="message" @deleteMessage="deleteMessage"/>
               </div>            
             </template>
         </StudentMenu>
@@ -43,6 +46,12 @@ export default {
     AdminMenu,
     MessageCard
   },
+  props: {
+        id: {
+            type: String,
+            required: true,
+        },
+  },
   setup() {
     const authStore = useAuthStore();
     const messagesStore = useMessagesStore();
@@ -56,11 +65,17 @@ export default {
       return messagesStore.messages;
     });
 
+    async function deleteMessage(message_id) {
+      await messagesStore.deleteMessage(message_id);
+      await messagesStore.fetchUserMessages(authStore.authUser.id_user);
+    }
+
     return {
       authStore,
       messagesStore,
       authUser,
       messages,
+      deleteMessage,
     };
   }
 };

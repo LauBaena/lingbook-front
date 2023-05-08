@@ -50,7 +50,7 @@ const routes = [
     path: "/deletedProfiles",
     name: "deletedProfiles",
     component: () =>
-      import(/* webpackChunkName: "allProfiles" */ "../views/DeletedProfilesView.vue"),
+      import(/* webpackChunkName: "allDeletedProfiles" */ "../views/DeletedProfilesView.vue"),
     meta: {requiresAuth: true}
   },
   {
@@ -58,6 +58,10 @@ const routes = [
     name: "allLanguages",
     component: () =>
       import(/* webpackChunkName: "allLanguages" */ "../views/SelectLanguageView.vue"),
+      props: (route) => {
+        const id = route.params.id;
+        return id ? { id } : { id: "" };
+      },
     meta: {requiresAuth: true}
   },
   {
@@ -65,6 +69,17 @@ const routes = [
     name: "language",
     component: () =>
       import(/* webpackChunkName: "language" */ "../views/LanguageView.vue"),
+    props: (route) => {
+      const id = route.params.id;
+      return id ? { id } : { id: "" };
+    },
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/editMessage/:id",
+    name: "editMessage",
+    component: () =>
+      import(/* webpackChunkName: "editMessage" */ "../views/EditMessageView.vue"),
     props: (route) => {
       const id = route.params.id;
       return id ? { id } : { id: "" };
@@ -82,7 +97,21 @@ const routes = [
     path: "/deletedVideos",
     name: "deletedVideos",
     component: () =>
-      import(/* webpackChunkName: "allVideos" */ "../views/DeletedVideosView.vue"),
+      import(/* webpackChunkName: "allDeletedVideos" */ "../views/DeletedVideosView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/allMessages",
+    name: "allMessages",
+    component: () =>
+      import(/* webpackChunkName: "allMessages" */ "../views/AllMessagesView.vue"),
+    meta: {requiresAuth: true}
+  },
+  {
+    path: "/deletedMessages",
+    name: "deletedMessages",
+    component: () =>
+      import(/* webpackChunkName: "allDeletedMessages" */ "../views/DeletedMessagesView.vue"),
     meta: {requiresAuth: true}
   },
   // {
@@ -108,11 +137,22 @@ const routes = [
            },
     meta: {requiresAuth: true}
   },
+  // {
+  //   path: "/userMessages",
+  //   name: "userMessages",
+  //   component: () =>
+  //     import(/* webpackChunkName: "userMessages" */ "../views/MessagesView.vue"),
+  //   meta: {requiresAuth: true}
+  // },
   {
-    path: "/userMessages",
+    path: "/profile/:id/userMessages",
     name: "userMessages",
     component: () =>
       import(/* webpackChunkName: "userMessages" */ "../views/MessagesView.vue"),
+      props: (route) => {
+        const id = route.params.id;
+        return id ? { id } : { id: "" };
+      },
     meta: {requiresAuth: true}
   },
   {

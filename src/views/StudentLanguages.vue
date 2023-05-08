@@ -50,7 +50,7 @@ export default {
     TeacherMenu,
     AdminMenu,
   },
-    props: {
+  props: {
         id: {
             type: String,
             required: true,
