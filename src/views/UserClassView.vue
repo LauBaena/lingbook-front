@@ -8,7 +8,7 @@
             <template v-slot:firstContent>
                 <h2>Les meves classes</h2>
                 <h3>Les meves properes classes</h3>
-                <table>
+                <table class="tableRooms">
                     <tr>
                         <th>Nom</th>
                         <th>Descripció</th>
@@ -62,7 +62,7 @@
             <template v-slot:firstContent>
                 <h2>Les meves classes</h2>
                 <h3>Les meves properes classes</h3>
-                <table>
+                <table class="tableRooms">
                     <tr>
                         <th>Nom</th>
                         <th>Descripció</th>
@@ -171,6 +171,15 @@ input:focus{
     outline: none;
     border:1px solid #58bff6;
     color:#58bff6;
+}
+
+.tableRooms {
+    border: 2px solid;
+    text-align: center;
+}
+
+td,th {
+    border: 1px solid
 }
 
 @media screen and (max-width: 1369px) {

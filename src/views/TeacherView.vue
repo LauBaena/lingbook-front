@@ -63,14 +63,14 @@
             <template v-slot:secondContent>
                 <h1 v-for="teacher in teachers" :key="teacher.id">Les classes de {{ teacher.name }}
                     {{ teacher.surname }}</h1>
-                <table>
+                <table class="tableRooms">
                     <tr>
                         <th>Nom</th>
                         <th>Descripció</th>
                         <th>Capacitat</th>
                         <th>Data</th>
                     </tr>
-                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
+                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe" style="border: 1px solid">
                         <td>{{ classe.name }}</td>
                         <td>{{ classe.description }}</td>
                         <td>{{ classe.capacity }}</td>
@@ -230,10 +230,6 @@ input:focus {
     color: #58bff6;
 }
 
-.video {
-    width: 30%;
-}
-
 .video-button {
     margin-left: 30px;
     width: 112px;
@@ -251,11 +247,6 @@ input:focus {
     border: 1px solid #55b1df;
     color: #55b1df;
     cursor: pointer;
-}
-
-.video-button-icon {
-    font-size: 15px;
-    font-weight: bold;
 }
 
 .videoCard {
@@ -282,6 +273,15 @@ input:focus {
     cursor: pointer !important;;
 }
 
+.tableRooms {
+    border: 2px solid;
+    text-align: center;
+}
+
+td,th {
+    border: 1px solid
+}
+
 @media screen and (max-width: 1369px) {
 
     .header {
@@ -293,15 +293,6 @@ input:focus {
         margin: 10px;
         border-radius: 50%;
         border: #d9d9d9 6px solid;
-    }
-
-    .profilePrivate {
-        width: 20%;
-        margin-right: 80px;
-    }
-
-    .video {
-        width: 100%;
     }
 
     .videoCard {

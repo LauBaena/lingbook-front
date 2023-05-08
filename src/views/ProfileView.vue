@@ -8,7 +8,7 @@
         <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
             <template v-slot:firstContent>
                 <h2>Les meves properes classes</h2>
-                <table>
+                <table class="tableRooms">
                     <tr>
                         <th>Nom</th>
                         <th>Descripció</th>
@@ -31,7 +31,7 @@
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
             <template v-slot:firstContent>
                 <h2>Les meves properes classes</h2>
-                <table>
+                <table class="tableRooms">
                     <tr>
                         <th>Nom</th>
                         <th>Descripció</th>
@@ -175,9 +175,17 @@ export default {
     }
 
     .clicable:hover {
-        cursor: pointer !important;;
+        cursor: pointer !important;
     }
 
+    .tableRooms {
+        border: 2px solid;
+        text-align: center;
+    }
+
+    td,th {
+        border: 1px solid
+    }
 
     @media screen and (max-width: 1369px) {
 
