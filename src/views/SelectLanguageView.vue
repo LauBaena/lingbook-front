@@ -16,7 +16,7 @@
                                 <input type="radio"
                                        :value="language.name"
                                        v-model="picked"
-                                       :disabled="disableRadio(picked)"
+                                       @click="fixLanguage(language.name)"
                                 />
                                 <span class="languageName">{{ language.name }}</span>
                                 <img class="languagePicSmall" :src="getImage(language.image)"
@@ -70,15 +70,14 @@ export default {
         const authStore = useAuthStore();
         const router = useRouter();
         const picked = ref("");
-
-        onBeforeMount(async () => await languagesStore.fetchAllLanguages());
-
         const authUser = computed(() => {
             return authStore.authUser;
         });
 
+        onBeforeMount(async () => await languagesStore.fetchAllLanguages());
+        onBeforeMount(async () => await authStore.getTeachersLanguage());
+        
         function getImage(path) {
-            //console.log(`../assets/${path}`)
             return require(`../assets/${path}`)
         }
 
@@ -86,13 +85,9 @@ export default {
             router.push({path: `/language/${id}`});
         };
 
-        function disableRadio(picked) {
-            // console.log(authStore.teacherLanguage)
-            if (picked !== "") {
-                authStore.modifyTeachersLanguage(picked);
-                // console.log(authStore.teacherLanguage)
-            }
-            //return authStore.teacherLanguage != "";
+        function fixLanguage(language) {
+            console.log(language)
+            authStore.modifyTeachersLanguage(language);
         }
 
         return {
@@ -102,7 +97,7 @@ export default {
             getImage,
             goToLanguage,
             picked,
-            disableRadio,
+            fixLanguage
         };
     }
 };

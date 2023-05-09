@@ -47,8 +47,8 @@
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
             <template v-slot:firstContent>
-                <!--<h1 v-for="teacher in teachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }}
-                    {{ teacher.surname }}</h1>-->
+                <h1 v-for="teacher in teachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }}
+                    {{ teacher.surname }}</h1>
                 <div class="videosContainer">
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
@@ -62,8 +62,6 @@
                 </div>
             </template>
             <template v-slot:secondContent>
-<!--                <h1 v-for="teacher in teachers" :key="teacher.id">Les classes de {{ teacher.name }}
-                    {{ teacher.surname }}</h1>-->
                 <div class="container" v-if="classes == ''">
                     <p>No has creat cap classe</p>
                 </div>
@@ -88,7 +86,6 @@
                         </tr>
                     </table>
                 </div>
-
             </template>
         </StudentMenu>
         <AdminMenu v-else>
@@ -201,7 +198,6 @@ export default {
         function afegirVideo() {
             videosStore.addVideo(addVideoForm.value)
         }
-
         return {
             authStore,
             authUser,
@@ -340,6 +336,7 @@ table th {
 .reservaRoom {
     color: #05a5d4;
     cursor: pointer;
+
 }
 
 @media screen and (max-width: 600px) {

@@ -3,7 +3,7 @@
         <div class="sideMenu">    
             <h3>Espai personal</h3>
             <ul>
-                <li><a href="" >Properes classes</a></li>
+                <li><a><router-link :to="{ name: 'userClasses' }">Properes classes</router-link></a></li>
                 <li><a><router-link :to="{ name: 'studentLanguages' }">Les meves llengües</router-link></a></li>
                 <li><a><router-link :to="{ name: 'userMessages' }">Els meus missatges</router-link></a></li>
             </ul>
@@ -58,7 +58,7 @@ export default defineComponent({
 
     ul a{
         display: block;
-        padding: 5px 0px 15px 10px;
+        padding: 5px 0px 10px 10px;
     }
 
     a:hover{
@@ -95,5 +95,26 @@ export default defineComponent({
             margin: 20px;
         }
 
+        .sideMenu p{
+            padding-left: 5.5%;
+            padding-top: 2%;
+            border-top: #d9d9d9 4px solid;
+        }
+    }
+
+    @media screen and (max-width: 969px) {
+        .sideMenu p{
+            padding-left: 5.5%;
+            padding-top: 3.5%;
+            border-top: #d9d9d9 4px solid;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .sideMenu p{
+            padding-left: 5.5%;
+            padding-top: 6.5%;
+            border-top: #d9d9d9 4px solid;
+        }
     }
 </style>

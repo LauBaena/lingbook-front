@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import {useLanguagesStore} from "@/store/languages";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import router from '../router/index.js';
@@ -38,8 +39,6 @@ export const useAuthStore = defineStore("auth", {
     getIsAuth(state) {
       return state.isAuth;
     },
-    // authUser: (state) => state.authUser,
-    // token: (state) => state.token,
   },
 
   actions: {
@@ -164,11 +163,45 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
-    //Funció que modifica la llengua de l'usuari Profesor 
+    //Funció que modifica la llengua de l'usuari Profesor
     async modifyTeachersLanguage(language) {
-      console.log(language)
+      const languagesStore = useLanguagesStore();
+      await languagesStore.fetchLanguageByName(language);
+      
+      console.log(languagesStore.language.id_language)
       this.teacherLanguage = language;
-      console.log(this.teacherLanguage)
+      const {data} = await axios.post("/teacher/" + this.authUser.id_user + "/lang/" + languagesStore.language.id_language, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+        }
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.status);
+        } 
+      });
+
+      console.log(data)
     },
-  },  
+
+    //Funció que modifica la llengua de l'usuari Profesor
+    async getTeachersLanguage() {
+     
+      const {data} = await axios.get("/teacher/" + this.authUser.id_user + "/lang", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+        }
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.status);
+        } 
+      });
+
+      console.log(data)
+      this.teacherLanguage = data.name;
+    },
+  },
 });
