@@ -195,10 +195,6 @@ export default {
             id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
         });
 
-    function afegirVideo() {
-      videosStore.addVideo(addVideoForm.value)
-    }
-
         return {
             authStore,
             authUser,

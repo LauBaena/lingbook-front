@@ -17,9 +17,10 @@
 
 <script>
     import { defineComponent } from 'vue';
-    // import {useRouter} from "vue-router";
     import { useAuthStore } from "@/store/auth";
     import {useMessagesStore} from "@/store/messages";
+    import { useVideosStore } from "@/store/videos";
+    import {useRouter} from "vue-router";
 
     export default defineComponent({
         props: {
@@ -31,11 +32,13 @@
         setup(props, context){
             const messagesStore = useMessagesStore();
             const authStore = useAuthStore();
-            // const router = useRouter();
+            const router = useRouter();
+            const videoStore = useVideosStore();
 
-            // const goToProfile = (id) => {
-            //     router.push({path: `/profile/${id}`});
-            // };
+            async function goToVideoView(id_video){
+                await videoStore.viewSelectedVideo(id_video);
+                router.push({path: `/teacher/${videoStore.video.id_user}/video/${id_video}`});
+            }
 
             const emitDeleteMessage = (message_id) => {
                 context.emit("deleteMessage", message_id)
@@ -45,7 +48,7 @@
                 emitDeleteMessage,
                 messagesStore,
                 authStore,
-                // goToProfile
+                goToVideoView
             }
         }
     })
