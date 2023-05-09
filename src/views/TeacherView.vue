@@ -172,8 +172,8 @@ export default {
             return new Promise((resolve) => setTimeout(resolve, time));
         }
 
-        async function ReservarClassRoom (id_room) {
-            if(classesStore.classe.capacity <=5 ){
+        async function ReservarClassRoom (id_room, classes) {
+            if(classes.capacity){
                 isFinished.value = false;
                 await classesStore.ReservaClass(id_room, authStore.authUser.id_user);
                 delay(1000).then(() => (isFinished.value = true));
