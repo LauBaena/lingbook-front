@@ -29,7 +29,7 @@
                     <div v-for="message in messages" :key="message.id_message" :message="message">
                         <div class="messageCard">
                             <div class="titleContainer">
-                                <h3 class="title">{{ message.username }}</h3>
+                                <h3 class="title"> {{ message.name }} {{ message.surname }}</h3>
                                 <p>{{ message.created_at }}</p>
                             </div>
                             <p> {{ message.description }} </p>
@@ -75,7 +75,7 @@
                     <div v-for="message in messages" :key="message.id_message" :message="message">
                         <div class="messageCard">
                             <div class="titleContainer">
-                                <h3 class="title">{{ message.username }}</h3>
+                                <h3 class="title">{{ message.name }} {{ message.surname }}</h3>
                                 <p>{{ message.created_at }}</p>
                             </div>
                             <p> {{ message.description }} </p>
@@ -108,7 +108,7 @@
                     <div v-for="message in messages" :key="message.id_message" :message="message">
                         <div class="messageCard">
                             <div class="titleContainer">
-                                <h3 class="title">{{ message.username }}</h3>
+                                <h3 class="title"> {{ message.name }} {{ message.surname }}</h3>
                                 <p>{{ message.created_at }}</p>
                             </div>
                             <p> {{ message.description }} </p>
@@ -222,9 +222,6 @@ import {onBeforeMount} from "@vue/runtime-core";
 <style scoped>
     .video-player {
         width: 75%;
-    }
-    .centralMenu{
-        width: 75% !important;
     }
     .button-delete {
         width: min-content;

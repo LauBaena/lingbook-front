@@ -20,7 +20,22 @@
                 <div>
                     <div v-for="message in messages" :key="message.id_message" :message="message">
                         <div class="messageCard">
-                            <h3 class="title">{{ message.username }}</h3>
+                            <div class="titleContainer">
+                                <h3 class="title"> {{ message.name }} {{ message.surname }}</h3>
+                                <p>{{ message.created_at }}</p>
+                            </div>
+                            <p> {{ message.description }} </p>
+                            <div class="buttons">
+                                <p class="buttons-link" @click="goToVideoView(message.id_video)">Ves al vídeo</p> 
+                                <p class="buttons-link" @click="deleteMessage(message.id_message)">Esborrar</p>
+                            </div>                        
+                        </div>
+                        <div class="line"></div>
+                    </div> 
+
+                    <!-- <div v-for="message in messages" :key="message.id_message" :message="message">
+                        <div class="messageCard">
+                            <h3 class="title">{{ message.name }} {{ message.surname }}</h3>
                             <h4> {{ message.description }} </h4>
                             <p>{{ message.created_at }}</p>
                             <div class="buttons">
@@ -29,7 +44,7 @@
                             </div>
                         </div>
                         <div class="line"></div>
-                    </div> 
+                    </div>  -->
                 </div>
             </template>
         </AdminMenu>
@@ -39,12 +54,12 @@
 <script>
     import { useAuthStore } from "@/store/auth";
     import { useMessagesStore } from "@/store/messages";
+    import { useVideosStore } from "@/store/videos";
     import { onBeforeMount } from "@vue/runtime-core";
     import { computed } from "vue";
     import StudentMenu from "@/components/StudentMenu.vue";
     import TeacherMenu from "@/components/TeacherMenu.vue";
     import AdminMenu from "@/components/AdminMenu.vue";
-
     import {useRouter} from "vue-router";
 
     export default {
@@ -60,10 +75,11 @@
                 required: true,
             },
         },
-        setup(props) {
+        setup() {
             const router = useRouter();
             const messagesStore = useMessagesStore();
             const authStore = useAuthStore();
+            const videoStore = useVideosStore();
             const inactiveStatus = "0";
             const activeStatus = "1";
 
@@ -73,9 +89,10 @@
                 return authStore.authUser;
             });
 
-            const goToVideoView = (id_video) => {
-                router.push({path: `/teacher/${props.id}/video/${id_video}`});
-            };
+            async function goToVideoView(id_video){
+                await videoStore.viewSelectedVideo(id_video);
+                router.push({path: `/teacher/${videoStore.video.id_user}/video/${id_video}`});
+            }
 
             const messages = computed(() => {
                 return messagesStore.messages;
@@ -115,9 +132,15 @@
     border-radius: 10px;
     padding: 10px 20px 10px 20px;
 }
+.titleContainer{
+        display: flex;
+        flex-direction: row; 
+        align-items: baseline;
+}
 .title{
     text-decoration: inherit;
     color: #05a5d4;
+    margin-right: 10px;
 }
 .buttons{
     display: flex;
