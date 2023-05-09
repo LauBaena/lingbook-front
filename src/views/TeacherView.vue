@@ -173,13 +173,13 @@ export default {
         }
 
         async function ReservarClassRoom (id_room) {
-            if(classesStore.classe.capacity <=5 ){
+            // if(classesStore.classe.capacity <=5 ){
                 isFinished.value = false;
                 await classesStore.ReservaClass(id_room, authStore.authUser.id_user);
                 delay(1000).then(() => (isFinished.value = true));
-            }else {
-                alert("La classe no admet més participants")
-            }
+            // }else {
+            //     alert("La classe no admet més participants")
+            // }
 
         }
 
