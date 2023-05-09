@@ -31,33 +31,10 @@ export const useLanguagesStore = defineStore("languages", {
     },
 
     //Funció que modifica les llengües de l'array passat per paràmetre 
-    //Crea la propietat image per afegir l'icona corresponent segons el nom i posa el nom amb l'inicial en majúsucla. Desa l'array a la variable 'languages'
+    //Crea la propietat image per afegir l'icona corresponent segons el nom. Desa l'array a la variable 'languages'
     async modify_data(data){
         for (let i = 0; i < data.length; i++){
             data[i].image = `${data[i].name}_icon.png`;
-            if(data[i].name === 'english'){
-                data[i].name = "Anglès";
-            }else if(data[i].name === 'french'){
-                data[i].name = "Francès";
-            }else if(data[i].name === 'german'){
-                data[i].name = "Alemany";
-            }else if(data[i].name === 'italian'){
-                data[i].name = "Italià";
-            }else if(data[i].name === 'japanese'){
-                data[i].name = "Japonès";
-            }else if(data[i].name === 'chinese'){
-                data[i].name = "Xinès";
-            }else if(data[i].name === 'portuguese'){
-                data[i].name = "Portuguès";
-            }else if(data[i].name === 'russian'){
-                data[i].name = "Rus";
-            }else if(data[i].name === 'spanish'){
-                data[i].name = "Castellà";
-            }else if(data[i].name === 'catalan'){
-                data[i].name = "Català";
-            }else if(data[i].name === 'hindi'){
-                data[i].name = "Hindi";
-            }
         }
         this.languages = data;
     },
@@ -80,6 +57,25 @@ export const useLanguagesStore = defineStore("languages", {
         
       this.language = data;
     },
+
+    //Funció que accedeix a la llengua amb l'id passat per paràmetre i la desa a la variable 'language'
+    async fetchLanguageByName(name){
+      console.log(name)
+      const {data} = await axios.get("/languages/name/" + name, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+        }
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.status);
+        } 
+      });       
+      console.log(data)
+      this.language = data;
+    },
+
     //Funció que accedeix a les llengües que l'usuari autenticat (alumne) segueix
     async fetchStudentLanguages(user_id){
       console.log(user_id)
