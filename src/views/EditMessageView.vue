@@ -2,17 +2,19 @@
     <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
         <template v-slot:firstContent>
             <div class="writeMessage">
-                <form @submit.prevent="editMessage()">
+                <div>
+                    <h3 class="title">Missatge a modificar:</h3>
+                    <p>{{ message.description }}</p>
+                </div>
+                <form @submit.prevent="editMessage(message.id_message)">
                     <div class="container">
-                        <h3 class="title">Edita el missatge: </h3>
+                        <h3 class="title">Nou missatge: </h3>
                         <textarea
                             v-model="editMessageForm.message"
                             type="message"
                             name="message"
                             id="message"
-                            class="form-style"
                             autocomplete="off"
-                            :placeholder="message"
                             required/>
                         <input type="submit" class="message-button" value="Modificar">
                     </div>
@@ -24,16 +26,19 @@
     <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
         <template v-slot:firstContent>
             <div class="writeMessage">
+                <div>
+                    <h3 class="title">Missatge a modificar:</h3>
+                    <p>{{ message.description }}</p>
+                </div>
                 <form @submit.prevent="editMessage(message.id_message)">
                     <div class="container">
-                        <h3 class="title">Edita el missatge: </h3>
+                        <h3 class="title">Nou missatge: </h3>
                         <textarea
                             v-model="editMessageForm.message"
                             type="message"
                             name="message"
                             id="message"
                             autocomplete="off"
-                            :placeholder="message.description"
                             required/>
                         <input type="submit" class="message-button" value="Modificar">
                     </div>
@@ -56,7 +61,8 @@ import { computed, ref } from "vue";
 import StudentMenu from "@/components/StudentMenu.vue";
 import TeacherMenu from "@/components/TeacherMenu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
-// import {useRouter} from "vue-router";
+import { useVideosStore } from "@/store/videos";
+import {useRouter} from "vue-router";
 import {useMessagesStore} from "@/store/messages";
 import {onBeforeMount} from "@vue/runtime-core";
 
@@ -78,7 +84,8 @@ import {onBeforeMount} from "@vue/runtime-core";
     setup(props) {
         const messagesStore = useMessagesStore();
         const authStore = useAuthStore();
-        // const router = useRouter();
+        const videoStore = useVideosStore();
+        const router = useRouter();
         const authUser = computed(() => {
             return authStore.authUser;
         });
@@ -95,7 +102,12 @@ import {onBeforeMount} from "@vue/runtime-core";
 
         async function editMessage(id_message) {
             await messagesStore.editMessage(editMessageForm.value, id_message);
-            // router.push({path: `/teacher/${props.id}/video/${id_video}`});
+            await videoStore.viewSelectedVideo(messagesStore.message.id_video);
+            goToVideo(videoStore.video.id_user, videoStore.video.id_video);
+        }
+
+        function goToVideo(id_user, id_video){
+            router.push({path: `/teacher/${id_user}/video/${id_video}`});
         }
 
         return {

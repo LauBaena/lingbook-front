@@ -1,7 +1,5 @@
 import { defineStore } from "pinia";
-import { useUsersStore } from "@/store/users";
 import { useAuthStore } from "@/store/auth";
-
 import axios from "axios";
 
 export const useMessagesStore = defineStore("messages", {
@@ -14,7 +12,6 @@ export const useMessagesStore = defineStore("messages", {
   },
 
   actions: {
-
     //Funció que accedeix a tots els missatges, visibles o eliminats segons l'status (per l'administrador)
     async fetchAllMessages(status){
       this.messages= [];
@@ -31,10 +28,10 @@ export const useMessagesStore = defineStore("messages", {
       });
 
       if(status === "1"){
-        let dadesFiltrades = data.filter(obj => obj.status === "1")
-        this.messages = dadesFiltrades;
+        this.modify_data(data)
       }else if(status === "0"){
         let dadesFiltrades = data.filter(obj => obj.status === "0")
+        dadesFiltrades.sort((a, b) => a.id - b.id);
         this.messages = dadesFiltrades;
       }
     },
@@ -43,7 +40,6 @@ export const useMessagesStore = defineStore("messages", {
     async fetchUserMessages(user_id){
       this.messages= [];
       const authStore = useAuthStore();
-      let dadesFiltrades = "";
 
       const {data} = await axios.get("/messages/user/" + user_id, {
         headers: {
@@ -59,10 +55,9 @@ export const useMessagesStore = defineStore("messages", {
 
       for (let i = 0; i < data.length; i++){
         data[i].username = authStore.authUserCompleteName;
-        dadesFiltrades = data.filter(obj => obj.status !== "0")
       }
-  
-      this.messages = dadesFiltrades;
+
+      this.modify_data(data)
     },
 
     //Funció que accedeix a tots els missatges corresponents a un vídeo concret
@@ -96,23 +91,14 @@ export const useMessagesStore = defineStore("messages", {
           console.log(error.response.status);
         } 
       });
-      console.log(data)
       this.message = data;
     },
 
-    //Funció que modifica els missatges passats per paràmetre per afegir el nom de l'autor i seleccionar només els no eliminats (status 1)
+    //Funció que modifica els missatges passats per paràmetre per seleccionar només els no eliminats (status 1) i ordenar-los
     async modify_data(data){
-      const usersStore = useUsersStore();
-      let dadesFiltrades = "";
-
-      for (let i = 0; i < data.length; i++){
-        await usersStore.fetchUser(data[i].id_user);
-        data[i].username = usersStore.user.name + " " + usersStore.user.surname;
-        dadesFiltrades = data.filter(obj => obj.status !== "0")
-      }
-
+      let dadesFiltrades = data.filter(obj => obj.status === "1");
+      dadesFiltrades.sort((a, b) => b.id_message - a.id_message);
       this.messages = dadesFiltrades;
-      console.log(this.messages)
     },
 
     //Funció que afegeix un missatge d'un usuari específic a un vídeo específic
@@ -143,7 +129,6 @@ export const useMessagesStore = defineStore("messages", {
 
     //Funció que edita un missatge
     async editMessage(message, id_message){
-      console.log(message.message)
       let myDataAsJSON = JSON.stringify ({
         "description": message.message,
       });
@@ -161,9 +146,9 @@ export const useMessagesStore = defineStore("messages", {
         } 
       });
       
-      console.log(data)
-      if(data === true){
+      if(data){
         alert("Missatge editat");
+        this.message=data;
       }else{
         alert("No s'ha pogut editar el missatge")
       }

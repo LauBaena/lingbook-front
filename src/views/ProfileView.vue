@@ -14,12 +14,14 @@
                         <th>Descripció</th>
                         <th>Capacitat</th>
                         <th>Data</th>
+                        <th>Esborrar</th>
                     </tr>
                     <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
                         <td>{{ classe.name }}</td>
                         <td>{{ classe.description }}</td>
                         <td>{{ classe.capacity }}</td>
                         <td>{{ classe.DATA }}</td>
+                        <td><p class="deleteRoom" @click="deleteClassroom(classe.id_room)">Esborrar</p></td>
                     </tr>
                 </table>
             </template>
@@ -184,9 +186,14 @@ export default {
         text-align: center;
     }
 
-    td,th {
+    td, th {
         border: 1px solid;
         padding: 1em;
+    }
+
+    .deleteRoom {
+        color: #05a5d4;
+        cursor: pointer;
     }
 
     @media screen and (max-width: 1369px) {
