@@ -146,6 +146,7 @@ export default {
   .teacher{
     width: 30%;
     cursor:pointer;
+    margin-right: 20px;
   }
   .followButton{
     margin-top: 35px;

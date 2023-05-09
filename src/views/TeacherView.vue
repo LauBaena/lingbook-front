@@ -171,15 +171,14 @@ export default {
         function delay(time) {
             return new Promise((resolve) => setTimeout(resolve, time));
         }
-
-        async function ReservarClassRoom (id_room, classes) {
-            if(classes.capacity){
+        async function ReservarClassRoom (id_room) {
+            // if(classesStore.classe.capacity <=5 ){
                 isFinished.value = false;
                 await classesStore.ReservaClass(id_room, authStore.authUser.id_user);
                 delay(1000).then(() => (isFinished.value = true));
-            }else {
-                alert("La classe no admet més participants")
-            }
+            // }else {
+            //     alert("La classe no admet més participants")
+            // }
 
         }
 
