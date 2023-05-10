@@ -59,6 +59,7 @@
             </template>
             <template v-slot:secondContent>
                 <h1>Les classes de {{ teacher.name }} {{ teacher.surname }}</h1>
+
                 <div class="container" v-if="classes == ''">
                     <p>No has creat cap classe</p>
                 </div>

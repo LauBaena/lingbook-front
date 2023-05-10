@@ -190,12 +190,12 @@ export default {
             router.push({path: `/teacher/${props.id}/video/${id_video}`});
         };
 
-        async function deleteClassroom(id_room){
+        async function deleteClassroom(id_room) {
             await classesStore.deleteClass(id_room, authStore.authUser.id_user)
             await classesStore.fetchTeacherClasses(authStore.authUser.id_user)
         }
 
-        async function cancelClassroom(id_room){
+        async function cancelClassroom(id_room) {
             await classesStore.cancelClass(id_room, authStore.authUser.id_user)
             await classesStore.fetchAlumnsClasses(authStore.authUser.id_user)
         }
@@ -287,52 +287,78 @@ export default {
         cursor: pointer !important;
     }
 
+
+table {
+    border: 2px solid;
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+}
+
+table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+}
+
+table td, table th {
+    border: 1px solid;
+    padding: .625em;
+    text-align: center;
+}
+
+table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+
+.primeraMajuscula {
+    text-transform: capitalize;
+}
+
+.deleteRoom {
+    color: #05a5d4;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
     table {
-        border: 2px solid;
-        border-collapse: collapse;
-        width: 100%;
-        table-layout: fixed;
+        border: 0;
     }
 
     table caption {
-        font-size: 1.5em;
-        margin: .5em 0 .75em;
+        font-size: 1.3em;
     }
 
     table tr {
-        background-color: #f8f8f8;
-        border: 1px solid #ddd;
-        padding: .35em;
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
     }
+
 
     table td, table th {
-        border: 1px solid;
-        padding: .625em;
-        text-align: center;
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
     }
-
-    table th {
-        font-size: .85em;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-    }
-
-    .primeraMajuscula {
-        text-transform: capitalize;
-    }
-
-    .deleteRoom {
-        color: #05a5d4;
-        cursor: pointer;
-    }
-
-    @media screen and (max-width: 600px) {
+}
+    @media screen and (min-width: 601px) and (max-width: 1000px) {
         table {
             border: 0;
+            width: 85vw;
         }
 
         table caption {
-            font-size: 1.3em;
+            font-size: 1.0em;
         }
 
         table tr {
@@ -345,7 +371,7 @@ export default {
             border-bottom: 1px solid #ddd;
             display: block;
             font-size: .8em;
-            text-align: right;
+            text-align: left;
         }
 
         table td::before {
@@ -358,6 +384,19 @@ export default {
         table td:last-child {
             border-bottom: 0;
         }
+
+        table th::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table th:last-child {
+            border-bottom: 0;
+        }
+    }
+    @media screen and (max-width: 1369px) {
 
         table th::before {
             content: attr(data-label);
@@ -416,6 +455,7 @@ export default {
             border-bottom: 0;
         }
     }
+
     @media screen and (max-width: 1369px) {
 
         .studentPic {
@@ -433,5 +473,6 @@ export default {
         .user{
             width: 40%;
         }
+
     }
 </style>
