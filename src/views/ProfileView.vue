@@ -234,12 +234,12 @@ export default {
         text-align: center;
     }
 
-    table th {
-        font-size: .85em;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        background-color: #104b68;
-    }
+< < < < < < < HEAD table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background-color: #104b68;
+}
 
     .primeraMajuscula {
         text-transform: capitalize;
@@ -339,23 +339,35 @@ export default {
         table th:last-child {
             border-bottom: 0;
         }
+
+    =======
+    td, th {
+        border: 1px solid;
+        padding: 1em;
+        >>> >>> > master
     }
 
-    @media screen and (max-width: 1369px) {
-
-        .studentPic {
-            width: 20%;
-            margin: 10px;
-            border-radius: 50%;
-            border: #d9d9d9 6px solid;
+        .deleteRoom {
+            color: #05a5d4;
+            cursor: pointer;
         }
 
-        .profilePrivate {
-            width: 10%;
-            margin-right: 80px;
+        @media screen and (max-width: 1369px) {
+
+            .studentPic {
+                width: 20%;
+                margin: 10px;
+                border-radius: 50%;
+                border: #d9d9d9 6px solid;
+            }
+
+            .profilePrivate {
+                width: 10%;
+                margin-right: 80px;
+            }
         }
+
     }
-
 }
 
 </style>
