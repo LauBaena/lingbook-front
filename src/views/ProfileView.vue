@@ -168,18 +168,17 @@ export default {
 </script>
 
 <style scoped>
-.studentPic {
-    width: 10%;
-    margin: 40px;
-    border-radius: 50%;
-    border: #d9d9d9 6px solid;
-}
-
-.header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
+    .studentPic {
+        width: 10%;
+        margin: 40px;
+        border-radius: 50%;
+        border: #d9d9d9 6px solid;
+    }
+    .header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
     .videosContainer {
         display: flex;
         flex-flow: wrap;
@@ -234,12 +233,11 @@ export default {
         text-align: center;
     }
 
-< < < < < < < HEAD table th {
-    font-size: .85em;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    background-color: #104b68;
-}
+    table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
 
     .primeraMajuscula {
         text-transform: capitalize;
@@ -339,35 +337,19 @@ export default {
         table th:last-child {
             border-bottom: 0;
         }
-
-    =======
-    td, th {
-        border: 1px solid;
-        padding: 1em;
-        >>> >>> > master
     }
+    @media screen and (max-width: 1369px) {
 
-        .deleteRoom {
-            color: #05a5d4;
-            cursor: pointer;
+        .studentPic {
+            width: 20%;
+            margin: 10px;
+            border-radius: 50%;
+            border: #d9d9d9 6px solid;
         }
 
-        @media screen and (max-width: 1369px) {
-
-            .studentPic {
-                width: 20%;
-                margin: 10px;
-                border-radius: 50%;
-                border: #d9d9d9 6px solid;
-            }
-
-            .profilePrivate {
-                width: 10%;
-                margin-right: 80px;
-            }
+        .profilePrivate {
+            width: 10%;
+            margin-right: 80px;
         }
-
     }
-}
-
 </style>
