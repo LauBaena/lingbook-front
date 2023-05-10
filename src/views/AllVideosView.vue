@@ -65,12 +65,12 @@
         const videosStore = useVideosStore();
         const authStore = useAuthStore();
         onBeforeMount(async () => await videosStore.fetchAllVideos("0"));
-    
         const authUser = computed(() => {
             return authStore.authUser;
         });
+ 
         const goToVideoView = (id_video) => {
-         router.push({path: `/teacher/${props.id}/video/${id_video}`});
+            router.push({path: `/teacher/${props.id}/video/${id_video}`});
         };
         return {
             videosStore,

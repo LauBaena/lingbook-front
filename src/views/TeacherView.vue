@@ -46,9 +46,8 @@
             </template>
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
-            <template v-slot:firstContent>
-                <h1 v-for="teacher in teachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }}
-                    {{ teacher.surname }}</h1>
+            <template  v-slot:firstContent>
+                <h1 v-for="teacher in filteredTeachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }} {{ teacher.surname }}</h1>
                 <div class="videosContainer">
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
@@ -90,8 +89,7 @@
         </StudentMenu>
         <AdminMenu v-else>
             <template v-slot:firstContent>
-                <h1 v-for="teacher in teachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }}
-                    {{ teacher.surname }}</h1>
+                <h1 v-for="teacher in filteredTeachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }} {{ teacher.surname }}</h1>
                 <div class="videosContainer">
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
@@ -168,6 +166,10 @@ export default {
             return classesStore.classes;
         });
 
+        const filteredTeachers = computed(() => {
+            return teachers.value.filter(teacher => teacher.id_user === props.id)
+        })
+
         //Reservar classe o anul·lar reserva de classe
         let isFinished = ref(true);
 
@@ -204,6 +206,7 @@ export default {
             videosStore,
             props,
             teachers,
+            filteredTeachers,
             addVideoForm,
             afegirVideo,
             goToVideoView,
