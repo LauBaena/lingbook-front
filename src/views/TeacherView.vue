@@ -61,8 +61,8 @@
                 </div>
             </template>
             <template v-slot:secondContent>
-<!--                <h1 v-for="teacher in teachers" :key="teacher.id">Les classes de {{ teacher.name }}
-                    {{ teacher.surname }}</h1>-->
+                <h1 v-for="teacher in teachers" :key="teacher.id">Les classes de del/la professor/a {{ teacher.name }}
+                    {{ teacher.surname }}</h1>
                 <div class="container" v-if="classes == ''">
                     <p>No has creat cap classe</p>
                 </div>
