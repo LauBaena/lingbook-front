@@ -43,6 +43,7 @@
         height: 100px;
         margin-left: -10px;
         margin-bottom: -10px;
+        margin-top: 600px;
     }
     a{
         color:#58bff6;

@@ -114,18 +114,6 @@ const routes = [
       import(/* webpackChunkName: "allDeletedMessages" */ "../views/DeletedMessagesView.vue"),
     meta: {requiresAuth: true}
   },
-  // {
-  //   path: "/teacher/:id/userVideos",
-  //   name: "userVideos",
-  //   component: () =>
-  //     import(/* webpackChunkName: "login" */ "../views/UserVideosView.vue"),
-  //     props: (route) => {
-  //       const id = route.params.id;
-  //       return id ? { id } : { id: "" };
-  //     },
-  //     meta: {requiresAuth: true}
-  // },
-
   {
     path: "/profile/:id/userClasses",
     name: "userClasses",
@@ -177,21 +165,6 @@ const routes = [
     },
     meta: {requiresAuth: true}
   },
-  // {
-  //   path: "/video/:id_video",
-  //   name: "videoView",
-  //   component: () =>
-  //     import(/* webpackChunkName: "teacherView" */ "../views/VideoView.vue"),
-  //   props: (route) => {
-  //     const id_video = route.params.id_video;
-  //     return id_video ? { id_video } : { id_video: "" };
-  //     /* const id = route.params.id;
-  //     const id_video = route.params.id_video;
-  //     return id && id_video ? { id, id_video } : { id: "", id_video: "" };*/
-  //   },
-  //   meta: {requiresAuth: true}
-  // },
-
   {
     path: "/teacher/:id/video/:id_video",
     name: "videoView",

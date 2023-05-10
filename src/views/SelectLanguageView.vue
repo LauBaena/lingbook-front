@@ -23,7 +23,7 @@
                                      :alt="`${language.name} flag`">
                             </label>
                         </div>
-                        <div v-else>L'idioma triat és: {{ authStore.teacherLanguage }}</div>
+                        <div v-else>L'idioma triat és: <span class="primeraMajuscula">{{ authStore.teacherLanguage }}</span></div>
                     </div>
             </template>
         </TeacherMenu>
@@ -128,6 +128,7 @@ export default {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    text-transform: capitalize;
 }
 
 .languagePic {
@@ -147,6 +148,7 @@ export default {
     flex-direction: row;
     align-items: center;
     cursor: pointer;
+    text-transform: capitalize;
 }
 
 .languagePicSmall {
@@ -154,6 +156,10 @@ export default {
     margin: 10px 10px 10px 10px;
     border-radius: 50%;
     border: #f4eeee 2px solid;
+}
+
+.primeraMajuscula {
+    text-transform: capitalize;
 }
 
 @media screen and (max-width: 1369px) {

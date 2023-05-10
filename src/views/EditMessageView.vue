@@ -97,7 +97,7 @@ import {onBeforeMount} from "@vue/runtime-core";
         });
 
         const editMessageForm = ref({
-            message: messagesStore.message.description,
+            message: "",
         });
 
         async function editMessage(id_message) {
@@ -135,8 +135,8 @@ import {onBeforeMount} from "@vue/runtime-core";
     }
     textarea {
         color: #8a8a8a;
-        height: 60px;
-        width: 200%;
+        height: 5vw;
+        width: 40vw;
         padding: 15px 3%;
         border: 1px solid #ccc;
         border-radius: 27px;
@@ -168,8 +168,25 @@ import {onBeforeMount} from "@vue/runtime-core";
         cursor: pointer;
     }
 
-    .message-button-icon {
-        font-size: 15px;
-        font-weight: bold;
+
+    @media screen and (max-width: 1369px) {
+        textarea {
+            color: #8a8a8a;
+            height: 70px;
+            width: 65vw;
+            padding: 15px 3%;
+            border: 1px solid #ccc;
+            border-radius: 27px;
+            font-size: 100%;
+            letter-spacing: .8px;
+            margin-bottom: 20px;
+        }
+/*
+        .message-button {
+            margin-bottom: 22em;
+        }
+
+ */
     }
+
 </style>
