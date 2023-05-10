@@ -241,6 +241,7 @@ table th {
     text-transform: uppercase;
 }
 
+
 .primeraMajuscula {
     text-transform: capitalize;
 }
@@ -265,95 +266,139 @@ table th {
         margin-bottom: .625em;
     }
 
+
     table td, table th {
         border-bottom: 1px solid #ddd;
         display: block;
         font-size: .8em;
         text-align: right;
     }
-
-    table td::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table td:last-child {
-        border-bottom: 0;
-    }
-
-    table th::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table th:last-child {
-        border-bottom: 0;
-    }
 }
+    @media screen and (min-width: 601px) and (max-width: 1000px) {
+        table {
+            border: 0;
+            width: 85vw;
+        }
 
-@media screen and (min-width: 601px) and (max-width: 1000px) {
-    table {
-        border: 0;
-        width: 85vw;
+        table caption {
+            font-size: 1.0em;
+        }
+
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        table td, table th {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: left;
+        }
+
+        table td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child {
+            border-bottom: 0;
+        }
+
+        table th::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table th:last-child {
+            border-bottom: 0;
+        }
+    }
+    @media screen and (max-width: 1369px) {
+
+        table th::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table th:last-child {
+            border-bottom: 0;
+        }
     }
 
-    table caption {
-        font-size: 1.0em;
+    @media screen and (min-width: 601px) and (max-width: 1000px) {
+        table {
+            border: 0;
+            width: 85vw;
+        }
+
+        table caption {
+            font-size: 1.0em;
+        }
+
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        table td, table th {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: left;
+        }
+
+        table td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child {
+            border-bottom: 0;
+        }
+
+        table th::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table th:last-child {
+            border-bottom: 0;
+        }
     }
 
-    table tr {
-        border-bottom: 3px solid #ddd;
-        display: block;
-        margin-bottom: .625em;
+    @media screen and (max-width: 1369px) {
+
+        .studentPic {
+            width: 20%;
+            margin: 10px;
+            border-radius: 50%;
+            border: #d9d9d9 6px solid;
+        }
+
+        .profilePrivate {
+            width: 10%;
+            margin-right: 80px;
+        }
+
+        .studentPic {
+            width: 20%;
+            margin: 10px;
+            border-radius: 50%;
+            border: #d9d9d9 6px solid;
+        }
+
     }
-
-    table td, table th {
-        border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-        text-align: left;
-    }
-
-    table td::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table td:last-child {
-        border-bottom: 0;
-    }
-
-    table th::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table th:last-child {
-        border-bottom: 0;
-    }
-}
-
-@media screen and (max-width: 1369px) {
-
-    .studentPic {
-        width: 20%;
-        margin: 10px;
-        border-radius: 50%;
-        border: #d9d9d9 6px solid;
-    }
-
-    .profilePrivate {
-        width: 10%;
-        margin-right: 80px;
-    }
-}
-
 </style>
