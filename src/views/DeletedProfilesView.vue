@@ -95,16 +95,17 @@ export default {
   }
 
   .usersContainer{
-    display:flex;
-    flex-flow: row wrap;
+    margin: 10px;
+    min-width: 100%;
   }
   .user{
-    flex-basis: 30%; /* eEstableix un ample bàsic */
-    min-width: 385px; 
-    max-width: 33.33%; 
+    display:flex;
+    flex-flow: row wrap;
   } 
 
   .userCard{
+        min-width: 29%; 
+        max-width: 29%; 
         margin-left: 20px;
         display: flex;
         flex-direction: row;
@@ -172,9 +173,12 @@ export default {
       }
 
       .user{
-          width: 40%;
-      }
+        display:flex;
+        flex-flow: row wrap;
+      } 
       .userCard{
+        min-width: 50%; 
+        max-width: 100%; 
         margin-left: 20px;
         display: flex;
         flex-direction: column;

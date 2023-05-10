@@ -75,7 +75,7 @@
             <template v-slot:secondContent>
                 <h2 class="messagesTitle"> Els darrers comentaris que he fet</h2>
                 <div v-if="messages.length!=0" class="messagesContainer">
-                    <MessageCard class="message" v-for="message in messages.slice(-3)" :key="message.id_message" :message="message" @deleteMessage="deleteMessage"/>
+                    <MessageCard class="message" v-for="message in messages.slice(0,3)" :key="message.id_message" :message="message" @deleteMessage="deleteMessage"/>
                 </div>
                 <div v-else><p>No has escrit cap missatge</p></div>  
             </template>
