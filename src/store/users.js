@@ -5,7 +5,7 @@ import axios from "axios";
 export const useUsersStore = defineStore("users", {
   state: () => ({
     users: [],
-    user: undefined,
+    user: "",
     teachersByLanguage:[],
   }),
 
@@ -72,13 +72,14 @@ export const useUsersStore = defineStore("users", {
         } 
       });
 
-      if(data.type === "0"){
-        data.type = 'Administrador/a';
-      }else if(data.type === "1"){
-        data.type = 'Professor/a';
-      }else{
-        data.type = 'Alumne';
-      }
+      // if(data.type === "0"){
+      //   data.type = 'Administrador/a';
+      // }else if(data.type === "1"){
+      //   data.type = 'Professor/a';
+      // }else{
+      //   data.type = 'Alumne';
+      // }
+      console.log(data)
       data.name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
       data.surname = data.surname.charAt(0).toUpperCase() + data.surname.slice(1);
 
@@ -104,7 +105,6 @@ export const useUsersStore = defineStore("users", {
     },
 
     async flipStatus(dadesUser){
-      console.log("DADEs", dadesUser)
       const {data} = await axios.delete("/users/" + dadesUser,  {
         headers: {
           "Content-Type": "application/json",
@@ -117,21 +117,11 @@ export const useUsersStore = defineStore("users", {
           console.log(error.response.status);
         } 
       });
-      console.log(data)
-      // if(data === false){
-      //   alert("No s'ha pogut modificar el Status de l'usuari. Contacta amb el responsable del Back")
-      //   await router.push({ path: "/deletedVideos"});
-      // } else{
-        
-      //   if(controlStatus === "0"){
-      //     alert("Usuari eliminat");
-      //     await router.push({ path: "/allVideos"});
-      //   } 
-      //   if (controlStatus === "1"){
-      //     alert("L'usuari s'ha reactivat");
-      //     await router.push({ path: "/deletedVideos"});
-      //   }
-      // }
+      if(data === false){
+        alert("No s'ha pogut modificar el Status de l'usuari. Contacta amb el responsable del Back")
+      } else{
+        alert("Estat de l'usuari modificat");
+      }
     },
     
   }, 

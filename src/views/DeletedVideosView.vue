@@ -59,18 +59,26 @@
             required: true,
         },
     },
-    setup(props) {
+    setup() {
         const router = useRouter();
         const videosStore = useVideosStore();
         const authStore = useAuthStore();
+
         onBeforeMount(async () => await videosStore.fetchAllVideos("1"));
-    
+
         const authUser = computed(() => {
             return authStore.authUser;
         });
-        const goToVideoView = (id_video) => {
-         router.push({path: `/teacher/${props.id}/video/${id_video}`});
-        };
+
+        // const goToVideoView = (id_video) => {
+        //  router.push({path: `/teacher/${props.id}/video/${id_video}`});
+        // };
+
+        async function goToVideoView(id_video) {
+            await videosStore.viewSelectedVideo(id_video)
+            router.push({path: `/teacher/${videosStore.video.id_user}/video/${id_video}`});
+        }
+
         return {
             videosStore,
             authStore,

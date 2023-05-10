@@ -8,7 +8,7 @@
             <p> {{ message.description }} </p>
             <div class="buttons">
                 <p class="buttons-link" @click="goToVideoView(message.id_video)">Ves al vídeo</p> 
-                <p class="buttons-link" @click="emitDeleteMessage(message.id_message)">Esborrar</p>
+                <p v-if="authStore.authUser.type === 'Alumne'" class="buttons-link" @click="emitDeleteMessage(message.id_message)">Esborrar</p>
             </div>
         </div>
         <div class="line"></div>

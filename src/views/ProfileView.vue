@@ -31,8 +31,20 @@
                 </div>
             </template>
             <template v-slot:secondContent>
-                <h2>Els meus darrers vídeos que han rebut comentaris</h2>
-                <p>Espai en construcció</p>
+                <h2>Els meus darrers vídeos</h2>
+                <div v-if="teacherVideos.length!=0" class="videosContainer">
+                    <div class="videoCard" v-for="video in teacherVideos.slice(-3)" :key="video.id_video"
+                         :video="video">
+                        <div class="playerContainer">
+                            <vue-plyr>
+                                <div data-plyr-provider="youtube" :data-plyr-embed-id="video.shortLink"></div>
+                            </vue-plyr>
+                            <p>Data creació: {{ video.created_at }}</p>
+                            <a class="clicable" @click="goToVideoView(video.id_video)">Ves al vídeo</a>
+                        </div>
+                    </div>
+                </div>
+                <div v-else><p>No has pujat cap video</p></div> 
             </template>
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
@@ -59,18 +71,20 @@
                         </tr>
                     </table>
                 </div>
-
             </template>
             <template v-slot:secondContent>
-                <h2>Els darrers vídeos on he comentat</h2>
-                <p>Espai en construcció</p>
+                <h2 class="messagesTitle"> Els darrers comentaris que he fet</h2>
+                <div v-if="messages.length!=0" class="messagesContainer">
+                    <MessageCard class="message" v-for="message in messages.slice(-3)" :key="message.id_message" :message="message" @deleteMessage="deleteMessage"/>
+                </div>
+                <div v-else><p>No has escrit cap missatge</p></div>  
             </template>
         </StudentMenu>
         <AdminMenu v-else>
             <template v-slot:firstContent>
                 <h2>Darrers vídeos publicats a la plataforma</h2>
                 <div class="videosContainer">
-                    <div class="videoCard" v-for="video in videosStore.videos.slice(-6)" :key="video.id_video"
+                    <div class="videoCard" v-for="video in allVideos.slice(-6)" :key="video.id_video"
                          :video="video">
                         <div class="playerContainer">
                             <vue-plyr>
@@ -83,8 +97,10 @@
                 </div>
             </template>
             <template v-slot:secondContent>
-                <h2>Darrers vídeos que han rebut missatges</h2>
-                <p>Espai en construcció</p>
+                <h2>Darrers usuaris registrats</h2>
+                <div class="usersContainer">
+                    <UserCard class="user" v-for="user in computedUsers.slice(-6)" :key="user.id_user" :user="user"/>
+                </div>
             </template>
         </AdminMenu>
     </div>
@@ -100,6 +116,10 @@ import TeacherMenu from "@/components/TeacherMenu.vue";
 import AdminMenu from "@/components/AdminMenu.vue";
 import {onBeforeMount} from "@vue/runtime-core";
 import {useRouter} from "vue-router";
+import MessageCard from '../components/MessageCard.vue';
+import { useMessagesStore } from "@/store/messages";
+import UserCard from '../components/UserCard.vue';
+import { useUsersStore } from "@/store/users";
 
 export default {
     name: "ProfileView",
@@ -107,6 +127,8 @@ export default {
         StudentMenu,
         TeacherMenu,
         AdminMenu,
+        MessageCard,
+        UserCard,
     },
     props: {
         id: {
@@ -119,6 +141,17 @@ export default {
         const router = useRouter();
         const authStore = useAuthStore();
         const videosStore = useVideosStore();
+        const messagesStore = useMessagesStore();
+        const usersStore = useUsersStore();
+
+        onBeforeMount(async () => await messagesStore.fetchUserMessages(authStore.authUser.id_user));
+        onBeforeMount(async () => await classesStore.fetchTeacherClasses(authStore.authUser.id_user));
+        onBeforeMount(async () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
+        // Agafem tots els vídeos. Enviem "1" per l'statusControl (que el video estigui publicat)
+        onBeforeMount(async () => await videosStore.fetchAllVideos("0"));
+        onBeforeMount(async () => await usersStore.fetchAllUsers("0"));
+        onBeforeMount(async () => await videosStore.fetchLastUserVideos(props.id));
+
         const classes = computed(() => {
             return classesStore.classes;
         });
@@ -129,16 +162,31 @@ export default {
             return authStore.authUser;
         });
 
-        onBeforeMount(async () => await classesStore.fetchTeacherClasses(authStore.authUser.id_user));
-        onBeforeMount(async () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
-        onBeforeMount(async () => {
-            // Agafem tots els vídeos. Enviem "1" per l'statusControl (que el video estigui publicat)
-            await videosStore.fetchAllVideos("0");
-            console.log("videostore", videosStore)
+        const messages = computed(() => {
+            return messagesStore.messages;
         });
 
-        const goToVideoView = (id_video) => {
+        const allVideos = computed(() => {
+            return videosStore.videos;
+        });
 
+        const teacherVideos = computed(() => {
+            return videosStore.lastTeacherVideos;
+        });
+
+        console.log(allVideos)
+
+        const computedUsers = computed(() => {
+            // Filtrem els users
+            return usersStore.users.filter(user => user.status === '1');
+        });
+
+        async function deleteMessage(message_id) {
+            await messagesStore.deleteMessage(message_id);
+            await messagesStore.fetchUserMessages(authStore.authUser.id_user);
+        }
+
+        const goToVideoView = (id_video) => {
             router.push({path: `/teacher/${props.id}/video/${id_video}`});
         };
 
@@ -158,58 +206,87 @@ export default {
             authUser,
             classes,
             classesStudent,
+            allVideos,
             videosStore,
             goToVideoView,
             deleteClassroom,
-            cancelClassroom
+            cancelClassroom,
+            messages,
+            deleteMessage,
+            teacherVideos,
+            usersStore,
+            computedUsers
         };
     }
 };
 </script>
 
 <style scoped>
-.studentPic {
-    width: 10%;
-    margin: 40px;
-    border-radius: 50%;
-    border: #d9d9d9 6px solid;
-}
+    .studentPic {
+        width: 10%;
+        margin: 40px;
+        border-radius: 50%;
+        border: #d9d9d9 6px solid;
+    }
+    .header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .messagesTitle{
+        margin-top: 50px;
+    }
+    .messagesContainer{
+        display:flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 
-.header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+    .message{
+        cursor:pointer;
+        margin-right:40px
+    }
+    .videosContainer {
+        display: flex;
+        flex-flow: wrap;
+        padding: 20px;
+    }
 
-.videosContainer {
-    display: flex;
-    flex-flow: wrap;
-    padding: 20px;
-}
+    .videoCard {
+        margin-left: 20px;
+        margin-bottom: 40px;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        width: 30%;
 
-.videoCard {
-    margin-left: 20px;
-    margin-bottom: 40px;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    width: 30%;
+    }
 
-}
+    .playerContainer {
+        width: 100%;
+    }
 
-.playerContainer {
-    width: 100%;
-}
+    .usersContainer{
+        display:flex;
+        flex-flow: row wrap;
+        
+    }
 
-.clicable {
-    font-weight: bold;
-    margin-top: 10px;
-    cursor: default;
-}
+    .user{
+        flex-basis: 30%; /* eEstableix un ample bàsic */
+        min-width: 385px; 
+        max-width: 33.33%; 
+    } 
+    .clicable {
+        font-weight: bold;
+        margin-top: 10px;
+        cursor: default;
+    }
 
-.clicable:hover {
-    cursor: pointer !important;
-}
+    .clicable:hover {
+        cursor: pointer !important;
+    }
+
 
 table {
     border: 2px solid;
@@ -392,12 +469,9 @@ table th {
             width: 10%;
             margin-right: 80px;
         }
-
-        .studentPic {
-            width: 20%;
-            margin: 10px;
-            border-radius: 50%;
-            border: #d9d9d9 6px solid;
+        
+        .user{
+            width: 40%;
         }
 
     }

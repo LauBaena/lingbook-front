@@ -4,6 +4,7 @@ import router from '../router/index.js';
 
 export const useVideosStore = defineStore("videos", {
   state: () => ({
+    lastTeacherVideos: [],
     videos: [],
     video: "",
   }),
@@ -25,7 +26,6 @@ export const useVideosStore = defineStore("videos", {
             console.log(error.response.status);
             } 
         });
-
         console.log(data)
         this.modify_data(data,statusControl)
     },
@@ -47,7 +47,6 @@ export const useVideosStore = defineStore("videos", {
         // console.log("Dades filtrades", dadesFiltrades)
 
         this.videos = dadesFiltrades;
-        console.log(this.videos)
     },
 
     async fetchUserVideos(id_usuari){
@@ -64,7 +63,28 @@ export const useVideosStore = defineStore("videos", {
       });
 
       this.modify_data(data, "0")
-  },
+    },
+
+    async fetchLastUserVideos(id_usuari){
+      const {data} = await axios.get("/teacher/"+id_usuari+"/videos", {
+          headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
+          }
+      })
+      .catch(function (error) {
+          if (error.response) {
+          console.log(error.response.status);
+          } 
+      });
+
+      for (let i = 0; i < data.length; i++){
+          let segments = data[i].link.split("/");
+          data[i].shortLink = segments.pop();
+      }
+
+      this.lastTeacherVideos = data;
+    },
 
     async viewSelectedVideo(id_video){
       const {data} = await axios.get("/videos/"+id_video, {
@@ -78,9 +98,7 @@ export const useVideosStore = defineStore("videos", {
           console.log(error.response.status);
           } 
       });
-
        this.video = data;
-      // this.modify_data(data)
     },
 
     async addVideo(dadesVideo){
@@ -106,7 +124,6 @@ export const useVideosStore = defineStore("videos", {
         }
       })
 
-
       .catch(function (error) {
         if (error.response) {
           console.log(error.response.status);
@@ -128,6 +145,7 @@ export const useVideosStore = defineStore("videos", {
       });
 
       let dades = JSON.parse(myDataAsJSON);
+
       const {data} = await axios.delete("/videos/" + dades.id,  {
         id: dades.id,
       }, 
@@ -138,7 +156,6 @@ export const useVideosStore = defineStore("videos", {
           "Authorization": "Basic bGluZ2JvODIxOmszNjkzQjM5"
         }
       })
-
 
       .catch(function (error) {
         if (error.response) {
