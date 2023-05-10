@@ -36,4 +36,5 @@ export default {
   html, body {
     font-family: "HelveticaNeue", sans-serif;
   }
+
 </style>

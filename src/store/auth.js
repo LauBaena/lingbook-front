@@ -75,9 +75,11 @@ export const useAuthStore = defineStore("auth", {
           console.log(error.response);
         } 
       });
-
+      console.log(data)
       if(data === "error"){
         alert("Correu electrònic o contrasenya incorrecte")
+      }else if(data === "blocked") {
+        alert("Aquest usuari ha estat bloquejat per l'administrador. Sigues millor persona la propera vegada :-)")
       }else{
         setCookie("LingbookToken", data);
         this.isAuth = true;
