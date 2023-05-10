@@ -61,8 +61,6 @@
                 </div>
             </template>
             <template v-slot:secondContent>
-<!--                <h1 v-for="teacher in teachers" :key="teacher.id">Les classes de {{ teacher.name }}
-                    {{ teacher.surname }}</h1>-->
                 <div class="container" v-if="classes == ''">
                     <p>No has creat cap classe</p>
                 </div>
@@ -83,6 +81,7 @@
                             <td>
                                 <p class="reservaRoom" @click="ReservarClassRoom(classe.id_room)">Reservar</p>
                             </td>
+
                         </tr>
                     </table>
                 </div>
@@ -341,97 +340,6 @@ table th {
     color: #05a5d4;
     cursor: pointer;
 
-}
-
-@media screen and (max-width: 600px) {
-    table {
-        border: 0;
-    }
-
-    table caption {
-        font-size: 1.3em;
-    }
-
-    table tr {
-        border-bottom: 3px solid #ddd;
-        display: block;
-        margin-bottom: .625em;
-    }
-
-    table td, table th {
-        border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-        text-align: right;
-    }
-
-    table td::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table td:last-child {
-        border-bottom: 0;
-    }
-
-    table th::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table th:last-child {
-        border-bottom: 0;
-    }
-}
-
-@media screen and (min-width: 601px) and (max-width: 1000px) {
-    table {
-        border: 0;
-        width: 85vw;
-    }
-
-    table caption {
-        font-size: 1.0em;
-    }
-
-    table tr {
-        border-bottom: 3px solid #ddd;
-        display: block;
-        margin-bottom: .625em;
-    }
-
-    table td, table th {
-        border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-        text-align: left;
-    }
-
-    table td::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table td:last-child {
-        border-bottom: 0;
-    }
-
-    table th::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table th:last-child {
-        border-bottom: 0;
-    }
 }
 
 @media screen and (max-width: 600px) {
