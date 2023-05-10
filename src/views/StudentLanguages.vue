@@ -12,7 +12,7 @@
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
             <template v-slot:firstContent>
                 <h2>Les meves llengües</h2>
-                <div class="languagesContainer">
+                <div v-if="languages.length!=0" class="languagesContainer">
                     <div class="language" v-for="language in languages" :key="language.id_language"
                          :language="language">
                         <img class="languagePic" :src="getImage(language.image)" :alt="`${language.name} flag`"
@@ -20,6 +20,7 @@
                         <p>{{ language.name }}</p>
                     </div>
                 </div>
+                <div v-else><p>No segueixes cap llengua</p></div>            
             </template>
             <template v-slot:secondContent>
 

@@ -2,8 +2,7 @@
     <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
         <template v-slot:firstContent>
             <div class="total-container" v-if="video && video.status === '1'">
-                <!-- <h1>Aquí ha d'anar el títol del video, que es el description (aka missatge 0) </h1> -->
-                <h1>Títol del video del professor / de la professora: {{messages[0].description}}</h1>
+                <h1>Títol del video del professor / de la professora: {{messages[messages.length-1].description}}</h1>
                 <div class="video-player">
                     <vue-plyr class="video">
                         <div data-plyr-provider="youtube" :data-plyr-embed-id="video.link"></div>
@@ -26,7 +25,7 @@
                     </form>
                 </div>
                 <div>
-                    <div v-for="message in messages" :key="message.id_message" :message="message">
+                    <div v-for="message in messages.slice(0, messages.length - 1)" :key="message.id_message" :message="message">
                         <div class="messageCard">
                             <div class="titleContainer">
                                 <h3 class="title"> {{ message.name }} {{ message.surname }}</h3>
@@ -49,7 +48,7 @@
     <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
         <template v-slot:firstContent>
             <div v-if="video && video.status === '1'">
-                <h1>Aquí ha d'anar el títol del video, que es el description (aka missatge 0) </h1>
+                <h1>Títol del video del professor / de la professora: {{messages[messages.length-1].description}}</h1>
                 <div class="video-player">
                     <vue-plyr class="video">
                         <div data-plyr-provider="youtube" :data-plyr-embed-id="video.link"></div>
@@ -72,7 +71,7 @@
                     </form>
                 </div>
                 <div>
-                    <div v-for="message in messages" :key="message.id_message" :message="message">
+                    <div v-for="message in messages.slice(0, messages.length - 1)" :key="message.id_message" :message="message">
                         <div class="messageCard">
                             <div class="titleContainer">
                                 <h3 class="title">{{ message.name }} {{ message.surname }}</h3>
@@ -96,7 +95,7 @@
         <template v-slot:firstContent>
             <div v-if="video">
                 <div v-if="video.status === '0'">Aquest vídeo ha estat eliminat i la resta d'usuaris no el poden visualitzar</div>
-                <h1>Aquí ha d'anar el títol del video, que es el description (aka missatge 0) </h1>
+                <h1>Títol del video del professor / de la professora: {{messages[messages.length-1].description}}</h1>
                 <div v-if=" video.status === '1'" class="button-delete" @click="modificaStatus('0')">Esborra el vídeo</div>
                 <div v-if="video && video.status === '0'" class="button-delete" @click="modificaStatus('1')">Torna'l a publicar</div>
                 <div class="video-player">
@@ -105,7 +104,7 @@
                     </vue-plyr>
                 </div>
                 <div>
-                    <div v-for="message in messages" :key="message.id_message" :message="message">
+                    <div v-for="message in messages.slice(0, messages.length - 1)" :key="message.id_message" :message="message">
                         <div class="messageCard">
                             <div class="titleContainer">
                                 <h3 class="title"> {{ message.name }} {{ message.surname }}</h3>
@@ -172,8 +171,8 @@ import {onBeforeMount} from "@vue/runtime-core";
         onBeforeMount(async () => await videosStore.viewSelectedVideo(props.id_video));
         onBeforeMount(async () => await messagesStore.fetchVideoMessages(props.id_video));
 
-        function modificaStatus(controlStatus) {
-            videosStore.flipStatus(props.id_video, controlStatus);
+        async function modificaStatus(controlStatus) {
+            await videosStore.flipStatus(props.id_video, controlStatus);
         }
 
         const messages = computed(() => {
@@ -235,8 +234,8 @@ import {onBeforeMount} from "@vue/runtime-core";
         padding: 13px 1%;
         border: 1px solid #ccc;
         border-radius: 27px;
-        /* font-size: 100%; */
         letter-spacing: .8px;
+        text-align: center;
     }
     .button-delete:hover {
         cursor: pointer  !important;;

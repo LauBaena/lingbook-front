@@ -2,7 +2,6 @@
     <div class="userCard">
         <img src="../assets/student1.jpg" class="cardImage" :alt="user.name">
         <div class="userInfo">
-            <!-- <a @click="goToProfile(user.id_user)"><h3>{{ user.name }} {{ user.surname }}</h3></a> -->
             <h3>{{ user.name }} {{ user.surname }}</h3>
             <p>Data creació: {{ user.created_at }}</p>
             <p>Rol: {{ user.type }}</p>
@@ -14,7 +13,6 @@
 
 <script>
     import { defineComponent } from 'vue';
-    // import {useRouter} from "vue-router";
     import { useUsersStore } from "@/store/users";
     
     export default defineComponent({
@@ -28,19 +26,14 @@
 
             const usersStore = useUsersStore();
 
-            function modificaStatus() {
-                usersStore.flipStatus(props.user.id_user);
+            async function modificaStatus() {
+                await usersStore.flipStatus(props.user.id_user);
+                await usersStore.fetchAllUsers("0");
             }
-            // const router = useRouter();
 
-            // const goToProfile = (id) => {
-            //     router.push({path: `/profile/${id}`});
-            // };
             return{
                 usersStore,
                 modificaStatus,
-
-                // goToProfile
             }
         }
     })

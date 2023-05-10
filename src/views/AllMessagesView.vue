@@ -32,19 +32,6 @@
                         </div>
                         <div class="line"></div>
                     </div> 
-
-                    <!-- <div v-for="message in messages" :key="message.id_message" :message="message">
-                        <div class="messageCard">
-                            <h3 class="title">{{ message.name }} {{ message.surname }}</h3>
-                            <h4> {{ message.description }} </h4>
-                            <p>{{ message.created_at }}</p>
-                            <div class="buttons">
-                                <p class="buttons-link" @click="goToVideoView(message.id_video)">Ves al vídeo</p> 
-                                <p class="buttons-link" @click="deleteMessage(message.id_message)">Esborrar</p>
-                            </div>
-                        </div>
-                        <div class="line"></div>
-                    </div>  -->
                 </div>
             </template>
         </AdminMenu>

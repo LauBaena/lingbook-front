@@ -17,12 +17,14 @@
         <AdminMenu v-else >
             <template v-slot:firstContent>
                 <h2>Tots els missatges eliminats</h2>
-                <div>
+                <div v-if="messages.length!=0">
                     <div v-for="message in messages" :key="message.id_message" :message="message">
                         <div class="messageCard">
-                            <h3 class="title">{{ message.name }} {{ message.surname }}</h3>
-                            <h4> {{ message.description }} </h4>
-                            <p>{{ message.created_at }}</p>
+                            <div class="titleContainer">
+                                <h3 class="title"> {{ message.name }} {{ message.surname }}</h3>
+                                <p>{{ message.created_at }}</p>
+                            </div>
+                            <p> {{ message.description }} </p>
                             <div class="buttons">
                                 <p class="buttons-link" @click="goToVideoView(message.id_video)">Ves al vídeo</p> 
                                 <p class="buttons-link" @click="recoverMessage(message.id_message)">Recuperar</p>
@@ -31,6 +33,7 @@
                         <div class="line"></div>
                     </div> 
                 </div>
+                <div v-else><p>No has eliminat cap missatge</p></div> 
             </template>
         </AdminMenu>
     </div>
@@ -115,9 +118,15 @@
         border-radius: 10px;
         padding: 10px 20px 10px 20px;
     }
+    .titleContainer{
+        display: flex;
+        flex-direction: row; 
+        align-items: baseline;
+    }
     .title{
         text-decoration: inherit;
         color: #05a5d4;
+        margin-right: 10px;
     }
     .buttons{
         display: flex;

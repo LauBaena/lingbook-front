@@ -31,7 +31,7 @@ export const useMessagesStore = defineStore("messages", {
         this.modify_data(data)
       }else if(status === "0"){
         let dadesFiltrades = data.filter(obj => obj.status === "0")
-        dadesFiltrades.sort((a, b) => a.id - b.id);
+        dadesFiltrades.sort((a, b) => b.id_message - a.id_message);
         this.messages = dadesFiltrades;
       }
     },
