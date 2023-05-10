@@ -142,12 +142,12 @@ export default {
             router.push({path: `/teacher/${props.id}/video/${id_video}`});
         };
 
-        async function deleteClassroom(id_room){
+        async function deleteClassroom(id_room) {
             await classesStore.deleteClass(id_room, authStore.authUser.id_user)
             await classesStore.fetchTeacherClasses(authStore.authUser.id_user)
         }
 
-        async function cancelClassroom(id_room){
+        async function cancelClassroom(id_room) {
             await classesStore.cancelClass(id_room, authStore.authUser.id_user)
             await classesStore.fetchAlumnsClasses(authStore.authUser.id_user)
         }
@@ -179,194 +179,180 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
 
-    .videosContainer {
-        display: flex;
-        flex-flow: wrap;
-        padding: 20px;
-    }
+.videosContainer {
+    display: flex;
+    flex-flow: wrap;
+    padding: 20px;
+}
 
-    .videoCard {
-        margin-left: 20px;
-        margin-bottom: 40px;
-        display: flex;
-        flex-flow: row wrap;
-        align-items: center;
-        width: 30%;
+.videoCard {
+    margin-left: 20px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    width: 30%;
 
-    }
+}
 
-    .playerContainer {
-        width: 100%;
-    }
+.playerContainer {
+    width: 100%;
+}
 
-    .clicable {
-        font-weight: bold;
-        margin-top: 10px;
-        cursor: default;
-    }
+.clicable {
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: default;
+}
 
-    .clicable:hover {
-        cursor: pointer !important;
-    }
+.clicable:hover {
+    cursor: pointer !important;
+}
 
-    table {
-        border: 2px solid;
-        border-collapse: collapse;
-        width: 100%;
-        table-layout: fixed;
-    }
+table {
+    border: 2px solid;
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
 
-    table caption {
-        font-size: 1.5em;
-        margin: .5em 0 .75em;
-    }
+table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+}
 
-    table tr {
-        background-color: #f8f8f8;
-        border: 1px solid #ddd;
-        padding: .35em;
-    }
+table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+}
 
-    table td, table th {
-        border: 1px solid;
-        padding: .625em;
-        text-align: center;
-    }
+table td, table th {
+    border: 1px solid;
+    padding: .625em;
+    text-align: center;
+}
 
-< < < < < < < HEAD table th {
+table th {
     font-size: .85em;
     letter-spacing: .1em;
     text-transform: uppercase;
-    background-color: #104b68;
 }
 
-    .primeraMajuscula {
-        text-transform: capitalize;
+.primeraMajuscula {
+    text-transform: capitalize;
+}
+
+.deleteRoom {
+    color: #05a5d4;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    table {
+        border: 0;
     }
 
-    .deleteRoom {
-        color: #05a5d4;
-        cursor: pointer;
+    table caption {
+        font-size: 1.3em;
     }
 
-    @media screen and (max-width: 600px) {
-        table {
-            border: 0;
-        }
-
-        table caption {
-            font-size: 1.3em;
-        }
-
-        table tr {
-            border-bottom: 3px solid #ddd;
-            display: block;
-            margin-bottom: .625em;
-        }
-
-        table td, table th {
-            border-bottom: 1px solid #ddd;
-            display: block;
-            font-size: .8em;
-            text-align: right;
-        }
-
-        table td::before {
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table td:last-child {
-            border-bottom: 0;
-        }
-
-        table th::before {
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table th:last-child {
-            border-bottom: 0;
-        }
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
     }
 
-    @media screen and (min-width: 601px) and (max-width: 1000px) {
-        table {
-            border: 0;
-            width: 85vw;
-        }
-
-        table caption {
-            font-size: 1.0em;
-        }
-
-        table tr {
-            border-bottom: 3px solid #ddd;
-            display: block;
-            margin-bottom: .625em;
-        }
-
-        table td, table th {
-            border-bottom: 1px solid #ddd;
-            display: block;
-            font-size: .8em;
-            text-align: left;
-        }
-
-        table td::before {
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table td:last-child {
-            border-bottom: 0;
-        }
-
-        table th::before {
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table th:last-child {
-            border-bottom: 0;
-        }
-
-    =======
-    td, th {
-        border: 1px solid;
-        padding: 1em;
-        >>> >>> > master
+    table td, table th {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
     }
 
-        .deleteRoom {
-            color: #05a5d4;
-            cursor: pointer;
-        }
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
 
-        @media screen and (max-width: 1369px) {
+    table td:last-child {
+        border-bottom: 0;
+    }
 
-            .studentPic {
-                width: 20%;
-                margin: 10px;
-                border-radius: 50%;
-                border: #d9d9d9 6px solid;
-            }
+    table th::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
 
-            .profilePrivate {
-                width: 10%;
-                margin-right: 80px;
-            }
-        }
+    table th:last-child {
+        border-bottom: 0;
+    }
+}
 
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+    table {
+        border: 0;
+        width: 85vw;
+    }
+
+    table caption {
+        font-size: 1.0em;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    table td, table th {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: left;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+
+    table th::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table th:last-child {
+        border-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 1369px) {
+
+    .studentPic {
+        width: 20%;
+        margin: 10px;
+        border-radius: 50%;
+        border: #d9d9d9 6px solid;
+    }
+
+    .profilePrivate {
+        width: 10%;
+        margin-right: 80px;
     }
 }
 
