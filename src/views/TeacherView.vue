@@ -10,7 +10,7 @@
                 <form @submit.prevent="afegirVideo()">
                     <div class="container">
                         <p>Afegeix un vídeo: </p>
-                        <p class="formLabel">&nbsp;Url: </p>
+                        <p>&nbsp;Url: </p>
                         <input
                                 v-model="addVideoForm.url"
                                 type="url"
@@ -19,7 +19,7 @@
                                 class="form-style"
                                 autocomplete="off"
                                 required/>
-                        <p class="formLabel">&nbsp;Títol: </p>
+                        <p>&nbsp;Títol: </p>
                         <input
                                 v-model="addVideoForm.titol"
                                 type="text"
@@ -284,12 +284,12 @@ input:focus {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    width: 30%;
-
 }
 
 .playerContainer {
-    width: 100%;
+    margin: 10px;
+    min-width: 400px;
+    max-width: 33.33%;
 }
 
 .clicable {
@@ -343,10 +343,20 @@ table th {
 }
 
 @media screen and (max-width: 600px) {
+
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video-button {
+        margin-top: 20px;
+    }
+
     table {
         border: 0;
     }
-
+    
     table caption {
         font-size: 1.3em;
     }
@@ -388,6 +398,16 @@ table th {
 }
 
 @media screen and (min-width: 601px) and (max-width: 1000px) {
+
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video-button {
+        margin-top: 20px;
+    }
+
     table {
         border: 0;
         width: 85vw;
