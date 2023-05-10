@@ -3,7 +3,7 @@
         <div class="sideMenu">    
             <h3>Espai personal</h3>
             <ul>
-                <li><a href="" ><router-link :to="{ name: 'userClasses' }">Les meves classes</router-link></a></li>
+                <li><a><router-link :to="{ name: 'userClasses' }">Les meves classes</router-link></a></li>
                 <li><a><router-link :to="{ name: 'teacherView' }">Els meus vídeos</router-link></a></li>
                 <li><a><router-link :to="{ name: 'userMessages' }">Els meus missatges</router-link></a></li>
                 <li><a><router-link :to="{ name: 'allLanguages' }">Idioma que ensenyo</router-link></a></li>
