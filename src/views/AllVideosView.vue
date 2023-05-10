@@ -39,17 +39,14 @@
   import { useVideosStore } from "@/store/videos";
   import { onBeforeMount } from "@vue/runtime-core";
   import { computed } from "vue";
-//   import VideoCard from '../components/VideoCard.vue';
   import StudentMenu from "@/components/StudentMenu.vue";
   import TeacherMenu from "@/components/TeacherMenu.vue";
   import AdminMenu from "@/components/AdminMenu.vue";
-
   import {useRouter} from "vue-router";
 
   export default {
     name: "AllVideosView",
     components: {
-        // VideoCard,
         StudentMenu,
         TeacherMenu,
         AdminMenu,
@@ -60,7 +57,7 @@
             required: true,
         },
     },
-    setup(props) {
+    setup() {
         const router = useRouter();
         const videosStore = useVideosStore();
         const authStore = useAuthStore();
@@ -68,10 +65,12 @@
         const authUser = computed(() => {
             return authStore.authUser;
         });
- 
-        const goToVideoView = (id_video) => {
-            router.push({path: `/teacher/${props.id}/video/${id_video}`});
-        };
+
+        async function goToVideoView(id_video) {
+            await videosStore.viewSelectedVideo(id_video)
+            router.push({path: `/teacher/${videosStore.video.id_user}/video/${id_video}`});
+        }
+
         return {
             videosStore,
             authStore,

@@ -7,17 +7,19 @@
         <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
             <template v-slot:firstContent>
               <h2>Els meus missatges</h2>
-              <div class="messagesContainer">
+              <div v-if="messages.length!=0" class="messagesContainer">
                 <MessageCard class="message" v-for="message in messages" :key="message.id_message" :message="message" @deleteMessage="deleteMessage"/>
               </div>    
+              <div v-else><p>No has escrit cap missatge</p></div>  
             </template>
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'" >
             <template v-slot:firstContent>
               <h2>Els meus missatges</h2>
-              <div class="messagesContainer">
+              <div v-if="messages.length!=0" class="messagesContainer">
                 <MessageCard class="message" v-for="message in messages" :key="message.id_message" :message="message" @deleteMessage="deleteMessage"/>
-              </div>            
+              </div>  
+              <div v-else><p>No has escrit cap missatge</p></div>            
             </template>
         </StudentMenu>
         <AdminMenu v-else >
