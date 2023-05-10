@@ -9,22 +9,28 @@
             <template v-slot:firstContent>
                 <h2>Les meves classes</h2>
                 <h3>Les meves properes classes</h3>
-                <table class="tableRooms">
-                    <tr>
-                        <th>Nom</th>
-                        <th>Descripció</th>
-                        <th>Capacitat</th>
-                        <th>Data</th>
-                        <th>Esborrar</th>
-                    </tr>
-                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
-                        <td>{{ classe.name }}</td>
-                        <td>{{ classe.description }}</td>
-                        <td>{{ classe.capacity }}</td>
-                        <td>{{ classe.DATA }}</td>
-                        <td><p class="deleteRoom" @click="deleteClassroom(classe.id_room)">Esborrar</p></td>
-                    </tr>
-                </table>
+                <div v-if="classes == ''">
+                    <p>No has creat cap classe</p>
+                </div>
+                <div v-else>
+                    <table>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Descripció</th>
+                            <th>Capacitat</th>
+                            <th>Data</th>
+                            <th>Esborrar</th>
+                        </tr>
+                        <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
+                            <td class="primeraMajuscula">{{ classe.name }}</td>
+                            <td class="primeraMajuscula">{{ classe.description }}</td>
+                            <td>{{ classe.capacity }}</td>
+                            <td>{{ classe.DATA }}</td>
+                            <td><p class="deleteRoom" @click="deleteClassroom(classe.id_room)">Esborrar</p></td>
+                        </tr>
+                    </table>
+                </div>
+
                 <h3>Afegeix una nova classe</h3>
                 <form @submit.prevent="addRoom()">
                     <div class="container">
@@ -64,23 +70,27 @@
             <template v-slot:firstContent>
                 <h2>Les meves classes</h2>
                 <h3>Les meves properes classes</h3>
-                <table class="tableRooms">
-                    <tr>
-                        <th>Nom</th>
-                        <th>Descripció</th>
-                        <th>Capacitat</th>
-                        <th>Data</th>
-                        <th>Anul·lar reserva</th>
-                    </tr>
-                    <tr v-for="classe in classesStudent" :key="classe.id_room" :classe="classe">
-                        <td>{{ classe.name }}</td>
-                        <td>{{ classe.description }}</td>
-                        <td>{{ classe.capacity }}</td>
-                        <td>{{ classe.DATA }}</td>
-                        <td><p class="deleteRoom" @click="cancelClassroom(classe.id_room)">Anul·lar reserva</p></td>
-                    </tr>
-                </table>
-
+                <div v-if="classesStudent == ''">
+                    <p>No tens cap classe reservada</p>
+                </div>
+                <div v-else>
+                    <table>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Descripció</th>
+                            <th>Capacitat</th>
+                            <th>Data</th>
+                            <th>Anul·lar reserva</th>
+                        </tr>
+                        <tr v-for="classe in classesStudent" :key="classe.id_room" :classe="classe">
+                            <td class="primeraMajuscula">{{ classe.name }}</td>
+                            <td class="primeraMajuscula">{{ classe.description }}</td>
+                            <td>{{ classe.capacity }}</td>
+                            <td>{{ classe.DATA }}</td>
+                            <td><p class="deleteRoom" @click="cancelClassroom(classe.id_room)">Anul·lar reserva</p></td>
+                        </tr>
+                    </table>
+                </div>
             </template>
 
         </StudentMenu>
@@ -204,20 +214,134 @@ input:focus {
     color: #58bff6;
 }
 
-.tableRooms {
+table {
     border: 2px solid;
     border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+}
+
+table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+}
+
+table td, table th {
+    border: 1px solid;
+    padding: .625em;
     text-align: center;
 }
 
-td, th {
-    border: 1px solid;
-    padding: 1em;
+table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.primeraMajuscula {
+    text-transform: capitalize;
 }
 
 .deleteRoom {
     color: #05a5d4;
     cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    table {
+        border: 0;
+    }
+
+    table caption {
+        font-size: 1.3em;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    table td, table th {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+
+    table th::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table th:last-child {
+        border-bottom: 0;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+    table {
+        border: 0;
+        width: 85vw;
+    }
+
+    table caption {
+        font-size: 1.0em;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    table td, table th {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: left;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+
+    table th::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table th:last-child {
+        border-bottom: 0;
+    }
 }
 
 @media screen and (max-width: 1369px) {
