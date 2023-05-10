@@ -8,20 +8,27 @@
         <TeacherMenu v-if="authStore.authUser.type === 'Professor/a'">
             <template v-slot:firstContent>
                 <h2>Les meves properes classes</h2>
-                <table class="tableRooms">
-                    <tr>
-                        <th>Nom</th>
-                        <th>Descripció</th>
-                        <th>Capacitat</th>
-                        <th>Data</th>
-                    </tr>
-                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
-                        <td>{{ classe.name }}</td>
-                        <td>{{ classe.description }}</td>
-                        <td>{{ classe.capacity }}</td>
-                        <td>{{ classe.DATA }}</td>
-                    </tr>
-                </table>
+                <div v-if="classes == ''">
+                    <p>No has creat cap classe</p>
+                </div>
+                <div v-else>
+                    <table>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Descripció</th>
+                            <th>Capacitat</th>
+                            <th>Data</th>
+                            <th>Esborrar</th>
+                        </tr>
+                        <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
+                            <td class="primeraMajuscula">{{ classe.name }}</td>
+                            <td class="primeraMajuscula">{{ classe.description }}</td>
+                            <td>{{ classe.capacity }}</td>
+                            <td>{{ classe.DATA }}</td>
+                            <td><p class="deleteRoom" @click="deleteClassroom(classe.id_room)">Esborrar</p></td>
+                        </tr>
+                    </table>
+                </div>
             </template>
             <template v-slot:secondContent>
                 <h2>Els meus darrers vídeos que han rebut comentaris</h2>
@@ -31,52 +38,61 @@
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
             <template v-slot:firstContent>
                 <h2>Les meves properes classes</h2>
-                <table class="tableRooms">
-                    <tr>
-                        <th>Nom</th>
-                        <th>Descripció</th>
-                        <th>Capacitat</th>
-                        <th>Data</th>
-                    </tr>
-                    <tr v-for="classe in classes" :key="classe.id_room" :classe="classe">
-                        <td>{{ classe.name }}</td>
-                        <td>{{ classe.description }}</td>
-                        <td>{{ classe.capacity }}</td>
-                        <td>{{ classe.DATA }}</td>
-                    </tr>
-                </table>
+                <div v-if="classesStudent == ''">
+                    <p>No tens cap classe reservada</p>
+                </div>
+                <div v-else>
+                    <table>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Descripció</th>
+                            <th>Capacitat</th>
+                            <th>Data</th>
+                            <th>Anul·lar reserva</th>
+                        </tr>
+                        <tr v-for="classe in classesStudent" :key="classe.id_room" :classe="classe">
+                            <td class="primeraMajuscula">{{ classe.name }}</td>
+                            <td class="primeraMajuscula">{{ classe.description }}</td>
+                            <td>{{ classe.capacity }}</td>
+                            <td>{{ classe.DATA }}</td>
+                            <td><p class="deleteRoom" @click="cancelClassroom(classe.id_room)">Anul·lar reserva</p></td>
+                        </tr>
+                    </table>
+                </div>
+
             </template>
             <template v-slot:secondContent>
                 <h2>Els darrers vídeos on he comentat</h2>
                 <p>Espai en construcció</p>
             </template>
         </StudentMenu>
-    <AdminMenu v-else >
-      <template v-slot:firstContent>
-        <h2>Darrers vídeos publicats a la plataforma</h2>
-        <div class="videosContainer">
-          <div class="videoCard" v-for="video in videosStore.videos.slice(-6)" :key="video.id_video" :video="video">
-            <div class="playerContainer">
-              <vue-plyr>
-                <div data-plyr-provider="youtube" :data-plyr-embed-id="video.shortLink"></div>
-              </vue-plyr>
-              <p>Data creació: {{ video.created_at }}</p>
-              <a class="clicable" @click="goToVideoView(video.id_video)">Ves al vídeo</a>
-            </div>
-          </div>
-        </div>
-      </template>
-      <template v-slot:secondContent>
-        <h2>Darrers vídeos que han rebut missatges</h2>
-        <p>Espai en construcció</p>
-      </template>
-    </AdminMenu>
-  </div>
+        <AdminMenu v-else>
+            <template v-slot:firstContent>
+                <h2>Darrers vídeos publicats a la plataforma</h2>
+                <div class="videosContainer">
+                    <div class="videoCard" v-for="video in videosStore.videos.slice(-6)" :key="video.id_video"
+                         :video="video">
+                        <div class="playerContainer">
+                            <vue-plyr>
+                                <div data-plyr-provider="youtube" :data-plyr-embed-id="video.shortLink"></div>
+                            </vue-plyr>
+                            <p>Data creació: {{ video.created_at }}</p>
+                            <a class="clicable" @click="goToVideoView(video.id_video)">Ves al vídeo</a>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template v-slot:secondContent>
+                <h2>Darrers vídeos que han rebut missatges</h2>
+                <p>Espai en construcció</p>
+            </template>
+        </AdminMenu>
+    </div>
 </template>
 
 <script>
 import {useAuthStore} from "@/store/auth";
-import { useClassesStore } from "@/store/classes";
+import {useClassesStore} from "@/store/classes";
 import {useVideosStore} from "@/store/videos";
 import {computed} from "vue";
 import StudentMenu from "@/components/StudentMenu.vue";
@@ -106,16 +122,19 @@ export default {
         const classes = computed(() => {
             return classesStore.classes;
         });
+        const classesStudent = computed(() => {
+            return classesStore.classesStudent;
+        });
         const authUser = computed(() => {
             return authStore.authUser;
         });
 
         onBeforeMount(async () => await classesStore.fetchTeacherClasses(authStore.authUser.id_user));
-        onBeforeMount(async  () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
+        onBeforeMount(async () => await classesStore.fetchAlumnsClasses(authStore.authUser.id_user));
         onBeforeMount(async () => {
             // Agafem tots els vídeos. Enviem "1" per l'statusControl (que el video estigui publicat)
             await videosStore.fetchAllVideos("0");
-            console.log("videostore",videosStore)
+            console.log("videostore", videosStore)
         });
 
         const goToVideoView = (id_video) => {
@@ -123,13 +142,26 @@ export default {
             router.push({path: `/teacher/${props.id}/video/${id_video}`});
         };
 
+        async function deleteClassroom(id_room){
+            await classesStore.deleteClass(id_room, authStore.authUser.id_user)
+            await classesStore.fetchTeacherClasses(authStore.authUser.id_user)
+        }
+
+        async function cancelClassroom(id_room){
+            await classesStore.cancelClass(id_room, authStore.authUser.id_user)
+            await classesStore.fetchAlumnsClasses(authStore.authUser.id_user)
+        }
+
         return {
             classesStore,
             authStore,
             authUser,
             classes,
+            classesStudent,
             videosStore,
             goToVideoView,
+            deleteClassroom,
+            cancelClassroom
         };
     }
 };
@@ -178,30 +210,163 @@ export default {
         cursor: pointer !important;
     }
 
-    .tableRooms {
+    table {
         border: 2px solid;
         border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+    }
+
+    table tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: .35em;
+    }
+
+    table td, table th {
+        border: 1px solid;
+        padding: .625em;
         text-align: center;
     }
 
-    td,th {
-        border: 1px solid;
-        padding: 1em;
+< < < < < < < HEAD table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background-color: #104b68;
+}
+
+    .primeraMajuscula {
+        text-transform: capitalize;
     }
 
-    @media screen and (max-width: 1369px) {
+    .deleteRoom {
+        color: #05a5d4;
+        cursor: pointer;
+    }
 
-        .studentPic {
-            width: 20%;
-            margin: 10px;
-            border-radius: 50%;
-            border: #d9d9d9 6px solid;
+    @media screen and (max-width: 600px) {
+        table {
+            border: 0;
         }
 
-        .profilePrivate {
-            width: 10%;
-            margin-right: 80px;
+        table caption {
+            font-size: 1.3em;
         }
+
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        table td, table th {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+
+        table td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child {
+            border-bottom: 0;
+        }
+
+        table th::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table th:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 1000px) {
+        table {
+            border: 0;
+            width: 85vw;
+        }
+
+        table caption {
+            font-size: 1.0em;
+        }
+
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        table td, table th {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: left;
+        }
+
+        table td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child {
+            border-bottom: 0;
+        }
+
+        table th::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table th:last-child {
+            border-bottom: 0;
+        }
+
+    =======
+    td, th {
+        border: 1px solid;
+        padding: 1em;
+        >>> >>> > master
+    }
+
+        .deleteRoom {
+            color: #05a5d4;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 1369px) {
+
+            .studentPic {
+                width: 20%;
+                margin: 10px;
+                border-radius: 50%;
+                border: #d9d9d9 6px solid;
+            }
+
+            .profilePrivate {
+                width: 10%;
+                margin-right: 80px;
+            }
+        }
+
     }
 }
 

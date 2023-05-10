@@ -201,7 +201,11 @@ export const useAuthStore = defineStore("auth", {
       });
 
       console.log(data)
-      this.teacherLanguage = data.name;
+      if(data){
+        this.teacherLanguage = data.name;
+      }else {
+        this.teacherLanguage = "";
+      }
     },
   },
 });
