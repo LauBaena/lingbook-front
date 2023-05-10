@@ -86,7 +86,7 @@
                             <td class="primeraMajuscula">{{ classe.name }}</td>
                             <td class="primeraMajuscula">{{ classe.description }}</td>
                             <td>{{ classe.capacity }}</td>
-                            <td>{{ classe.data }}</td>
+                            <td>{{ classe.DATA }}</td>
                             <td><p class="deleteRoom" @click="cancelClassroom(classe.id_room)">Anul·lar reserva</p></td>
                         </tr>
                     </table>

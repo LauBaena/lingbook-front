@@ -32,13 +32,11 @@
                     </div>
                 </form>
                 <div class="videosContainer">
-                    <!-- <VideoCard class="video" v-for="video in videosStore.videos" :key="video.id_video" :video="video"/> -->
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
                             <vue-plyr>
                                 <div data-plyr-provider="youtube" :data-plyr-embed-id="video.shortLink"></div>
                             </vue-plyr>
-                            <!-- <p>Data creació: {{ video.created_at }}</p> -->
                             <div class="clicable" @click="goToVideoView(video.id_video)">Ves al vídeo</div>
                         </div>
                     </div>
@@ -47,22 +45,22 @@
         </TeacherMenu>
         <StudentMenu v-else-if="authStore.authUser.type === 'Alumne'">
             <template  v-slot:firstContent>
-                <h1 v-for="teacher in filteredTeachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }} {{ teacher.surname }}</h1>
+                <h1>Els vídeos de del/la professor/a {{ teacher.name }} {{ teacher.surname }}</h1>
                 <div class="videosContainer">
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
                             <vue-plyr class="">
                                 <div data-plyr-provider="youtube" :data-plyr-embed-id="video.shortLink"></div>
                             </vue-plyr>
-                            <!-- <p>Data creació: {{ video.created_at }}</p> -->
                             <div class="clicable" @click="goToVideoView(video.id_video)">Ves al vídeo</div>
                         </div>
                     </div>
                 </div>
             </template>
             <template v-slot:secondContent>
+                <h1>Les classes de {{ teacher.name }} {{ teacher.surname }}</h1>
                 <div class="container" v-if="classes == ''">
-                    <p>No has creat cap classe</p>
+                    <p>El professor/la professora encara no ha creat cap classe</p>
                 </div>
                 <div class="container" v-else>
                     <table class="tableRooms">
@@ -89,7 +87,7 @@
         </StudentMenu>
         <AdminMenu v-else>
             <template v-slot:firstContent>
-                <h1 v-for="teacher in filteredTeachers" :key="teacher.id">Els vídeos de del/la professor/a {{ teacher.name }} {{ teacher.surname }}</h1>
+                <h1>Els vídeos de del/la professor/a {{ teacher.name }} {{ teacher.surname }}</h1>
                 <div class="videosContainer">
                     <div class="videoCard" v-for="video in videosStore.videos" :key="video.id_video" :video="video">
                         <div class="playerContainer">
@@ -147,27 +145,19 @@ export default {
         });
         const usersStore = useUsersStore();
 
-        // onBeforeMount(async () => await videosStore.fetchUserVideos(props.id));
-        // onBeforeMount(async () => await usersStore.fetchUser(props.id));
-
         onBeforeMount(async () => {
             await usersStore.fetchUser(props.id);
             await videosStore.fetchUserVideos(props.id);
         });
 
-        const teachers = computed(() => {
-            return usersStore.teachersByLanguage;
-        });
-
         onBeforeMount(async () => await classesStore.fetchTeacherClasses(props.id));
-
 
         const classes = computed(() => {
             return classesStore.classes;
         });
 
-        const filteredTeachers = computed(() => {
-            return teachers.value.filter(teacher => teacher.id_user === props.id)
+        const teacher = computed(() => {
+            return usersStore.user;
         })
 
         //Reservar classe o anul·lar reserva de classe
@@ -184,7 +174,6 @@ export default {
             // }else {
             //     alert("La classe no admet més participants")
             // }
-
         }
 
         const goToVideoView = (id_video) => {
@@ -197,22 +186,22 @@ export default {
             id_user: JSON.parse(JSON.stringify(authStore.authUser.id_user)),
         });
 
-        function afegirVideo() {
-            videosStore.addVideo(addVideoForm.value)
+        async function afegirVideo() {
+            await videosStore.addVideo(addVideoForm.value);
+            await videosStore.fetchUserVideos(props.id);
         }
         return {
             authStore,
             authUser,
             videosStore,
             props,
-            teachers,
-            filteredTeachers,
             addVideoForm,
             afegirVideo,
             goToVideoView,
             classesStore,
             classes,
             ReservarClassRoom,
+            teacher
         };
     }
 }
@@ -288,7 +277,7 @@ input:focus {
 
 .playerContainer {
     margin: 10px;
-    min-width: 400px;
+    min-width: 385px;
     max-width: 33.33%;
 }
 
