@@ -94,8 +94,9 @@
     <AdminMenu v-else >
         <template v-slot:firstContent>
             <div v-if="video">
-                <h1 v-if="video.status === '0'">Aquest vídeo ha estat eliminat i la resta d'usuaris no el poden visualitzar</h1>
-                <h1 v-if="video.status === '1'">Títol del video del professor / de la professora: {{message[messages.length-1].description}}</h1>
+                <!-- <h1 v-if="video.status === '1'">Títol del video del professor / de la professora: {{message[messages.length-1].description}}</h1> -->
+                <h1>Vídeo que es vol eliminar o recuperar del professor / de la professora</h1>
+                <p v-if="video.status === '0'">Aquest vídeo ha estat eliminat i la resta d'usuaris no el poden visualitzar</p>
                 <div v-if=" video.status === '1'" class="button-delete" @click="modificaStatus('0')">Esborra el vídeo</div>
                 <div v-if="video && video.status === '0'" class="button-delete" @click="modificaStatus('1')">Torna'l a publicar</div>
                 <div class="video-player">
@@ -117,7 +118,7 @@
                     </div> 
                 </div>
             </div>
-            <div v-else>No s'ha trobat el vídeo</div>
+            <div v-else>No s'ha trobat el vídeo</div>  
         </template>
     </AdminMenu>
 </template>
