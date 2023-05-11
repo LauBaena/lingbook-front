@@ -258,12 +258,13 @@ export default {
         display: flex;
         flex-flow: row wrap;
         align-items: center;
-        width: 30%;
 
     }
 
     .playerContainer {
-        width: 100%;
+        margin: 10px;
+        min-width: 385px;
+        max-width: 33.33%;
     }
 
     .usersContainer{
