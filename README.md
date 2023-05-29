@@ -1,5 +1,7 @@
 # lingbook-front
 
+Back-end repository: https://github.com/jortegah79/lingbook
+
 ## Prerequisites
 
 Before running this app, you'll need to install:
