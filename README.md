@@ -1,4 +1,4 @@
-# Lingbook project (front)
+# Lingbook project (Frontend Repository)
 
 For the final project of our Certificate of Higher Education in Web Application Development, we've developed a straightforward and user-friendly platform for individuals who wish to teach or learn languages effectively. We offer a secure, engaging, and technologically advanced online space where native instructors can effortlessly establish and adapt their business and directly connect with students globally.
 
