@@ -2,7 +2,6 @@
     <div class="teacherCard">
         <img src="../assets/student2.jpg" class="cardImage" :alt="teacher.name">
         <div>
-            <!-- <a @click="goToProfile(user.id_user)"><h3>{{ user.name }} {{ user.surname }}</h3></a> -->
             <h3>{{ teacher.name }} {{ teacher.surname }}</h3>
         </div>
     </div>
@@ -10,7 +9,6 @@
 
 <script>
     import { defineComponent } from 'vue';
-    // import {useRouter} from "vue-router";
 
     export default defineComponent({
         props: {
@@ -20,13 +18,9 @@
             }
         },
         setup(){
-            // const router = useRouter();
 
-            // const goToProfile = (id) => {
-            //     router.push({path: `/profile/${id}`});
-            // };
             return{
-                // goToProfile
+
             }
         }
     })
@@ -51,17 +45,6 @@
         color: #05a5d4;
         margin-bottom: 10px;
     }
-    /* a{
-        text-decoration: inherit;
-        color: #05a5d4;
-        margin-bottom: 10px;
-    }
-
-    a:hover{
-        text-decoration: inherit;
-        color: inherit;
-        cursor: pointer;
-    } */
 
     @media screen and (max-width: 1369px) {
 
